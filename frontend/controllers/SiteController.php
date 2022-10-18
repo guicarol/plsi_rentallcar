@@ -146,6 +146,16 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+    public function actionService()
+    {
+        return $this->render('service');
+    }
+
+    public function actionTeam()
+    {
+        return $this->render('team');
+    }
+
     /**
      * Signs user up.
      *
