@@ -8,6 +8,7 @@ use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use yii\captcha\Captcha;
 
+$this->title = 'Contact';
 
 ?>
 <div class="site-contact">
