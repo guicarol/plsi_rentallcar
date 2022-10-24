@@ -7,7 +7,7 @@
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 
-$this->title = 'Signup';
+$this->title = 'Registo';
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>

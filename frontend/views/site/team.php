@@ -3,7 +3,7 @@
 /** @var yii\web\View $this */
 
 use yii\helpers\Html;
-$this->title = 'Team';
+$this->title = 'Equipa';
 
 ?>
 <div class="site-team">
