@@ -122,43 +122,39 @@ AppAsset::register($this);
     <div class="container-fluid bg-white pt-3 px-lg-5">
         <div class="row mx-n2">
             <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                <select class="custom-select px-4 mb-3" style="height: 50px;">
-                    <option selected>Pickup Location</option>
-                    <option value="1">Location 1</option>
-                    <option value="2">Location 2</option>
-                    <option value="3">Location 3</option>
-                </select>
+                <h1>RentAllCar</h1>
             </div>
             <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                 <select class="custom-select px-4 mb-3" style="height: 50px;">
-                    <option selected>Drop Location</option>
-                    <option value="1">Location 1</option>
-                    <option value="2">Location 2</option>
-                    <option value="3">Location 3</option>
+                    <option selected>Ponto de Recolha</option>
+                    <option value="1">Ponto 1</option>
+                    <option value="2">Ponto 2</option>
+                    <option value="3">Ponto 3</option>
                 </select>
             </div>
+
             <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                 <div class="date mb-3" id="date" data-target-input="nearest">
-                    <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Pickup Date"
+                    <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Data de Recolha"
                            data-target="#date" data-toggle="datetimepicker" />
                 </div>
             </div>
             <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                <div class="time mb-3" id="time" data-target-input="nearest">
-                    <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Pickup Time"
+                <div class="date" id="time" data-target-input="nearest">
+                    <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Data de Entrega"
                            data-target="#time" data-toggle="datetimepicker" />
                 </div>
             </div>
             <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                 <select class="custom-select px-4 mb-3" style="height: 50px;">
-                    <option selected>Select A Car</option>
-                    <option value="1">Car 1</option>
-                    <option value="2">Car 1</option>
-                    <option value="3">Car 1</option>
+                    <option selected>Categoria</option>
+                    <option value="1">Categoria 1</option>
+                    <option value="2">Categoria 2</option>
+                    <option value="3">Categoria 3</option>
                 </select>
             </div>
             <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                <button class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Search</button>
+                <button class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Procurar</button>
             </div>
         </div>
     </div>
