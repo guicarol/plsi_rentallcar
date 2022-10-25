@@ -9,6 +9,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use Yii;
 use backend\models\SignupForm;
+use yii\filters\AccessControl;
+
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -28,8 +30,19 @@ class UserController extends Controller
                     'actions' => [
                         'delete' => ['POST'],
                     ],
-                ],
-            ]
+                ],                
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['index', 'view', 'create', 'delete'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'view', 'create', 'delete'],
+                            'roles' => ['admin'],
+                        ],
+                    ],
+                ],    
+            ],
         );
     }
 
@@ -88,7 +101,7 @@ class UserController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    /*public function actionUpdate($id)
     {
         $model = new SignupForm();
         $modelUser = new User();
@@ -103,7 +116,7 @@ class UserController extends Controller
             'model' => $model,
             'id' => $id,
         ]);
-    }
+    }*/
 
     /**
      * Deletes an existing User model.

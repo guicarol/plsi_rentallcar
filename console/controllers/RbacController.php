@@ -111,6 +111,10 @@ class RbacController extends Controller
        $deleteReserva = $auth->createPermission('deleteReserva');
        $auth->add($deleteReserva);
 
+       //login backend
+       $loginBackend = $auth->createPermission('loginBackend');
+       $auth->add($loginBackend);
+
        //criar o role cliente e associar o crud analise
        $cliente = $auth->createRole('cliente');
        $auth->add($cliente);
@@ -144,6 +148,8 @@ class RbacController extends Controller
        $auth->addChild($gestor, $createLocalizacao);
        $auth->addChild($gestor, $updateLocalizacao);
        $auth->addChild($gestor, $deleteLocalizacao);
+
+       $auth->addChild($gestor, $loginBackend);
 
        //criar admin e associar o crud funcionarios e todas as permissões do gestor
        $admin = $auth->createRole('admin');
