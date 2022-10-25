@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace backend\models;
 
 use Yii;
 use yii\base\Model;
@@ -14,7 +14,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
-
+    public $role;
 
     /**
      * {@inheritdoc}
@@ -35,6 +35,8 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+
+            ['role', 'string'],
         ];
     }
 
@@ -56,10 +58,10 @@ class SignupForm extends Model
         $user->generateAuthKey();
         $user->save(false);
 
-        //no signUp é atribuido o role de cliente
+        //role atribuido pelo admin ao criar um user/funcionario
         $auth = Yii::$app->authManager;
-        $cliente = $auth->getRole('cliente');
-        $auth->assign($cliente, $user->getId());
+        $role = $auth->getRole($this->role);
+        $auth->assign($role, $user->getId());
 
         return $user->save(); 
     }

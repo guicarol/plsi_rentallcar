@@ -14,6 +14,9 @@ use yii\helpers\Html;
             <a href="<?=\yii\helpers\Url::home()?>" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
+            <?= Html::a('Users', ['/user/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
         </li>
         <li class="nav-item dropdown">
