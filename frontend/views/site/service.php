@@ -8,7 +8,7 @@ use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use yii\captcha\Captcha;
 
-$this->title = 'Service';
+$this->title = 'Serviço';
 
 ?>
 <div class="site-service">

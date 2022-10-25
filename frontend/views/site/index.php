@@ -2,7 +2,7 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'Home';
+$this->title = 'RentAllCar';
 ?>
 <div class="site-index">
     <!-- Carousel Start -->
