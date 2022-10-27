@@ -13,9 +13,6 @@ use Yii;
  * @property int $telemovel
  * @property int $nif
  * @property string $nrCartaConducao
- * @property int $idUser
- *
- * @property User $idUser0
  */
 class Profile extends \yii\db\ActiveRecord
 {
@@ -33,12 +30,11 @@ class Profile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idProfile', 'nome', 'apelido', 'telemovel', 'nif', 'nrCartaConducao', 'idUser'], 'required'],
-            [['idProfile', 'telemovel', 'nif', 'idUser'], 'integer'],
+            [['idProfile', 'nome', 'apelido', 'telemovel', 'nif', 'nrCartaConducao'], 'required'],
+            [['idProfile', 'telemovel', 'nif'], 'integer'],
             [['nome', 'apelido'], 'string', 'max' => 21],
             [['nrCartaConducao'], 'string', 'max' => 12],
             [['idProfile'], 'unique'],
-            [['idUser'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idUser' => 'id']],
         ];
     }
 
@@ -54,17 +50,6 @@ class Profile extends \yii\db\ActiveRecord
             'telemovel' => 'Telemovel',
             'nif' => 'Nif',
             'nrCartaConducao' => 'Nr Carta Conducao',
-            'idUser' => 'Id User',
         ];
-    }
-
-    /**
-     * Gets query for [[IdUser0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getIdUser0()
-    {
-        return $this->hasOne(User::class, ['id' => 'idUser']);
     }
 }

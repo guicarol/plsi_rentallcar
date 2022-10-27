@@ -5,6 +5,7 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use common\models\User;
+use common\models\Profile;
 
 /**
  * Signup form
@@ -14,6 +15,13 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    
+    //dados pessoais/profile
+    public $nome;
+    public $apelido;
+    public $telemovel;
+    public $nif;
+    public $cartaConducao;
 
 
     /**
@@ -35,6 +43,21 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+
+            ['nome', 'required'],
+            ['nome', 'string', 'min' => 3, 'max' => 30],
+
+            ['apelido', 'required'],
+            ['apelido', 'string', 'min' => 3, 'max' => 30],
+
+            ['telemovel', 'required'],
+            ['telemovel', 'integer'],// 'min' => 8, 'max' => 10],
+
+            ['nif', 'required'],
+            ['nif', 'integer'],
+
+            ['cartaConducao', 'required'],
+            ['cartaConducao', 'string'], //'min' => 11, 'max' => 13],
         ];
     }
 
@@ -48,6 +71,8 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
+
+        
         
         $user = new User();
         $user->username = $this->username;
@@ -60,8 +85,23 @@ class SignupForm extends Model
         $auth = Yii::$app->authManager;
         $cliente = $auth->getRole('cliente');
         $auth->assign($cliente, $user->getId());
+        $user->save();
 
-        return $user->save(); 
+        //var_dump($user);
+        //var_dump($user->id);
+        //die;
+
+        $profile = new Profile();
+        $profile->idProfile = $user->id;
+        $profile->nome = $this->nome;
+        $profile->apelido = $this->apelido;
+        $profile->nif = $this->nif;
+        $profile->telemovel = $this->telemovel;
+        $profile->nrCartaConducao = $this->cartaConducao;
+        $profile->save();
+
+
+        return true;
     }
 
     /**

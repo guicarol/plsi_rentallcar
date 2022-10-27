@@ -18,7 +18,17 @@ $this->title = 'Registo';
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'nome')->textInput(['autofocus' => true]) ?>
+
+                <?= $form->field($model, 'apelido') ?>
+
+                <?= $form->field($model, 'telemovel')->textInput(['type' => 'number']) ?>
+
+                <?= $form->field($model, 'nif')->textInput(['type' => 'number']) ?>
+
+                <?= $form->field($model, 'cartaConducao') ?>
+
+                <?= $form->field($model, 'username') ?>
 
                 <?= $form->field($model, 'email') ?>
 
