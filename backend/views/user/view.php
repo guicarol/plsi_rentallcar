@@ -39,6 +39,27 @@ $this->params['breadcrumbs'][] = $this->title;
             //'updated_at',
             //'verification_token',
         ],
-    ]) ?>
+    ]) ,
+    DetailView::widget([
+        'model' => $model->profile,
+        'attributes' => [
+            'nome',
+            'apelido',
+            'telemovel',
+            'nif',
+            'nrCartaConducao',
+        ],
+    ])?>
+
+    <?php
+        echo '<p><strong>' . 'ID: ' . '</strong>' . $model->id .'</p>';
+        echo '<p><strong>' . 'Nome: ' . '</strong>' . $model->profile->nome .'</p>';
+        echo '<p><strong>' . 'Apelido: ' . '</strong>' . $model->profile->apelido .'</p>';
+        echo '<p><strong>' . 'Username: ' . '</strong>' . $model->username .'</p>';
+        echo '<p><strong>' . 'Email: ' . '</strong>' . $model->email .'</p>';
+        echo '<p><strong>' . 'Telemóvel: ' . '</strong>' . $model->profile->telemovel .'</p>';
+        echo '<p><strong>' . 'Nif: ' . '</strong>' . $model->profile->nif .'</p>';
+        echo '<p><strong>' . 'Nr Carta Condução: ' . '</strong>' . $model->profile->nrCartaConducao .'</p>';
+    ?>
 
 </div>

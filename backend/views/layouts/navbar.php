@@ -11,9 +11,12 @@ use yii\helpers\Html;
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         
-        <li class="nav-item d-none d-sm-inline-block">
-            <?= Html::a('Users', ['/user/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
-        </li>
+        <?php if(array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "admin") {?>
+            <!-- CENAS DO ADMIN -->
+            <li class="nav-item d-none d-sm-inline-block">
+                <?= Html::a('Users', ['/user/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
+            </li>
+        <?php } ?>        
         <li class="nav-item d-none d-sm-inline-block">
             <?= Html::a('Localizações', ['/localizacao/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
         </li>
