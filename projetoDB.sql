@@ -57,7 +57,8 @@ create table profile (
     apelido varchar(21) not null,
     telemovel int not null,
     nif int not null,
-    nrCartaConducao varchar(12) not null
+    nrCartaConducao varchar(12) not null,
+	foreign key(idProfile) references user(id)
 )engine=InnoDB;
 
 create table analise (
