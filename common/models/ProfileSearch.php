@@ -17,7 +17,7 @@ class ProfileSearch extends Profile
     public function rules()
     {
         return [
-            [['idProfile', 'telemovel', 'nif', 'idUser'], 'integer'],
+            [['idProfile', 'telemovel', 'nif'], 'integer'],
             [['nome', 'apelido', 'nrCartaConducao'], 'safe'],
         ];
     }
