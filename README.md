@@ -26,7 +26,7 @@ DIRECTORY STRUCTURE
 
 ```
 common
-    config/              contains shared configurations teste
+    config/              contains shared configurations
     mail/                contains view files for e-mails
     models/              contains model classes used in both backend and frontend
     tests/               contains tests for common classes    
