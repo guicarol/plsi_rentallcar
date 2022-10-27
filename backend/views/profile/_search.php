@@ -25,9 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nif') ?>
 
-    <?php // echo $form->field($model, 'nrCartaConducao') ?>
-
-    <?php // echo $form->field($model, 'idUser') ?>
+    <?php echo $form->field($model, 'nrCartaConducao') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

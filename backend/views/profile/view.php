@@ -35,7 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'telemovel',
             'nif',
             'nrCartaConducao',
-            'idUser',
         ],
     ]) ?>
 

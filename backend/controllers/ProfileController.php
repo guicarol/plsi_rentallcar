@@ -7,6 +7,7 @@ use common\models\ProfileSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * ProfileController implements the CRUD actions for Profile model.
@@ -71,8 +72,10 @@ class ProfileController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $model->idProfile => Yii::$app->user->id;
-                return $this->redirect(['view', 'idProfile' => $model->idProfile]);
+                $model->idProfile = Yii::$app->user->id;
+                //var_dump($this->request->post());var_dump($model);die;
+                $model->save();
+                return $this->redirect(['site/index']);
             }
         } else {
             $model->loadDefaultValues();

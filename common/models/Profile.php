@@ -13,6 +13,8 @@ use Yii;
  * @property int $telemovel
  * @property int $nif
  * @property string $nrCartaConducao
+ *
+ * @property User $idProfile0
  */
 class Profile extends \yii\db\ActiveRecord
 {
@@ -35,6 +37,7 @@ class Profile extends \yii\db\ActiveRecord
             [['nome', 'apelido'], 'string', 'max' => 21],
             [['nrCartaConducao'], 'string', 'max' => 12],
             [['idProfile'], 'unique'],
+            [['idProfile'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idProfile' => 'id']],
         ];
     }
 
@@ -51,5 +54,15 @@ class Profile extends \yii\db\ActiveRecord
             'nif' => 'Nif',
             'nrCartaConducao' => 'Nr Carta Conducao',
         ];
+    }
+
+    /**
+     * Gets query for [[IdProfile0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdProfile0()
+    {
+        return $this->hasOne(User::class, ['id' => 'idProfile']);
     }
 }
