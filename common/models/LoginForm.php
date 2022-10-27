@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\base\Model;
+use common\models\Profile;
 
 /**
  * Login form
@@ -75,5 +76,15 @@ class LoginForm extends Model
         }
 
         return $this->_user;
+    }
+
+    public function hasProfile(){
+        //var_dump(Yii::$app->user->id);die;
+        
+        if(Profile::findOne(['idProfile' => Yii::$app->user->id]) !== null){
+            return true;
+        }
+        
+        return false;
     }
 }

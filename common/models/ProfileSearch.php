@@ -61,7 +61,6 @@ class ProfileSearch extends Profile
             'idProfile' => $this->idProfile,
             'telemovel' => $this->telemovel,
             'nif' => $this->nif,
-            'idUser' => $this->idUser,
         ]);
 
         $query->andFilterWhere(['like', 'nome', $this->nome])

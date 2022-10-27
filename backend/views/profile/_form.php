@@ -12,8 +12,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'idProfile')->textInput() ?>
-
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'apelido')->textInput(['maxlength' => true]) ?>
@@ -23,8 +21,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'nif')->textInput() ?>
 
     <?= $form->field($model, 'nrCartaConducao')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'idUser')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -84,9 +84,15 @@ class SiteController extends Controller
             //verfica o role do user, caso nao seja admin nem gestor é efetuado o logout
             if(array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] != "admin" && array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] != "gestor") {
                 Yii::$app->user->logout();
+                return $this->goBack();
             }else{
+                if($model->hasProfile()){
+                    return $this->goBack();   
+                }else{
+                    return $this->redirect(array('profile/create'));
+                }
             }
-            return $this->goBack();
+
         }
 
         $model->password = '';

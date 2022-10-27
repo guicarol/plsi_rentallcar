@@ -72,8 +72,6 @@ class SignupForm extends Model
             return null;
         }
 
-        
-        
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
@@ -86,10 +84,6 @@ class SignupForm extends Model
         $cliente = $auth->getRole('cliente');
         $auth->assign($cliente, $user->getId());
         $user->save();
-
-        //var_dump($user);
-        //var_dump($user->id);
-        //die;
 
         $profile = new Profile();
         $profile->idProfile = $user->id;

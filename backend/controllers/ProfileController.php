@@ -70,7 +70,8 @@ class ProfileController extends Controller
         $model = new Profile();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                $model->idProfile => Yii::$app->user->id;
                 return $this->redirect(['view', 'idProfile' => $model->idProfile]);
             }
         } else {
