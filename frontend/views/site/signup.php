@@ -36,6 +36,9 @@ $this->title = 'Registo';
 
                 <div class="form-group">
                     <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                    <p></p>
+                    Já fez o registo? <?= Html::a('Login', ['site/login']) ?>
+
                 </div>
 
             <?php ActiveForm::end(); ?>

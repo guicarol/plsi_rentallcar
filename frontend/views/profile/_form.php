@@ -24,8 +24,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nrCartaConducao')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'idUser')->textInput() ?>
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

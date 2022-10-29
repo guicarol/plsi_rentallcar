@@ -99,16 +99,18 @@ AppAsset::register($this);
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Registo', 'url' => ['/site/signup']];
+            $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+
         } else
             $menuItems[] =
 
                 [
                     'label' =>  Yii::$app->user->identity->username,
                     'items' => [
-                        ['label' => 'Perfil', 'url' => ['profile/index', 'idUser' => Yii::$app->user->getId()]],
-                        ['label' => 'Section 3.3.2', 'url' => '#'],
+                        ['label' => 'Perfil', 'url' => ['profile/view', 'idProfile' => Yii::$app->user->getId()]],
+                        ['label' => 'Logout', 'url' => ['/site/logout'], ['data-method' => 'post']],
+                        Html::a('Logout', ['/site/logout'], ['data-method' => 'post'])
                     ],
-
                 ];
 
 

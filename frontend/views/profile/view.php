@@ -5,10 +5,10 @@ use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
 /** @var common\models\Profile $model */
+/** @var common\models\User $user */
+
 
 $this->title = $model->idProfile;
-$this->params['breadcrumbs'][] = ['label' => 'Profiles', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="profile-view">
@@ -26,7 +26,23 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
+    <?=DetailView::widget([
+        'model' => $model->idProfile0,
+        'attributes' => [
+            'id',
+            'username',
+            //'auth_key',
+            //'password_hash',
+            //'password_reset_token',
+            'email:email',
+            'status',
+            'created_at',
+            //'updated_at',
+            //'verification_token',
+        ],
+    ]) ,
+
+    DetailView::widget([
         'model' => $model,
         'attributes' => [
             'idProfile',
@@ -35,8 +51,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'telemovel',
             'nif',
             'nrCartaConducao',
-            'idUser',
         ],
     ]) ?>
+
+
+
+
 
 </div>
