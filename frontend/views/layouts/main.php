@@ -92,12 +92,14 @@ AppAsset::register($this);
         ]);
         $menuItems = [
             ['label' => 'Inicio', 'url' => ['/site/index']],
-            ['label' => 'Sobre', 'url' => ['/site/about']],
             ['label' => 'Serviço', 'url' => ['/site/service']],
             ['label' => 'Equipa', 'url' => ['/site/team']],
             ['label' => 'Contacto', 'url' => ['/site/contact']],
+            ['label' => 'Sobre', 'url' => ['/site/about']],
         ];
         if (Yii::$app->user->isGuest) {
+
+
             $menuItems[] = ['label' => 'Registo', 'url' => ['/site/signup']];
             $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
 
@@ -108,8 +110,8 @@ AppAsset::register($this);
                     'label' =>  Yii::$app->user->identity->username,
                     'items' => [
                         ['label' => 'Perfil', 'url' => ['profile/view', 'idProfile' => Yii::$app->user->getId()]],
-                        ['label' => 'Logout', 'url' => ['/site/logout'], ['data-method' => 'post']],
-                        Html::a('Logout', ['/site/logout'], ['data-method' => 'post'])
+                        ['label' => ' Logout', 'url' => ['/site/logout'], ['data-method' => 'post']],
+                         Html::a('Logout', ['/site/logout'], ['data-method' => 'post'])
                     ],
                 ];
 
