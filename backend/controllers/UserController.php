@@ -30,7 +30,7 @@ class UserController extends Controller
                     'actions' => [
                         'delete' => ['POST'],
                     ],
-                ],                
+                ],
                 'access' => [
                     'class' => AccessControl::class,
                     'only' => ['index', 'view', 'create', 'delete'],
@@ -40,8 +40,13 @@ class UserController extends Controller
                             'actions' => ['index', 'view', 'create', 'delete'],
                             'roles' => ['admin'],
                         ],
+                        [
+                            'allow' => true,
+                            'actions' => [ 'view', 'create', 'delete'],
+                            'roles' => ['gestor'],
+                        ],
                     ],
-                ],    
+                ],
             ],
         );
     }
@@ -70,9 +75,14 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "gestor" && Yii::$app->user->id == $id) {
+            return $this->render('view', ['model' => $this->findModel($id),
+            ]);
+        } elseif (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "admin") {
+            return $this->render('view', ['model' => $this->findModel($id),
+            ]);
+        } else
+            $this->redirect('index');
     }
 
     /**

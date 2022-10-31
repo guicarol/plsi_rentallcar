@@ -4,6 +4,8 @@ namespace frontend\controllers;
 
 use common\models\Profile;
 use common\models\ProfileSearch;
+use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -27,7 +29,19 @@ class ProfileController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
-            ]
+
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['index', 'view', 'create', 'delete'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => [ 'view', 'create', 'delete'],
+                            'roles' => ['cliente'],
+                        ],
+                    ],
+                ],
+            ],
         );
     }
 
@@ -55,9 +69,16 @@ class ProfileController extends Controller
      */
     public function actionView($idProfile)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($idProfile),
-        ]);
+        if (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "cliente" && Yii::$app->user->id == $idProfile) {
+            return $this->render('view', [
+                'model' => $this->findModel($idProfile),
+            ]);
+        } elseif (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "admin") {
+            return $this->render('view', ['model' => $this->findModel($idProfile),
+            ]);
+        } else
+            $this->redirect('index');
+
     }
 
     /**

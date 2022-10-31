@@ -92,14 +92,12 @@ AppAsset::register($this);
         ]);
         $menuItems = [
             ['label' => 'Inicio', 'url' => ['/site/index']],
+            ['label' => 'Sobre', 'url' => ['/site/about']],
             ['label' => 'Serviço', 'url' => ['/site/service']],
             ['label' => 'Equipa', 'url' => ['/site/team']],
             ['label' => 'Contacto', 'url' => ['/site/contact']],
-            ['label' => 'Sobre', 'url' => ['/site/about']],
         ];
         if (Yii::$app->user->isGuest) {
-
-
             $menuItems[] = ['label' => 'Registo', 'url' => ['/site/signup']];
             $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
 
@@ -110,17 +108,15 @@ AppAsset::register($this);
                     'label' =>  Yii::$app->user->identity->username,
                     'items' => [
                         ['label' => 'Perfil', 'url' => ['profile/view', 'idProfile' => Yii::$app->user->getId()]],
-                        ['label' => ' Logout', 'url' => ['/site/logout'], ['data-method' => 'post']],
-                         Html::a('Logout', ['/site/logout'], ['data-method' => 'post'])
+                        Html::a('Logout', ['/site/logout'], ['class'=>['dropdown-item'], 'data-method' => 'post'])
                     ],
                 ];
-
 
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
             'items' => $menuItems,
         ]);
-        if (Yii::$app->user->isGuest) {
+        /*if (Yii::$app->user->isGuest) {
             echo Html::tag('div', Html::a('Login', ['/site/login'], ['class' => ['btn btn-link login text-decoration-none']]), ['class' => ['d-flex']]);
         } else {
             echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
@@ -129,7 +125,7 @@ AppAsset::register($this);
                     ['class' => 'btn btn-link logout text-decoration-none']
                 )
                 . Html::endForm();
-        }
+        }*/
         NavBar::end();
         ?>
 
