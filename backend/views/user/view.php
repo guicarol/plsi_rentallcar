@@ -31,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
         }
     </style>
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
