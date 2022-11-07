@@ -44,9 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
 <table>
-    <?php 
-        
-        
+    <?php         
         echo '<tr><td><strong> ID </strong></td><td>' . $model->id . '</td></tr>';
         echo '<tr><td><strong> Nome </strong></td><td>' . $model->profile->nome . '</td></tr>';
         echo '<tr><td><strong> Apelido </strong></td><td>' . $model->profile->apelido . '</td></tr>';
