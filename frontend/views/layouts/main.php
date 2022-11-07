@@ -97,21 +97,27 @@ AppAsset::register($this);
             ['label' => 'Equipa', 'url' => ['/site/team']],
             ['label' => 'Contacto', 'url' => ['/site/contact']],
         ];
+
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Registo', 'url' => ['/site/signup']];
             $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
 
-        } else
+        } else {
+
+            if (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "cliente") {
+                $menuItems[] = ['label' => 'As minhas Reservas', 'url' => ['/site/about']];
+
+            }
             $menuItems[] =
 
                 [
-                    'label' =>  Yii::$app->user->identity->username,
+                    'label' => Yii::$app->user->identity->username,
                     'items' => [
                         ['label' => 'Perfil', 'url' => ['profile/view', 'idProfile' => Yii::$app->user->getId()]],
-                        Html::a('Logout', ['/site/logout'], ['class'=>['dropdown-item'], 'data-method' => 'post'])
+                        Html::a('Logout', ['/site/logout'], ['class' => ['dropdown-item'], 'data-method' => 'post'])
                     ],
                 ];
-
+        }
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
             'items' => $menuItems,

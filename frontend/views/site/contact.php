@@ -76,13 +76,6 @@ $this->title = 'Contacto';
                                 <p>rentallcar@gmail.com </p>
                             </div>
                         </div>
-                        <div class="d-flex">
-                            <i class="fa fa-2x fa-envelope-open text-primary flex-shrink-0 mr-3"></i>
-                            <div class="mt-n1">
-                                <h5 class="text-light">Return & Refund</h5>
-                                <p class="m-0">refund@example.com</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
