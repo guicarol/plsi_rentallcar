@@ -29,6 +29,9 @@ use yii\helpers\Html;
         <li class="nav-item d-none d-sm-inline-block">
             <?= Html::a('Seguros', ['/seguro/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
         </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <?= Html::a('Pedidos de Asssitência', ['/assistencia/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
+        </li>
     </ul>
 
     <!-- Right navbar links -->

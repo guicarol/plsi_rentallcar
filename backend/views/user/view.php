@@ -13,6 +13,24 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-view">
 
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+        }
+    </style>
+
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -25,41 +43,19 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'username',
-            //'auth_key',
-            //'password_hash',
-            //'password_reset_token',
-            'email:email',
-            'status',
-            'created_at',
-            //'updated_at',
-            //'verification_token',
-        ],
-    ]) ,
-    DetailView::widget([
-        'model' => $model->profile,
-        'attributes' => [
-            'nome',
-            'apelido',
-            'telemovel',
-            'nif',
-            'nrCartaConducao',
-        ],
-    ])?>
-
-    <?php
-        echo '<p><strong>' . 'ID: ' . '</strong>' . $model->id .'</p>';
-        echo '<p><strong>' . 'Nome: ' . '</strong>' . $model->profile->nome .'</p>';
-        echo '<p><strong>' . 'Apelido: ' . '</strong>' . $model->profile->apelido .'</p>';
-        echo '<p><strong>' . 'Username: ' . '</strong>' . $model->username .'</p>';
-        echo '<p><strong>' . 'Email: ' . '</strong>' . $model->email .'</p>';
-        echo '<p><strong>' . 'Telemóvel: ' . '</strong>' . $model->profile->telemovel .'</p>';
-        echo '<p><strong>' . 'Nif: ' . '</strong>' . $model->profile->nif .'</p>';
-        echo '<p><strong>' . 'Nr Carta Condução: ' . '</strong>' . $model->profile->nrCartaConducao .'</p>';
+<table>
+    <?php         
+        echo '<tr><td><strong> ID </strong></td><td>' . $model->id . '</td></tr>';
+        echo '<tr><td><strong> Nome </strong></td><td>' . $model->profile->nome . '</td></tr>';
+        echo '<tr><td><strong> Apelido </strong></td><td>' . $model->profile->apelido . '</td></tr>';
+        echo '<tr><td><strong> Username </strong></td><td>' . $model->username . '</td></tr>';
+        echo '<tr><td><strong> Email </strong></td><td>' . $model->email . '</td></tr>';
+        echo '<tr><td><strong> Telemóvel </strong></td><td>' . $model->profile->telemovel . '</td></tr>';
+        echo '<tr><td><strong> Nif </strong></td><td>' . $model->profile->nif . '</td></tr>';
+        echo '<tr><td><strong> Nr Carta Condução </strong></td><td>' . $model->profile->nrCartaConducao . '</td></tr>';
+        
+        
+        echo '</table>';
     ?>
 
 </div>
