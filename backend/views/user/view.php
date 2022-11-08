@@ -29,18 +29,32 @@ $this->params['breadcrumbs'][] = $this->title;
     tr:nth-child(even) {
         background-color: #dddddd;
         }
-    </style>
+</style>
 
+<p>
+    <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        'class' => 'btn btn-danger',
+        'data' => [
+            'confirm' => 'Are you sure you want to delete this item?',
+            'method' => 'post',
+        ],
+    ]);
+    
+    if (Yii::$app->user->id == $model->id) {
+        var_dump("keke");
+        echo '<button type="button" onclick="alert("Hello world!")">Click Me!</button>';
 
-    <p>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        HTML::a('Update', ['profile/update', 'idProfile' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?>
-    </p>
+        ]  );
+    }
+    
+    ?>
+</p>
 
 <table>
     <?php         
