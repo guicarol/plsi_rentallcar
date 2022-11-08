@@ -22,20 +22,18 @@ $this->title = 'Users';
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'username',
-            //'auth_key',
-            //'password_hash',
-            //'password_reset_token',
-            //'email:email',
-            //'status',
-            //'created_at',
-            //'updated_at',
-            //'verification_token',
+            //['class' => 'yii\grid\SerialColumn'],
             [
-                'label' => 'role',
+                'label' => 'Id',
+                'format' => 'raw',
+                'value' => function($model, $key, $index){
+                    return Html::a($model->id, ['user/view', 'id' =>$model->id]);
+                }
+            ],
+            'username',
+            'email:email',
+            [
+                'label' => 'Role',
                 'value' => function($model){
                     if(Yii::$app->authManager->getRolesByUser($model->id) != null){
                         return array_keys(Yii::$app->authManager->getRolesByUser($model->id))[0];
@@ -44,7 +42,7 @@ $this->title = 'Users';
                     }
                 }
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
