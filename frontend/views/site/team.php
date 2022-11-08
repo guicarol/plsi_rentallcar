@@ -28,7 +28,7 @@ $this->title = 'Equipa';
                 <div class="team-item">
                     <img class="img-fluid w-100" src="img/team-1.jpg" alt="">
                     <div class="position-relative py-4">
-                        <h4 class="text-uppercase">Full Name</h4>
+                        <h4 class="text-uppercase">Tiago Ruhle</h4>
                         <p class="m-0">Designation</p>
                         <div class="team-social position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
                             <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
@@ -40,7 +40,7 @@ $this->title = 'Equipa';
                 <div class="team-item">
                     <img class="img-fluid w-100" src="img/team-2.jpg" alt="">
                     <div class="position-relative py-4">
-                        <h4 class="text-uppercase">Full Name</h4>
+                        <h4 class="text-uppercase">Guilherme Carolino</h4>
                         <p class="m-0">Designation</p>
                         <div class="team-social position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
                             <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
@@ -52,19 +52,7 @@ $this->title = 'Equipa';
                 <div class="team-item">
                     <img class="img-fluid w-100" src="img/team-3.jpg" alt="">
                     <div class="position-relative py-4">
-                        <h4 class="text-uppercase">Full Name</h4>
-                        <p class="m-0">Designation</p>
-                        <div class="team-social position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="team-item">
-                    <img class="img-fluid w-100" src="img/team-4.jpg" alt="">
-                    <div class="position-relative py-4">
-                        <h4 class="text-uppercase">Full Name</h4>
+                        <h4 class="text-uppercase">João Lucas</h4>
                         <p class="m-0">Designation</p>
                         <div class="team-social position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
                             <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
