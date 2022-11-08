@@ -95,15 +95,21 @@ class ProfileController extends Controller
      */
     public function actionUpdate($idProfile)
     {
-        $model = $this->findModel($idProfile);
+        if (Yii::$app->user->id == $idProfile) {
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idProfile' => $model->idProfile]);
+
+            $model = $this->findModel($idProfile);
+
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'idProfile' => $model->idProfile]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        else
+            $this->redirect("index");
     }
 
     /**
