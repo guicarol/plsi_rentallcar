@@ -13,51 +13,44 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-view">
 
-<style>
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
         }
 
-    td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
         }
 
-    tr:nth-child(even) {
-        background-color: #dddddd;
+        tr:nth-child(even) {
+            background-color: #dddddd;
         }
-</style>
+    </style>
 
-<p>
-    <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-        'class' => 'btn btn-danger',
-        'data' => [
-            'confirm' => 'Are you sure you want to delete this item?',
-            'method' => 'post',
-        ],
-    ]);
-    
-    if (Yii::$app->user->id == $model->id) {
-        var_dump("keke");
-        echo '<button type="button" onclick="alert("Hello world!")">Click Me!</button>';
-
-        HTML::a('Update', ['profile/update', 'idProfile' => $model->id], [
+    <p>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]  );
-    }
-    
-    ?>
-</p>
+        ]);
 
-<table>
-    <?php         
+        if (Yii::$app->user->id == $model->id) {
+
+            echo '<td>' . Html::a('Update', ['profile/update', 'idProfile' => $model->id], ['class' => 'btn btn-primary']) . '<td>';
+
+        }
+
+        ?>
+    </p>
+
+    <table>
+        <?php
         echo '<tr><td><strong> ID </strong></td><td>' . $model->id . '</td></tr>';
         echo '<tr><td><strong> Nome </strong></td><td>' . $model->profile->nome . '</td></tr>';
         echo '<tr><td><strong> Apelido </strong></td><td>' . $model->profile->apelido . '</td></tr>';
@@ -66,9 +59,9 @@ $this->params['breadcrumbs'][] = $this->title;
         echo '<tr><td><strong> Telemóvel </strong></td><td>' . $model->profile->telemovel . '</td></tr>';
         echo '<tr><td><strong> Nif </strong></td><td>' . $model->profile->nif . '</td></tr>';
         echo '<tr><td><strong> Nr Carta Condução </strong></td><td>' . $model->profile->nrCartaConducao . '</td></tr>';
-        
-        
+
+
         echo '</table>';
-    ?>
+        ?>
 
 </div>
