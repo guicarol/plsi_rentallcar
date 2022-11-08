@@ -41,9 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]);
 
         if (Yii::$app->user->id == $model->id) {
-
-            echo '<td>' . Html::a('Update', ['profile/update', 'idProfile' => $model->id], ['class' => 'btn btn-primary']) . '<td>';
-
+            echo Html::a('Update', ['profile/update', 'idProfile' => $model->id], ['class' => 'btn btn-primary']);
         }
 
         ?>
