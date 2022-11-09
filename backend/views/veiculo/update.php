@@ -12,10 +12,11 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="veiculo-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
+        'combustivel' => array('diesel' => 'Diesel', 'gasolina' => 'Gasolina', 'hibrido' => 'Hibrido'),
+
     ]) ?>
 
 </div>

@@ -60,7 +60,7 @@ class Veiculo extends \yii\db\ActiveRecord
             'preco' => 'Preco',
             'matricula' => 'Matricula',
             'descricao' => 'Descricao',
-            'idTipoVeiculo' => 'Id Tipo Veiculo',
+            'idTipoVeiculo' => 'Tipo Veiculo',
         ];
     }
 

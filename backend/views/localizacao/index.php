@@ -10,12 +10,10 @@ use yii\grid\GridView;
 /** @var common\models\LocalizacaoSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Localizacaos';
+$this->title = 'Localização';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="localizacao-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Create Localizacao', ['create'], ['class' => 'btn btn-success']) ?>
@@ -27,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             'idLocalizacao',
             'morada',

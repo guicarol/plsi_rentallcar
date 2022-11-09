@@ -1,5 +1,7 @@
 <?php
 
+use common\models\Veiculo;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,7 +16,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'imagem')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'idVeiculo')->textInput() ?>
+
+    <?= $form->field($model, 'idVeiculo')->dropDownList(
+        ArrayHelper::map(Veiculo::find()->all(),'idVeiculo','modelo','marca'),
+        ['prompt'=>'Selecione']
+    )?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

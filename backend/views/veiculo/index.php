@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="veiculo-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Create Veiculo', ['create'], ['class' => 'btn btn-success']) ?>
@@ -27,21 +26,26 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'idVeiculo',
             'marca',
             'modelo',
             'combustivel',
             'preco',
-            //'matricula',
-            //'descricao',
-            //'idTipoVeiculo',
+            'matricula',
+            'descricao',
+            [
+                'label' => 'Tipoveiculo',
+                'value' => function ($model) {
+                    {
+                        return $model->idTipoVeiculo0->categoria ;
+                    }
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Veiculo $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'idVeiculo' => $model->idVeiculo]);
-                 }
+                }
             ],
         ],
     ]); ?>

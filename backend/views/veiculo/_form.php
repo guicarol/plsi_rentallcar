@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use common\models\Tipoveiculo;
 
 /** @var yii\web\View $this */
 /** @var common\models\Veiculo $model */
@@ -16,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'modelo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'combustivel')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'combustivel')->dropDownList($combustivel); ?>
 
     <?= $form->field($model, 'preco')->textInput() ?>
 
@@ -24,7 +26,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'idTipoVeiculo')->textInput() ?>
+    <?= $form->field($model, 'idTipoVeiculo')->dropDownList(
+            ArrayHelper::map(Tipoveiculo::find()->all(),'idTipoVeiculo','categoria'),
+        ['prompt'=>'Selecione']
+    )?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
