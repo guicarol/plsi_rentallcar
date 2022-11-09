@@ -27,7 +27,7 @@ use yii\helpers\Html;
             <?= Html::a('Veiculos', ['/veiculo/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <?= Html::a('TiposVeiculos', ['/tipoveiculo/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
+            <?= Html::a('TiposVeiculos', ['/tipo-veiculo/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <?= Html::a('Seguros', ['/seguro/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
