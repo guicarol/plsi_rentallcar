@@ -4,12 +4,16 @@
 
 /** @var string $content */
 
+use common\models\Localizacao;
+use common\models\Tipoveiculo;
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
+use yii\helpers\ArrayHelper;
+
 
 AppAsset::register($this);
 ?>
@@ -143,12 +147,9 @@ AppAsset::register($this);
                     <h1>RentAllCar</h1>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                    <select class="custom-select px-4 mb-3" style="height: 50px;">
-                        <option selected>Ponto de Recolha</option>
-                        <option value="1">Ponto 1</option>
-                        <option value="2">Ponto 2</option>
-                        <option value="3">Ponto 3</option>
-                    </select>
+                    <select class="custom-select px-4 mb-3" style="height: 50px;"></select>
+                    <?= Html::dropDownList( 'null', 'null', ArrayHelper::map(Localizacao::find()->all(), 'idLocalizacao', 'morada' ,'class=custom-select px-4 mb-3 style=height: 50px'),
+                        ['prompt' => 'Selecione']) ?>
                 </div>
 
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">

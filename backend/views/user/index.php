@@ -1,6 +1,7 @@
 <?php
 
 use common\models\User;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -26,21 +27,26 @@ $this->title = 'Users';
             [
                 'label' => 'Id',
                 'format' => 'raw',
-                'value' => function($model, $key, $index){
-                    return Html::a($model->id, ['user/view', 'id' =>$model->id]);
+                'value' => function ($model, $key, $index) {
+                    return Html::a($model->id, ['user/view', 'id' => $model->id]);
                 }
             ],
             'username',
             'email:email',
+
             [
                 'label' => 'Role',
-                'value' => function($model){
-                    if(Yii::$app->authManager->getRolesByUser($model->id) != null){
+                'attribute' => 'Role',
+                'format' => 'raw',
+
+                'value' => function ($model) {
+                    if (Yii::$app->authManager->getRolesByUser($model->id) != null) {
                         return array_keys(Yii::$app->authManager->getRolesByUser($model->id))[0];
-                    }else{
+                    } else {
                         return 'Sem role';
                     }
-                }
+                },
+                'filter'=>Html::dropDownList(null,null,['admin','gestor','cliente'],['admin','gestor','cliente']),
             ],
             //['class' => 'yii\grid\ActionColumn'],
         ],

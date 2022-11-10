@@ -12,9 +12,9 @@ use yii\widgets\ActiveForm;
 
 <div class="imagem-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 
-    <?= $form->field($model, 'imagem')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'imagem')->fileInput() ?>
 
 
     <?= $form->field($model, 'idVeiculo')->dropDownList(

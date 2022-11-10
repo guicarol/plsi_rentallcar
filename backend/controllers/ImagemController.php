@@ -7,6 +7,7 @@ use common\models\ImagemSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ImagemController implements the CRUD actions for Imagem model.
@@ -69,12 +70,17 @@ class ImagemController extends Controller
     {
         $model = new Imagem();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idImagem' => $model->idImagem]);
-            }
-        } else {
-            $model->loadDefaultValues();
+        if ($model->load(\Yii::$app->request->post())) {
+            $model->save();
+            $imageId = $model->idImagem;
+            $image = UploadedFile::getInstance($model, 'imagem');
+            $imgname = 'img_'. $imageId . '.' . $image->getExtension();
+            $image->saveAs(\Yii::getAlias('@carImgPath') . '/' . $imgname);
+            $model->imagem = $imgname;
+            $model->save();
+
+            return $this->redirect(['view', 'idImagem' => $model->idImagem]);
+
         }
 
         return $this->render('create', [
@@ -93,8 +99,16 @@ class ImagemController extends Controller
     {
         $model = $this->findModel($idImagem);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($model->load($this->request->post())) {
+            $model->save();
+            $image = UploadedFile::getInstance($model, 'imagem');
+            $imgname = 'img_' . $model->idImagem . '.' . $image->getExtension();
+            $image->saveAs(\Yii::getAlias('@carImgPath') . '/' . $imgname);
+            $model->imagem = $imgname;
+            $model->save();
+
             return $this->redirect(['view', 'idImagem' => $model->idImagem]);
+
         }
 
         return $this->render('update', [
