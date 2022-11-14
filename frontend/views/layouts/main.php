@@ -147,9 +147,20 @@ AppAsset::register($this);
                     <h1>RentAllCar</h1>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                    <select class="custom-select px-4 mb-3" style="height: 50px;"></select>
-                    <?= Html::dropDownList( 'null', 'null', ArrayHelper::map(Localizacao::find()->all(), 'idLocalizacao', 'morada' ,'class=custom-select px-4 mb-3 style=height: 50px'),
-                        ['prompt' => 'Selecione']) ?>
+                    <select  class="custom-select px-4 mb-3" style="height: 50px;">
+                        <option selected="selected">Selecione</option>
+                        <?php
+                        // A sample product array
+                        $products = ArrayHelper::map(Localizacao::find()->all(), 'idLocalizacao', 'morada');
+
+                        // Iterating through the product array
+                        foreach($products as $item){
+                            echo "<option value='strtolower($item)'>$item</option>";
+                        }
+                        ?>
+                    </select>
+                    <!-- <?= Html::dropDownList('null', 'null', ArrayHelper::map(Localizacao::find()->all(), 'idLocalizacao', 'morada'),
+                        ['prompt' => 'Selecione']) ?>-->
                 </div>
 
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
@@ -166,10 +177,16 @@ AppAsset::register($this);
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                     <select class="custom-select px-4 mb-3" style="height: 50px;">
-                        <option selected>Categoria</option>
-                        <option value="1">Categoria 1</option>
-                        <option value="2">Categoria 2</option>
-                        <option value="3">Categoria 3</option>
+                        <option selected="selected">Selecione</option>
+                        <?php
+                        // A sample product array
+                        $products = ArrayHelper::map(Tipoveiculo::find()->all(), 'idTipoVeiculo', 'categoria');
+
+                        // Iterating through the product array
+                        foreach($products as $item){
+                            echo "<option value='strtolower($item)'>$item</option>";
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">

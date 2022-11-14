@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\rbac\Role;
 
 /** @var yii\web\View $this */
 /** @var common\models\UserSearch $searchModel */
@@ -20,6 +21,8 @@ $this->title = 'Users';
     </p>
 
     <?= GridView::widget([
+            $available_roles = Yii::$app->authManager->getRoles(),
+
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -38,7 +41,7 @@ $this->title = 'Users';
                 'label' => 'Role',
                 'attribute' => 'Role',
                 'format' => 'raw',
-
+                'filter'=>Html::dropDownList(null, 'null', $available_roles,['class'=>'form-control','prompt'=>'asd']),
                 'value' => function ($model) {
                     if (Yii::$app->authManager->getRolesByUser($model->id) != null) {
                         return array_keys(Yii::$app->authManager->getRolesByUser($model->id))[0];
@@ -46,7 +49,6 @@ $this->title = 'Users';
                         return 'Sem role';
                     }
                 },
-                'filter'=>Html::dropDownList(null,null,['admin','gestor','cliente'],['admin','gestor','cliente']),
             ],
             //['class' => 'yii\grid\ActionColumn'],
         ],
