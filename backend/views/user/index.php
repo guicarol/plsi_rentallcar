@@ -21,7 +21,6 @@ $this->title = 'Users';
     </p>
 
     <?= GridView::widget([
-            $available_roles = Yii::$app->authManager->getRoles(),
 
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -41,7 +40,6 @@ $this->title = 'Users';
                 'label' => 'Role',
                 'attribute' => 'Role',
                 'format' => 'raw',
-                'filter'=>Html::dropDownList(null, 'null', $available_roles,['class'=>'form-control','prompt'=>'asd']),
                 'value' => function ($model) {
                     if (Yii::$app->authManager->getRolesByUser($model->id) != null) {
                         return array_keys(Yii::$app->authManager->getRolesByUser($model->id))[0];
