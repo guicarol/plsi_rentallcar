@@ -86,7 +86,7 @@ class SiteController extends Controller
                 Yii::$app->user->logout();
                 return $this->goBack();
             }else{
-                if($model->hasProfile()){
+                if($model->hasProfile(Yii::$app->user->id)){
                     return $this->goBack();   
                 }else{
                     return $this->redirect(array('profile/create'));
