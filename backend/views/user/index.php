@@ -35,12 +35,13 @@ $this->title = 'Users';
             ],
             'username',
             'email:email',
-            
+
 
             [
                 'label' => 'Role',
                 'attribute' => 'role',
                 'format' => 'raw',
+                'filter' =>array('admin'=>'admin','gestor'=>'gestor','cliente'=>'cliente'),
                 'value' => function ($model) {
                     if (Yii::$app->authManager->getRolesByUser($model->id) != null) {
                         return array_keys(Yii::$app->authManager->getRolesByUser($model->id))[0];
@@ -50,7 +51,7 @@ $this->title = 'Users';
                 },
                 //'filter'=>Html::dropDownList(null,null,['admin','gestor','cliente'],['admin','gestor','cliente']),
             ],
-            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => ActionColumn::className(), 'template' => '{view} ']
         ],
     ]); ?>
 
