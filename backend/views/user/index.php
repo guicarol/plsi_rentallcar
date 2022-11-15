@@ -26,13 +26,7 @@ $this->title = 'Users';
         'filterModel' => $searchModel,
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
-            [
-                'label' => 'Id',
-                'format' => 'raw',
-                'value' => function ($model, $key, $index) {
-                    return Html::a($model->id, ['user/view', 'id' => $model->id]);
-                }
-            ],
+            'id',
             'username',
             'email:email',
 
