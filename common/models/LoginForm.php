@@ -78,13 +78,19 @@ class LoginForm extends Model
         return $this->_user;
     }
 
-    public function hasProfile(){
+    public function hasProfile($id){
         //var_dump(Yii::$app->user->id);die;
         
-        if(Profile::findOne(['idProfile' => Yii::$app->user->id]) !== null){
+        if(Profile::findOne(['idProfile' => $id]) != null){
             return true;
+        }else{
+
+            return false;
+
         }
+
+
         
-        return false;
+
     }
 }

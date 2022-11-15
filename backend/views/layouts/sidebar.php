@@ -24,7 +24,33 @@ use yii\widgets\DetailView;
                 <a <?= Html::a(\Yii::$app->user->identity->username, ['user/view', 'id' => Yii::$app->user->getId()]) ?>
             </div>
         </div>
-
+        <?php if(array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "admin") {?>
+            <!-- CENAS DO ADMIN -->
+            <li class="nav-item d-none d-sm-inline-block">
+                <?= Html::a('Users', ['/user/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
+            </li>
+        <?php } ?>
+        <li class="nav-item d-none d-sm-inline-block">
+            <?= Html::a('Localizações', ['/localizacao/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <?= Html::a('Extras', ['/extra/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <?= Html::a('Veiculos', ['/veiculo/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <?= Html::a('TiposVeiculos', ['/tipo-veiculo/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <?= Html::a('Imagens', ['/imagem/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <?= Html::a('Seguros', ['/seguro/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <?= Html::a('Pedidos de Asssitência', ['/assistencia/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
+        </li>
         <!-- SidebarSearch Form -->
         <!-- href be escaped -->
         <!-- <div class="form-inline">

@@ -3,20 +3,20 @@
 use yii\helpers\Html;
 
 ?>
-<!-- Navbar -->
+<!-- Navbar
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
+
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        
-        <?php if(array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "admin") {?>
-            <!-- CENAS DO ADMIN -->
+        -->
+      <!--  <?php if(array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "admin") {?>
+
             <li class="nav-item d-none d-sm-inline-block">
                 <?= Html::a('Users', ['/user/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
             </li>
-        <?php } ?>        
+        <?php } ?>
         <li class="nav-item d-none d-sm-inline-block">
             <?= Html::a('Localizações', ['/localizacao/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
         </li>
@@ -40,9 +40,9 @@ use yii\helpers\Html;
         </li>
     </ul>
 
-    <!-- Right navbar links -->
+
     <ul class="navbar-nav ml-auto">
-        <!-- Navbar Search -->
+
         <li class="nav-item">
 
             <div class="navbar-search-block">
@@ -62,7 +62,7 @@ use yii\helpers\Html;
             </div>
         </li>
 
-        <!-- Messages Dropdown Menu -->
+        
 
         <li class="nav-item">
             <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/site/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>

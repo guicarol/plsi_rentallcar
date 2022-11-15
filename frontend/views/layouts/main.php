@@ -240,13 +240,9 @@ AppAsset::register($this);
                                     class="fa fa-angle-right text-white mr-2"></i>Sobre</a>
                         <a class="text-body mb-2" href="index.php?r=site%2Fservice"><i
                                     class="fa fa-angle-right text-white mr-2"></i>Servico</a>
-                        <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>New Member
-                            Registration</a>
-                        <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Affiliate
-                            Programme</a>
-                        <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Return &
-                            Refund</a>
-                        <a class="text-body" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Help & FQAs</a>
+                        <a class="text-body mb-2" href="index.php?r=site%2Fteam"><i class="fa fa-angle-right text-white mr-2"></i>Team</a>
+                        <a class="text-body mb-2" href="index.php?r=site%2Fcontact"><i class="fa fa-angle-right text-white mr-2"></i>Contactos</a>
+
                     </div>
                 </div>
 

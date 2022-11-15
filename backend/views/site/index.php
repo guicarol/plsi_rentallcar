@@ -1,9 +1,14 @@
 <?php
 $this->title = 'Página inicial';
 ?>
-<div class="container-fluid">
 
-    <div class="row">
+<div class="container-fluid">
+    <?php if (Yii::$app->session->hasFlash('error')): ?>
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            <?= Yii::$app->session->getFlash('error') ?>
+        </div>
+    <?php endif; ?>    <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
             <?= \hail812\adminlte\widgets\SmallBox::widget([
                 'title' => '150',

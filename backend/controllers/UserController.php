@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\LoginForm;
 use common\models\User;
 use common\models\UserSearch;
 use yii\web\Controller;
@@ -75,16 +76,23 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        if (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "gestor" && Yii::$app->user->id == $id) {
-            return $this->render('view', ['model' => $this->findModel($id),
-            ]);
-        } elseif (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "admin") {
-            return $this->render('view', ['model' => $this->findModel($id),
-            ]);
-        } else
+        $model = new LoginForm();
+       // var_dump($model->hasProfile());
+        if ($model->hasProfile($id)==false) {
+            Yii::$app->session->setFlash('error','Este utilizador não tem profile criado');
             $this->redirect('index');
-    }
 
+        } else {
+            if (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "gestor" && Yii::$app->user->id == $id) {
+                return $this->render('view', ['model' => $this->findModel($id),
+                ]);
+            } elseif (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "admin") {
+                return $this->render('view', ['model' => $this->findModel($id),
+                ]);
+            } else
+                $this->redirect('index');
+        }
+    }
     /**
      * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
