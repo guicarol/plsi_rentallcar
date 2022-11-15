@@ -92,7 +92,6 @@ class SiteController extends Controller
                     return $this->redirect(array('profile/create'));
                 }
             }
-
         }
 
         $model->password = '';

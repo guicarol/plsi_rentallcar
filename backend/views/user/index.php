@@ -33,10 +33,11 @@ $this->title = 'Users';
             ],
             'username',
             'email:email',
+            
 
             [
                 'label' => 'Role',
-                'attribute' => 'Role',
+                'attribute' => 'role',
                 'format' => 'raw',
 
                 'value' => function ($model) {
@@ -46,7 +47,7 @@ $this->title = 'Users';
                         return 'Sem role';
                     }
                 },
-                'filter'=>Html::dropDownList(null,null,['admin','gestor','cliente'],['admin','gestor','cliente']),
+                //'filter'=>Html::dropDownList(null,null,['admin','gestor','cliente'],['admin','gestor','cliente']),
             ],
             //['class' => 'yii\grid\ActionColumn'],
         ],

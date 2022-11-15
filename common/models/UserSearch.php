@@ -19,6 +19,7 @@ class UserSearch extends User
         return [
             [['id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'verification_token'], 'safe'],
+            [['role'], 'safe']
         ];
     }
 
@@ -54,8 +55,13 @@ class UserSearch extends User
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
-        }
-
+        }    
+        
+        if($this->role){
+            $query->join('LEFT JOIN','auth_assignment','auth_assignment.user_id = id')
+            ->andFilterWhere(['auth_assignment.item_name' => $this->role]);
+       }
+        
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
