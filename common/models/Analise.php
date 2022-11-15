@@ -11,9 +11,9 @@ use Yii;
  * @property string $comentario
  * @property int $classificacao
  * @property string|null $dataAnalise
- * @property int $idUser
+ * @property int $id_user
  *
- * @property User $idUser0
+ * @property User $user
  */
 class Analise extends \yii\db\ActiveRecord
 {
@@ -31,11 +31,11 @@ class Analise extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['comentario', 'classificacao', 'idUser'], 'required'],
-            [['classificacao', 'idUser'], 'integer'],
+            [['comentario', 'classificacao', 'id_user'], 'required'],
+            [['classificacao', 'id_user'], 'integer'],
             [['dataAnalise'], 'safe'],
             [['comentario'], 'string', 'max' => 255],
-            [['idUser'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idUser' => 'id']],
+            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
         ];
     }
 
@@ -49,17 +49,17 @@ class Analise extends \yii\db\ActiveRecord
             'comentario' => 'Comentario',
             'classificacao' => 'Classificacao',
             'dataAnalise' => 'Data Analise',
-            'idUser' => 'Id User',
+            'id_user' => 'Id User',
         ];
     }
 
     /**
-     * Gets query for [[IdUser0]].
+     * Gets query for [[User]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdUser0()
+    public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'idUser']);
+        return $this->hasOne(User::class, ['id' => 'id_user']);
     }
 }

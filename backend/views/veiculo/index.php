@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Tipoveiculo',
                 'value' => function ($model) {
                     {
-                        return $model->idTipoVeiculo0->categoria ;
+                        return $model->tipoVeiculo->categoria ;
                     }
                 }
             ],

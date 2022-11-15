@@ -17,7 +17,7 @@ class VeiculoSearch extends Veiculo
     public function rules()
     {
         return [
-            [['idVeiculo', 'idTipoVeiculo'], 'integer'],
+            [['idVeiculo', 'tipoVeiculo'], 'integer'],
             [['marca', 'modelo', 'combustivel', 'matricula', 'descricao'], 'safe'],
             [['preco'], 'number'],
         ];
@@ -61,7 +61,7 @@ class VeiculoSearch extends Veiculo
         $query->andFilterWhere([
             'idVeiculo' => $this->idVeiculo,
             'preco' => $this->preco,
-            'idTipoVeiculo' => $this->idTipoVeiculo,
+            'tipoVeiculo' => $this->tipoVeiculo,
         ]);
 
         $query->andFilterWhere(['like', 'marca', $this->marca])

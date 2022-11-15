@@ -81,6 +81,8 @@ class ImagemController extends Controller
 
             return $this->redirect(['view', 'idImagem' => $model->idImagem]);
 
+        }else {
+            $model->loadDefaultValues();
         }
 
         return $this->render('create', [

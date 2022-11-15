@@ -26,8 +26,8 @@ use common\models\Tipoveiculo;
 
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'idTipoVeiculo')->dropDownList(
-            ArrayHelper::map(Tipoveiculo::find()->all(),'idTipoVeiculo','categoria'),
+    <?= $form->field($model, 'tipoVeiculo')->dropDownList(
+            ArrayHelper::map(Tipoveiculo::find()->all(),'tipoVeiculo','categoria'),
         ['prompt'=>'Selecione']
     )?>
 

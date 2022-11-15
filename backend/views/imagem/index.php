@@ -29,7 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'idImagem',
             'imagem',
-            'idVeiculo',
+            [
+                'label' => 'Veiculo ',
+                'value' => function ($model) {
+                    {
+                        return "{$model->veiculo->marca} {$model->veiculo->modelo}";
+
+                    }
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Imagem $model, $key, $index, $column) {

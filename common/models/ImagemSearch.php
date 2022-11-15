@@ -17,7 +17,7 @@ class ImagemSearch extends Imagem
     public function rules()
     {
         return [
-            [['idImagem', 'idVeiculo'], 'integer'],
+            [['idImagem', 'id_veiculo'], 'integer'],
             [['imagem'], 'safe'],
         ];
     }
@@ -59,7 +59,7 @@ class ImagemSearch extends Imagem
         // grid filtering conditions
         $query->andFilterWhere([
             'idImagem' => $this->idImagem,
-            'idVeiculo' => $this->idVeiculo,
+            'id_veiculo' => $this->id_veiculo,
         ]);
 
         $query->andFilterWhere(['like', 'imagem', $this->imagem]);

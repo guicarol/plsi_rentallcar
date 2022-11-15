@@ -9,9 +9,9 @@ use Yii;
  *
  * @property int $idImagem
  * @property string $imagem
- * @property int $idVeiculo
+ * @property int $id_veiculo
  *
- * @property Veiculo $idVeiculo0
+ * @property Veiculo $veiculo
  */
 class Imagem extends \yii\db\ActiveRecord
 {
@@ -29,10 +29,10 @@ class Imagem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['imagem', 'idVeiculo'], 'required'],
-            [['idVeiculo'], 'integer'],
+            [['imagem', 'id_veiculo'], 'required'],
+            [['id_veiculo'], 'integer'],
             [['imagem'], 'string', 'max' => 81],
-            [['idVeiculo'], 'exist', 'skipOnError' => true, 'targetClass' => Veiculo::class, 'targetAttribute' => ['idVeiculo' => 'idVeiculo']],
+            [['id_veiculo'], 'exist', 'skipOnError' => true, 'targetClass' => Veiculo::class, 'targetAttribute' => ['id_veiculo' => 'idVeiculo']],
         ];
     }
 
@@ -44,17 +44,17 @@ class Imagem extends \yii\db\ActiveRecord
         return [
             'idImagem' => 'Id Imagem',
             'imagem' => 'Imagem',
-            'idVeiculo' => 'Id Veiculo',
+            'id_veiculo' => 'Id Veiculo',
         ];
     }
 
     /**
-     * Gets query for [[IdVeiculo0]].
+     * Gets query for [[Veiculo]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdVeiculo0()
+    public function getVeiculo()
     {
-        return $this->hasOne(Veiculo::class, ['idVeiculo' => 'idVeiculo']);
+        return $this->hasOne(Veiculo::class, ['idVeiculo' => 'id_veiculo']);
     }
 }

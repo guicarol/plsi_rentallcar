@@ -14,11 +14,11 @@ use Yii;
  * @property float $preco
  * @property string $matricula
  * @property string $descricao
- * @property int $idTipoVeiculo
+ * @property int $id_tipoVeiculo
  *
  * @property Detalhesaluger[] $detalhesalugers
- * @property Tipoveiculo $idTipoVeiculo0
  * @property Imagem[] $imagems
+ * @property Tipoveiculo $tipoVeiculo
  */
 class Veiculo extends \yii\db\ActiveRecord
 {
@@ -36,14 +36,14 @@ class Veiculo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['marca', 'modelo', 'combustivel', 'preco', 'matricula', 'descricao', 'idTipoVeiculo'], 'required'],
+            [['marca', 'modelo', 'combustivel', 'preco', 'matricula', 'descricao', 'id_tipoVeiculo'], 'required'],
             [['preco'], 'number'],
-            [['idTipoVeiculo'], 'integer'],
+            [['id_tipoVeiculo'], 'integer'],
             [['marca'], 'string', 'max' => 21],
             [['modelo'], 'string', 'max' => 31],
             [['combustivel', 'matricula'], 'string', 'max' => 9],
             [['descricao'], 'string', 'max' => 255],
-            [['idTipoVeiculo'], 'exist', 'skipOnError' => true, 'targetClass' => Tipoveiculo::class, 'targetAttribute' => ['idTipoVeiculo' => 'idTipoVeiculo']],
+            [['id_tipoVeiculo'], 'exist', 'skipOnError' => true, 'targetClass' => Tipoveiculo::class, 'targetAttribute' => ['id_tipoVeiculo' => 'idTipoVeiculo']],
         ];
     }
 
@@ -60,7 +60,7 @@ class Veiculo extends \yii\db\ActiveRecord
             'preco' => 'Preco',
             'matricula' => 'Matricula',
             'descricao' => 'Descricao',
-            'idTipoVeiculo' => 'Tipo Veiculo',
+            'id_tipoVeiculo' => 'Id Tipo Veiculo',
         ];
     }
 
@@ -75,22 +75,22 @@ class Veiculo extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[IdTipoVeiculo0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getIdTipoVeiculo0()
-    {
-        return $this->hasOne(Tipoveiculo::class, ['idTipoVeiculo' => 'idTipoVeiculo']);
-    }
-
-    /**
      * Gets query for [[Imagems]].
      *
      * @return \yii\db\ActiveQuery
      */
     public function getImagems()
     {
-        return $this->hasMany(Imagem::class, ['idVeiculo' => 'idVeiculo']);
+        return $this->hasMany(Imagem::class, ['id_Veiculo' => 'idVeiculo']);
+    }
+
+    /**
+     * Gets query for [[TipoVeiculo]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTipoVeiculo()
+    {
+        return $this->hasOne(Tipoveiculo::class, ['idTipoVeiculo' => 'id_tipoVeiculo']);
     }
 }

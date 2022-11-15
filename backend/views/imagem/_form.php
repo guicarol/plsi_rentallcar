@@ -12,12 +12,11 @@ use yii\widgets\ActiveForm;
 
 <div class="imagem-form">
 
-    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'imagem')->fileInput() ?>
 
-
-    <?= $form->field($model, 'idVeiculo')->dropDownList(
+    <?= $form->field($model, 'veiculo')->dropDownList(
         ArrayHelper::map(Veiculo::find()->all(),'idVeiculo','modelo','marca'),
         ['prompt'=>'Selecione']
     )?>
