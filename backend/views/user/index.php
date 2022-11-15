@@ -43,7 +43,6 @@ $this->title = 'Users';
                         return 'Sem role';
                     }
                 },
-                //'filter'=>Html::dropDownList(null,null,['admin','gestor','cliente'],['admin','gestor','cliente']),
             ],
             ['class' => ActionColumn::className(), 'template' => '{view} ']
         ],

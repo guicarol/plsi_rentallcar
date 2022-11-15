@@ -190,7 +190,7 @@ AppAsset::register($this);
                     </select>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                    <button class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Procurar</button>
+                    <button  class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Procurar</button>
                 </div>
             </div>
         </div>

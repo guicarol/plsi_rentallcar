@@ -2,6 +2,10 @@
 
 /** @var yii\web\View $this */
 
+use yii\bootstrap4\Html;
+/** @var common\models\Veiculo $model */
+
+
 $this->title = 'RentAllCar';
 ?>
 <div class="site-index">
@@ -15,7 +19,7 @@ $this->title = 'RentAllCar';
                         <div class="p-3" style="max-width: 900px;">
                             <h4 class="text-white text-uppercase mb-md-3">RentAllCar</h4>
                             <h1 class="display-1 text-white mb-md-4">Serviço de excelência</h1>
-                            <a href="" class="btn btn-primary py-md-3 px-md-5 mt-2">Faça a sua reserva agora!</a>
+                            <?php echo Html::a('Faça a sua reserva agora!', ['veiculo/index'], ['class' => 'btn btn-primary py-md-3 px-md-5 mt-2']);?>
                         </div>
                     </div>
                 </div>
@@ -25,7 +29,7 @@ $this->title = 'RentAllCar';
                         <div class="p-3" style="max-width: 900px;">
                             <h4 class="text-white text-uppercase mb-md-3">RentAllCar</h4>
                             <h1 class="display-1 text-white mb-md-4">Mais de 100 marcas e modelos disponiveis</h1>
-                            <a href="" class="btn btn-primary py-md-3 px-md-5 mt-2">Faça a sua reserva agora!</a>
+                            <?php echo Html::a('Faça a sua reserva agora!', ['veiculo/index'], ['class' => 'btn btn-primary py-md-3 px-md-5 mt-2']);?>
                         </div>
                     </div>
                 </div>
@@ -160,6 +164,7 @@ $this->title = 'RentAllCar';
             <h1 class="display-1 text-primary text-center">03</h1>
             <h1 class="display-4 text-uppercase text-center mb-5">Find Your Car</h1>
             <div class="row">
+
                 <div class="col-lg-4 col-md-6 mb-2">
                     <div class="rent-item mb-4">
                         <img class="img-fluid mb-4" src="img/car-rent-1.png" alt="">
