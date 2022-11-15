@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\rbac\Role;
 
 /** @var yii\web\View $this */
 /** @var common\models\UserSearch $searchModel */
@@ -20,6 +21,7 @@ $this->title = 'Users';
     </p>
 
     <?= GridView::widget([
+
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -39,7 +41,6 @@ $this->title = 'Users';
                 'label' => 'Role',
                 'attribute' => 'role',
                 'format' => 'raw',
-
                 'value' => function ($model) {
                     if (Yii::$app->authManager->getRolesByUser($model->id) != null) {
                         return array_keys(Yii::$app->authManager->getRolesByUser($model->id))[0];
