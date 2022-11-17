@@ -15,6 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="imagem-index">
 
+    <h1><?= Html::encode($this->title) ?></h1> 
+
     <p>
         <?= Html::a('Create Imagem', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -27,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idImagem',
+            'id_imagem',
             'imagem',
             [
                 'label' => 'Veiculo ',
@@ -41,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Imagem $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'idImagem' => $model->idImagem]);
+                    return Url::toRoute([$action, 'id_imagem' => $model->id_imagem]);
                  }
             ],
         ],

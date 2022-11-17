@@ -7,14 +7,14 @@ use Yii;
 /**
  * This is the model class for table "profile".
  *
- * @property int $idProfile
+ * @property int $id_profile
  * @property string $nome
  * @property string $apelido
  * @property int $telemovel
  * @property int $nif
- * @property string $nrCartaConducao
+ * @property string $nr_carta_conducao
  *
- * @property User $idProfile0
+ * @property User $profile
  */
 class Profile extends \yii\db\ActiveRecord
 {
@@ -32,12 +32,15 @@ class Profile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idProfile', 'nome', 'apelido', 'telemovel', 'nif', 'nrCartaConducao'], 'required'],
-            [['idProfile', 'telemovel', 'nif'], 'integer'],
+            [['id_profile', 'nome', 'apelido', 'telemovel', 'nif', 'nr_carta_conducao'], 'required'],
+            [['id_profile', 'telemovel', 'nif'], 'integer'],
             [['nome', 'apelido'], 'string', 'max' => 21],
-            [['nrCartaConducao'], 'string', 'max' => 12],
-            [['idProfile'], 'unique'],
-            [['idProfile'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idProfile' => 'id']],
+            [['nr_carta_conducao'], 'string', 'max' => 12],
+            [['telemovel'], 'unique'],
+            [['nif'], 'unique'],
+            [['nr_carta_conducao'], 'unique'],
+            [['id_profile'], 'unique'],
+            [['id_profile'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_profile' => 'id']],
         ];
     }
 
@@ -47,22 +50,22 @@ class Profile extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idProfile' => 'Id Profile',
+            'id_profile' => 'Id Profile',
             'nome' => 'Nome',
             'apelido' => 'Apelido',
             'telemovel' => 'Telemovel',
             'nif' => 'Nif',
-            'nrCartaConducao' => 'Nr Carta Conducao',
+            'nr_carta_conducao' => 'Nr Carta Conducao',
         ];
     }
 
     /**
-     * Gets query for [[IdProfile0]].
+     * Gets query for [[Profile]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdProfile0()
+    public function getProfile()
     {
-        return $this->hasOne(User::class, ['id' => 'idProfile']);
+        return $this->hasOne(User::class, ['id' => 'id_profile']);
     }
 }

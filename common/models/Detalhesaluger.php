@@ -5,33 +5,33 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "detalhesaluger".
+ * This is the model class for table "detalhes_aluger".
  *
- * @property int $idDetalhesAluguer
- * @property string|null $dataInicio
- * @property string|null $dataFim
+ * @property int $id_detalhes_aluguer
+ * @property string|null $data_inicio
+ * @property string|null $data_fim
  * @property int $id_veiculo
  * @property int $id_user
  * @property int $id_seguro
- * @property int $id_localizacaoLevantamento
- * @property int $id_localizacaoDevolucao
+ * @property int $id_localizacao_levantamento
+ * @property int $id_localizacao_devolucao
  *
- * @property Extradetalhesaluger[] $extradetalhesalugers
- * @property Extra[] $idExtras
+ * @property ExtraDetalhesAluger[] $extraDetalhesAlugers
+ * @property Extra[] $extras
  * @property Localizacao $localizacaoDevolucao
  * @property Localizacao $localizacaoLevantamento
  * @property Seguro $seguro
  * @property User $user
  * @property Veiculo $veiculo
  */
-class Detalhesaluger extends \yii\db\ActiveRecord
+class DetalhesAluger extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'detalhesaluger';
+        return 'detalhes_aluger';
     }
 
     /**
@@ -40,14 +40,14 @@ class Detalhesaluger extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['dataInicio', 'dataFim'], 'safe'],
-            [['id_veiculo', 'id_user', 'id_seguro', 'id_localizacaoLevantamento', 'id_localizacaoDevolucao'], 'required'],
-            [['id_veiculo', 'id_user', 'id_seguro', 'id_localizacaoLevantamento', 'id_localizacaoDevolucao'], 'integer'],
-            [['id_veiculo'], 'exist', 'skipOnError' => true, 'targetClass' => Veiculo::class, 'targetAttribute' => ['id_veiculo' => 'idVeiculo']],
+            [['data_inicio', 'data_fim'], 'safe'],
+            [['id_veiculo', 'id_user', 'id_seguro', 'id_localizacao_levantamento', 'id_localizacao_devolucao'], 'required'],
+            [['id_veiculo', 'id_user', 'id_seguro', 'id_localizacao_levantamento', 'id_localizacao_devolucao'], 'integer'],
+            [['id_veiculo'], 'exist', 'skipOnError' => true, 'targetClass' => Veiculo::class, 'targetAttribute' => ['id_veiculo' => 'id_veiculo']],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
-            [['id_seguro'], 'exist', 'skipOnError' => true, 'targetClass' => Seguro::class, 'targetAttribute' => ['id_seguro' => 'idSeguro']],
-            [['id_localizacaoLevantamento'], 'exist', 'skipOnError' => true, 'targetClass' => Localizacao::class, 'targetAttribute' => ['id_localizacaoLevantamento' => 'idLocalizacao']],
-            [['id_localizacaoDevolucao'], 'exist', 'skipOnError' => true, 'targetClass' => Localizacao::class, 'targetAttribute' => ['id_localizacaoDevolucao' => 'idLocalizacao']],
+            [['id_seguro'], 'exist', 'skipOnError' => true, 'targetClass' => Seguro::class, 'targetAttribute' => ['id_seguro' => 'id_seguro']],
+            [['id_localizacao_levantamento'], 'exist', 'skipOnError' => true, 'targetClass' => Localizacao::class, 'targetAttribute' => ['id_localizacao_levantamento' => 'id_localizacao']],
+            [['id_localizacao_devolucao'], 'exist', 'skipOnError' => true, 'targetClass' => Localizacao::class, 'targetAttribute' => ['id_localizacao_devolucao' => 'id_localizacao']],
         ];
     }
 
@@ -57,35 +57,35 @@ class Detalhesaluger extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idDetalhesAluguer' => 'Id Detalhes Aluguer',
-            'dataInicio' => 'Data Inicio',
-            'dataFim' => 'Data Fim',
+            'id_detalhes_aluguer' => 'Id Detalhes Aluguer',
+            'data_inicio' => 'Data Inicio',
+            'data_fim' => 'Data Fim',
             'id_veiculo' => 'Id Veiculo',
             'id_user' => 'Id User',
             'id_seguro' => 'Id Seguro',
-            'id_localizacaoLevantamento' => 'Id Localizacao Levantamento',
-            'id_localizacaoDevolucao' => 'Id Localizacao Devolucao',
+            'id_localizacao_levantamento' => 'Id Localizacao Levantamento',
+            'id_localizacao_devolucao' => 'Id Localizacao Devolucao',
         ];
     }
 
     /**
-     * Gets query for [[Extradetalhesalugers]].
+     * Gets query for [[ExtraDetalhesAlugers]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getExtradetalhesalugers()
+    public function getExtraDetalhesAlugers()
     {
-        return $this->hasMany(Extradetalhesaluger::class, ['id_detalhesAluger' => 'idDetalhesAluguer']);
+        return $this->hasMany(ExtraDetalhesAluger::class, ['id_detalhes_aluger' => 'id_detalhes_aluguer']);
     }
 
     /**
-     * Gets query for [[IdExtras]].
+     * Gets query for [[Extras]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdExtras()
+    public function getExtras()
     {
-        return $this->hasMany(Extra::class, ['idExtra' => 'idExtra'])->viaTable('extradetalhesaluger', ['id_detalhesAluger' => 'idDetalhesAluguer']);
+        return $this->hasMany(Extra::class, ['id_extra' => 'id_extra'])->viaTable('extra_detalhes_aluger', ['id_detalhes_aluger' => 'id_detalhes_aluguer']);
     }
 
     /**
@@ -95,7 +95,7 @@ class Detalhesaluger extends \yii\db\ActiveRecord
      */
     public function getLocalizacaoDevolucao()
     {
-        return $this->hasOne(Localizacao::class, ['idLocalizacao' => 'id_localizacaoDevolucao']);
+        return $this->hasOne(Localizacao::class, ['id_localizacao' => 'id_localizacao_devolucao']);
     }
 
     /**
@@ -105,7 +105,7 @@ class Detalhesaluger extends \yii\db\ActiveRecord
      */
     public function getLocalizacaoLevantamento()
     {
-        return $this->hasOne(Localizacao::class, ['idLocalizacao' => 'id_localizacaoLevantamento']);
+        return $this->hasOne(Localizacao::class, ['id_localizacao' => 'id_localizacao_levantamento']);
     }
 
     /**
@@ -115,7 +115,7 @@ class Detalhesaluger extends \yii\db\ActiveRecord
      */
     public function getSeguro()
     {
-        return $this->hasOne(Seguro::class, ['idSeguro' => 'id_seguro']);
+        return $this->hasOne(Seguro::class, ['id_seguro' => 'id_seguro']);
     }
 
     /**
@@ -135,6 +135,6 @@ class Detalhesaluger extends \yii\db\ActiveRecord
      */
     public function getVeiculo()
     {
-        return $this->hasOne(Veiculo::class, ['idVeiculo' => 'id_veiculo']);
+        return $this->hasOne(Veiculo::class, ['id_veiculo' => 'id_veiculo']);
     }
 }

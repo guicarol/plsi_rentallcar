@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'idExtra') ?>
+    <?= $form->field($model, 'id_extra') ?>
 
     <?= $form->field($model, 'descricao') ?>
 

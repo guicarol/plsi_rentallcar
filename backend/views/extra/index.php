@@ -15,6 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="extra-index">
 
+    <h1><?= Html::encode($this->title) ?></h1>
+
     <p>
         <?= Html::a('Create Extra', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -27,13 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idExtra',
+            'id_extra',
             'descricao',
             'preco',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Extra $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'idExtra' => $model->idExtra]);
+                    return Url::toRoute([$action, 'id_extra' => $model->id_extra]);
                  }
             ],
         ],

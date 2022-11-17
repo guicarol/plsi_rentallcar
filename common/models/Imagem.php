@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "imagem".
  *
- * @property int $idImagem
+ * @property int $id_imagem
  * @property string $imagem
  * @property int $id_veiculo
  *
@@ -32,7 +32,7 @@ class Imagem extends \yii\db\ActiveRecord
             [['imagem', 'id_veiculo'], 'required'],
             [['id_veiculo'], 'integer'],
             [['imagem'], 'string', 'max' => 81],
-            [['id_veiculo'], 'exist', 'skipOnError' => true, 'targetClass' => Veiculo::class, 'targetAttribute' => ['id_veiculo' => 'idVeiculo']],
+            [['id_veiculo'], 'exist', 'skipOnError' => true, 'targetClass' => Veiculo::class, 'targetAttribute' => ['id_veiculo' => 'id_veiculo']],
         ];
     }
 
@@ -42,7 +42,7 @@ class Imagem extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idImagem' => 'Id Imagem',
+            'id_imagem' => 'Id Imagem',
             'imagem' => 'Imagem',
             'id_veiculo' => 'Id Veiculo',
         ];
@@ -55,6 +55,6 @@ class Imagem extends \yii\db\ActiveRecord
      */
     public function getVeiculo()
     {
-        return $this->hasOne(Veiculo::class, ['idVeiculo' => 'id_veiculo']);
+        return $this->hasOne(Veiculo::class, ['id_veiculo' => 'id_veiculo']);
     }
 }

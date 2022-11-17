@@ -7,9 +7,9 @@ use Yii;
 /**
  * This is the model class for table "fatura".
  *
- * @property int $idFatura
- * @property string|null $dataFatura
- * @property float $precoTotal
+ * @property int $id_fFatura
+ * @property string|null $data_fatura
+ * @property float $preco_total
  */
 class Fatura extends \yii\db\ActiveRecord
 {
@@ -27,9 +27,9 @@ class Fatura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['dataFatura'], 'safe'],
-            [['precoTotal'], 'required'],
-            [['precoTotal'], 'number'],
+            [['data_fatura'], 'safe'],
+            [['preco_total'], 'required'],
+            [['preco_total'], 'number'],
         ];
     }
 
@@ -39,9 +39,9 @@ class Fatura extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idFatura' => 'Id Fatura',
-            'dataFatura' => 'Data Fatura',
-            'precoTotal' => 'Preco Total',
+            'id_fFatura' => 'Id F Fatura',
+            'data_fatura' => 'Data Fatura',
+            'preco_total' => 'Preco Total',
         ];
     }
 }

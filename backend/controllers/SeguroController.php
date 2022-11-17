@@ -49,14 +49,14 @@ class SeguroController extends Controller
 
     /**
      * Displays a single Seguro model.
-     * @param int $idSeguro Id Seguro
+     * @param int $id_seguro Id Seguro
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idSeguro)
+    public function actionView($id_seguro)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idSeguro),
+            'model' => $this->findModel($id_seguro),
         ]);
     }
 
@@ -71,7 +71,7 @@ class SeguroController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idSeguro' => $model->idSeguro]);
+                return $this->redirect(['view', 'id_seguro' => $model->id_seguro]);
             }
         } else {
             $model->loadDefaultValues();
@@ -85,16 +85,16 @@ class SeguroController extends Controller
     /**
      * Updates an existing Seguro model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $idSeguro Id Seguro
+     * @param int $id_seguro Id Seguro
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idSeguro)
+    public function actionUpdate($id_seguro)
     {
-        $model = $this->findModel($idSeguro);
+        $model = $this->findModel($id_seguro);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idSeguro' => $model->idSeguro]);
+            return $this->redirect(['view', 'id_seguro' => $model->id_seguro]);
         }
 
         return $this->render('update', [
@@ -105,13 +105,13 @@ class SeguroController extends Controller
     /**
      * Deletes an existing Seguro model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $idSeguro Id Seguro
+     * @param int $id_seguro Id Seguro
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idSeguro)
+    public function actionDelete($id_seguro)
     {
-        $this->findModel($idSeguro)->delete();
+        $this->findModel($id_seguro)->delete();
 
         return $this->redirect(['index']);
     }
@@ -119,13 +119,13 @@ class SeguroController extends Controller
     /**
      * Finds the Seguro model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $idSeguro Id Seguro
+     * @param int $id_seguro Id Seguro
      * @return Seguro the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idSeguro)
+    protected function findModel($id_seguro)
     {
-        if (($model = Seguro::findOne(['idSeguro' => $idSeguro])) !== null) {
+        if (($model = Seguro::findOne(['id_seguro' => $id_seguro])) !== null) {
             return $model;
         }
 

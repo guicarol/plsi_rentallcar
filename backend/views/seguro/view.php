@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var common\models\Seguro $model */
 
-$this->title = $model->idSeguro;
+$this->title = $model->id_seguro;
 $this->params['breadcrumbs'][] = ['label' => 'Seguros', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'idSeguro' => $model->idSeguro], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'idSeguro' => $model->idSeguro], [
+        <?= Html::a('Update', ['update', 'id_seguro' => $model->id_seguro], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id_seguro' => $model->id_seguro], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idSeguro',
+            'id_seguro',
             'marca',
             'cobertura',
             'preco',

@@ -17,7 +17,7 @@ class TipoVeiculoSearch extends TipoVeiculo
     public function rules()
     {
         return [
-            [['idTipoVeiculo'], 'integer'],
+            [['id_tipo_veiculo'], 'integer'],
             [['categoria'], 'safe'],
         ];
     }
@@ -58,7 +58,7 @@ class TipoVeiculoSearch extends TipoVeiculo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idTipoVeiculo' => $this->idTipoVeiculo,
+            'id_tipo_veiculo' => $this->id_tipo_veiculo,
         ]);
 
         $query->andFilterWhere(['like', 'categoria', $this->categoria]);

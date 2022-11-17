@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var common\models\Extra $model */
 
-$this->title = $model->idExtra;
+$this->title = $model->id_extra;
 $this->params['breadcrumbs'][] = ['label' => 'Extras', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'idExtra' => $model->idExtra], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'idExtra' => $model->idExtra], [
+        <?= Html::a('Update', ['update', 'id_extra' => $model->id_extra], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id_extra' => $model->id_extra], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idExtra',
+            'id_extra',
             'descricao',
             'preco',
         ],

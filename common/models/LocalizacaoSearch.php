@@ -17,8 +17,8 @@ class LocalizacaoSearch extends Localizacao
     public function rules()
     {
         return [
-            [['idLocalizacao'], 'integer'],
-            [['morada', 'codPostal'], 'safe'],
+            [['id_localizacao'], 'integer'],
+            [['morada', 'cod_postal'], 'safe'],
         ];
     }
 
@@ -58,11 +58,11 @@ class LocalizacaoSearch extends Localizacao
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idLocalizacao' => $this->idLocalizacao,
+            'id_localizacao' => $this->id_localizacao,
         ]);
 
         $query->andFilterWhere(['like', 'morada', $this->morada])
-            ->andFilterWhere(['like', 'codPostal', $this->codPostal]);
+            ->andFilterWhere(['like', 'cod_postal', $this->cod_postal]);
 
         return $dataProvider;
     }

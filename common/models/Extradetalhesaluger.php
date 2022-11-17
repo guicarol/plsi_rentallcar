@@ -5,22 +5,22 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "extradetalhesaluger".
+ * This is the model class for table "extra_detalhes_aluger".
  *
- * @property int $idExtra
- * @property int $id_detalhesAluger
+ * @property int $id_extra
+ * @property int $id_detalhes_aluger
  *
- * @property Detalhesaluger $detalhesAluger
- * @property Extra $idExtra0
+ * @property DetalhesAluger $detalhesAluger
+ * @property Extra $extra
  */
-class Extradetalhesaluger extends \yii\db\ActiveRecord
+class ExtraDetalhesAluger extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'extradetalhesaluger';
+        return 'extra_detalhes_aluger';
     }
 
     /**
@@ -29,11 +29,11 @@ class Extradetalhesaluger extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idExtra', 'id_detalhesAluger'], 'required'],
-            [['idExtra', 'id_detalhesAluger'], 'integer'],
-            [['idExtra', 'id_detalhesAluger'], 'unique', 'targetAttribute' => ['idExtra', 'id_detalhesAluger']],
-            [['idExtra'], 'exist', 'skipOnError' => true, 'targetClass' => Extra::class, 'targetAttribute' => ['idExtra' => 'idExtra']],
-            [['id_detalhesAluger'], 'exist', 'skipOnError' => true, 'targetClass' => Detalhesaluger::class, 'targetAttribute' => ['id_detalhesAluger' => 'idDetalhesAluguer']],
+            [['id_extra', 'id_detalhes_aluger'], 'required'],
+            [['id_extra', 'id_detalhes_aluger'], 'integer'],
+            [['id_extra', 'id_detalhes_aluger'], 'unique', 'targetAttribute' => ['id_extra', 'id_detalhes_aluger']],
+            [['id_extra'], 'exist', 'skipOnError' => true, 'targetClass' => Extra::class, 'targetAttribute' => ['id_extra' => 'id_extra']],
+            [['id_detalhes_aluger'], 'exist', 'skipOnError' => true, 'targetClass' => DetalhesAluger::class, 'targetAttribute' => ['id_detalhes_aluger' => 'id_detalhes_aluguer']],
         ];
     }
 
@@ -43,8 +43,8 @@ class Extradetalhesaluger extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idExtra' => 'Id Extra',
-            'id_detalhesAluger' => 'Id Detalhes Aluger',
+            'id_extra' => 'Id Extra',
+            'id_detalhes_aluger' => 'Id Detalhes Aluger',
         ];
     }
 
@@ -55,16 +55,16 @@ class Extradetalhesaluger extends \yii\db\ActiveRecord
      */
     public function getDetalhesAluger()
     {
-        return $this->hasOne(Detalhesaluger::class, ['idDetalhesAluguer' => 'id_detalhesAluger']);
+        return $this->hasOne(DetalhesAluger::class, ['id_detalhes_aluguer' => 'id_detalhes_aluger']);
     }
 
     /**
-     * Gets query for [[IdExtra0]].
+     * Gets query for [[Extra]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdExtra0()
+    public function getExtra()
     {
-        return $this->hasOne(Extra::class, ['idExtra' => 'idExtra']);
+        return $this->hasOne(Extra::class, ['id_extra' => 'id_extra']);
     }
 }

@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var common\models\Extra $model */
 
-$this->title = 'Update Extra: ' . $model->idExtra;
+$this->title = 'Update Extra: ' . $model->id_extra;
 $this->params['breadcrumbs'][] = ['label' => 'Extras', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->idExtra, 'url' => ['view', 'idExtra' => $model->idExtra]];
+$this->params['breadcrumbs'][] = ['label' => $model->id_extra, 'url' => ['view', 'id_extra' => $model->id_extra]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="extra-update">

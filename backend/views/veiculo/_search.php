@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'idVeiculo') ?>
+    <?= $form->field($model, 'id_veiculo') ?>
 
     <?= $form->field($model, 'marca') ?>
 
@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'descricao') ?>
 
-    <?php // echo $form->field($model, 'idTipoVeiculo') ?>
+    <?php // echo $form->field($model, 'id_tipo_veiculo') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

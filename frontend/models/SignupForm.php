@@ -86,7 +86,7 @@ class SignupForm extends Model
         $user->save();
 
         $profile = new Profile();
-        $profile->idProfile = $user->id;
+        $profile->id_profile = $user->id;
         $profile->nome = $this->nome;
         $profile->apelido = $this->apelido;
         $profile->nif = $this->nif;

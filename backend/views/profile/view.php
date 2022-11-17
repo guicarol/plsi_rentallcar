@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var common\models\Profile $model */
 
-$this->title = $model->idProfile;
+$this->title = $model->id_profile;
 $this->params['breadcrumbs'][] = ['label' => 'Profiles', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'idProfile' => $model->idProfile], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'idProfile' => $model->idProfile], [
+        <?= Html::a('Update', ['update', 'id_profile' => $model->id_profile], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id_profile' => $model->id_profile], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,12 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idProfile',
+            'id_profile',
             'nome',
             'apelido',
             'telemovel',
             'nif',
-            'nrCartaConducao',
+            'nr_carta_conducao',
         ],
     ]) ?>
 

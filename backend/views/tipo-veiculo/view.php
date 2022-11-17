@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var common\models\TipoVeiculo $model */
 
-$this->title = $model->idTipoVeiculo;
+$this->title = $model->id_tipo_veiculo;
 $this->params['breadcrumbs'][] = ['label' => 'Tipo Veiculos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'idTipoVeiculo' => $model->idTipoVeiculo], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'idTipoVeiculo' => $model->idTipoVeiculo], [
+        <?= Html::a('Update', ['update', 'id_tipo_veiculo' => $model->id_tipo_veiculo], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id_tipo_veiculo' => $model->id_tipo_veiculo], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idTipoVeiculo',
+            'id_tipo_veiculo',
             'categoria',
         ],
     ]) ?>

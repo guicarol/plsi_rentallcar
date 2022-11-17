@@ -49,14 +49,14 @@ class TipoVeiculoController extends Controller
 
     /**
      * Displays a single TipoVeiculo model.
-     * @param int $idTipoVeiculo Id Tipo Veiculo
+     * @param int $id_tipo_veiculo Id Tipo Veiculo
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idTipoVeiculo)
+    public function actionView($id_tipo_veiculo)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idTipoVeiculo),
+            'model' => $this->findModel($id_tipo_veiculo),
         ]);
     }
 
@@ -71,7 +71,7 @@ class TipoVeiculoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idTipoVeiculo' => $model->idTipoVeiculo]);
+                return $this->redirect(['view', 'id_tipo_veiculo' => $model->id_tipo_veiculo]);
             }
         } else {
             $model->loadDefaultValues();
@@ -85,16 +85,16 @@ class TipoVeiculoController extends Controller
     /**
      * Updates an existing TipoVeiculo model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $idTipoVeiculo Id Tipo Veiculo
+     * @param int $id_tipo_veiculo Id Tipo Veiculo
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idTipoVeiculo)
+    public function actionUpdate($id_tipo_veiculo)
     {
-        $model = $this->findModel($idTipoVeiculo);
+        $model = $this->findModel($id_tipo_veiculo);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idTipoVeiculo' => $model->idTipoVeiculo]);
+            return $this->redirect(['view', 'id_tipo_veiculo' => $model->id_tipo_veiculo]);
         }
 
         return $this->render('update', [
@@ -105,13 +105,13 @@ class TipoVeiculoController extends Controller
     /**
      * Deletes an existing TipoVeiculo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $idTipoVeiculo Id Tipo Veiculo
+     * @param int $id_tipo_veiculo Id Tipo Veiculo
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idTipoVeiculo)
+    public function actionDelete($id_tipo_veiculo)
     {
-        $this->findModel($idTipoVeiculo)->delete();
+        $this->findModel($id_tipo_veiculo)->delete();
 
         return $this->redirect(['index']);
     }
@@ -119,13 +119,13 @@ class TipoVeiculoController extends Controller
     /**
      * Finds the TipoVeiculo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $idTipoVeiculo Id Tipo Veiculo
+     * @param int $id_tipo_veiculo Id Tipo Veiculo
      * @return TipoVeiculo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idTipoVeiculo)
+    protected function findModel($id_tipo_veiculo)
     {
-        if (($model = TipoVeiculo::findOne(['idTipoVeiculo' => $idTipoVeiculo])) !== null) {
+        if (($model = TipoVeiculo::findOne(['id_tipo_veiculo' => $id_tipo_veiculo])) !== null) {
             return $model;
         }
 

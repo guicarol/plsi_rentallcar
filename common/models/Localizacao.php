@@ -7,12 +7,12 @@ use Yii;
 /**
  * This is the model class for table "localizacao".
  *
- * @property int $idLocalizacao
+ * @property int $id_localizacao
  * @property string $morada
- * @property string $codPostal
+ * @property string $cod_postal
  *
- * @property Detalhesaluger[] $detalhesalugers
- * @property Detalhesaluger[] $detalhesalugers0
+ * @property DetalhesAluger[] $detalhesAlugers
+ * @property DetalhesAluger[] $detalhesAlugers0
  */
 class Localizacao extends \yii\db\ActiveRecord
 {
@@ -30,9 +30,9 @@ class Localizacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['morada', 'codPostal'], 'required'],
+            [['morada', 'cod_postal'], 'required'],
             [['morada'], 'string', 'max' => 51],
-            [['codPostal'], 'string', 'max' => 9],
+            [['cod_postal'], 'string', 'max' => 9],
         ];
     }
 
@@ -42,29 +42,29 @@ class Localizacao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idLocalizacao' => 'Id Localizacao',
+            'id_localizacao' => 'Id Localizacao',
             'morada' => 'Morada',
-            'codPostal' => 'Cod Postal',
+            'cod_postal' => 'Cod Postal',
         ];
     }
 
     /**
-     * Gets query for [[Detalhesalugers]].
+     * Gets query for [[DetalhesAlugers]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDetalhesalugers()
+    public function getDetalhesAlugers()
     {
-        return $this->hasMany(Detalhesaluger::class, ['idLocalizacaoLevantamento' => 'idLocalizacao']);
+        return $this->hasMany(DetalhesAluger::class, ['id_localizacao_levantamento' => 'id_localizacao']);
     }
 
     /**
-     * Gets query for [[Detalhesalugers0]].
+     * Gets query for [[DetalhesAlugers0]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDetalhesalugers0()
+    public function getDetalhesAlugers0()
     {
-        return $this->hasMany(Detalhesaluger::class, ['idLocalizacaoDevolucao' => 'idLocalizacao']);
+        return $this->hasMany(DetalhesAluger::class, ['id_localizacao_devolucao' => 'id_localizacao']);
     }
 }

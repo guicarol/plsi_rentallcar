@@ -7,12 +7,12 @@ use Yii;
 /**
  * This is the model class for table "seguro".
  *
- * @property int $idSeguro
+ * @property int $id_seguro
  * @property string $marca
  * @property string $cobertura
  * @property float $preco
  *
- * @property Detalhesaluger[] $detalhesalugers
+ * @property DetalhesAluger[] $detalhesAlugers
  */
 class Seguro extends \yii\db\ActiveRecord
 {
@@ -43,7 +43,7 @@ class Seguro extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idSeguro' => 'Id Seguro',
+            'id_seguro' => 'Id Seguro',
             'marca' => 'Marca',
             'cobertura' => 'Cobertura',
             'preco' => 'Preco',
@@ -51,12 +51,12 @@ class Seguro extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Detalhesalugers]].
+     * Gets query for [[DetalhesAlugers]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDetalhesalugers()
+    public function getDetalhesAlugers()
     {
-        return $this->hasMany(Detalhesaluger::class, ['idSeguro' => 'idSeguro']);
+        return $this->hasMany(DetalhesAluger::class, ['id_seguro' => 'id_seguro']);
     }
 }

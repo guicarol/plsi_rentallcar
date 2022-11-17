@@ -7,12 +7,12 @@ use Yii;
 /**
  * This is the model class for table "extra".
  *
- * @property int $idExtra
+ * @property int $id_extra
  * @property string $descricao
  * @property float $preco
  *
- * @property Extradetalhesaluger[] $extradetalhesalugers
- * @property Detalhesaluger[] $idDetalhesAlugers
+ * @property DetalhesAluger[] $detalhesAlugers
+ * @property ExtraDetalhesAluger[] $extraDetalhesAlugers
  */
 class Extra extends \yii\db\ActiveRecord
 {
@@ -42,29 +42,29 @@ class Extra extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idExtra' => 'Id Extra',
+            'id_extra' => 'Id Extra',
             'descricao' => 'Descricao',
             'preco' => 'Preco',
         ];
     }
 
     /**
-     * Gets query for [[Extradetalhesalugers]].
+     * Gets query for [[DetalhesAlugers]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getExtradetalhesalugers()
+    public function getDetalhesAlugers()
     {
-        return $this->hasMany(Extradetalhesaluger::class, ['idExtra' => 'idExtra']);
+        return $this->hasMany(DetalhesAluger::class, ['id_detalhes_aluguer' => 'id_detalhes_aluger'])->viaTable('extra_detalhes_aluger', ['id_extra' => 'id_extra']);
     }
 
     /**
-     * Gets query for [[IdDetalhesAlugers]].
+     * Gets query for [[ExtraDetalhesAlugers]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdDetalhesAlugers()
+    public function getExtraDetalhesAlugers()
     {
-        return $this->hasMany(Detalhesaluger::class, ['idDetalhesAluguer' => 'idDetalhesAluger'])->viaTable('extradetalhesaluger', ['idExtra' => 'idExtra']);
+        return $this->hasMany(ExtraDetalhesAluger::class, ['id_extra' => 'id_extra']);
     }
 }

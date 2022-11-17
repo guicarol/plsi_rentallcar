@@ -5,21 +5,21 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "tipoveiculo".
+ * This is the model class for table "tipo_veiculo".
  *
- * @property int $idTipoVeiculo
+ * @property int $id_tipo_veiculo
  * @property string $categoria
  *
  * @property Veiculo[] $veiculos
  */
-class Tipoveiculo extends \yii\db\ActiveRecord
+class TipoVeiculo extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'tipoveiculo';
+        return 'tipo_veiculo';
     }
 
     /**
@@ -39,7 +39,7 @@ class Tipoveiculo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idTipoVeiculo' => 'Id Tipo Veiculo',
+            'id_tipo_veiculo' => 'Id Tipo Veiculo',
             'categoria' => 'Categoria',
         ];
     }
@@ -51,6 +51,6 @@ class Tipoveiculo extends \yii\db\ActiveRecord
      */
     public function getVeiculos()
     {
-        return $this->hasMany(Veiculo::class, ['idTipoVeiculo' => 'idTipoVeiculo']);
+        return $this->hasMany(Veiculo::class, ['id_tipo_veiculo' => 'id_tipo_veiculo']);
     }
 }

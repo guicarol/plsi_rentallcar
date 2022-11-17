@@ -60,14 +60,12 @@ use yii\helpers\Html;
                     </div>
                 </form>
             </div>
-        </li>
-
-
+        </li>-->
 
         <li class="nav-item">
             <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/site/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
         </li>
 
-    </ul>
+   <!-- </ul>
 </nav>
-<!-- /.navbar -->
+navbar -->

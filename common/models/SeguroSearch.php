@@ -17,7 +17,7 @@ class SeguroSearch extends Seguro
     public function rules()
     {
         return [
-            [['idSeguro'], 'integer'],
+            [['id_seguro'], 'integer'],
             [['marca', 'cobertura'], 'safe'],
             [['preco'], 'number'],
         ];
@@ -59,7 +59,7 @@ class SeguroSearch extends Seguro
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idSeguro' => $this->idSeguro,
+            'id_seguro' => $this->id_seguro,
             'preco' => $this->preco,
         ]);
 

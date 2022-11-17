@@ -17,8 +17,8 @@ class ProfileSearch extends Profile
     public function rules()
     {
         return [
-            [['idProfile', 'telemovel', 'nif'], 'integer'],
-            [['nome', 'apelido', 'nrCartaConducao'], 'safe'],
+            [['id_profile', 'telemovel', 'nif'], 'integer'],
+            [['nome', 'apelido', 'nr_carta_conducao'], 'safe'],
         ];
     }
 
@@ -58,14 +58,14 @@ class ProfileSearch extends Profile
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idProfile' => $this->idProfile,
+            'id_profile' => $this->id_profile,
             'telemovel' => $this->telemovel,
             'nif' => $this->nif,
         ]);
 
         $query->andFilterWhere(['like', 'nome', $this->nome])
             ->andFilterWhere(['like', 'apelido', $this->apelido])
-            ->andFilterWhere(['like', 'nrCartaConducao', $this->nrCartaConducao]);
+            ->andFilterWhere(['like', 'nr_carta_conducao', $this->nr_carta_conducao]);
 
         return $dataProvider;
     }

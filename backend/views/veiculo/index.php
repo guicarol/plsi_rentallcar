@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="veiculo-index">
 
+    <h1><?= Html::encode($this->title) ?></h1> 
 
     <p>
         <?= Html::a('Create Veiculo', ['create'], ['class' => 'btn btn-success']) ?>
@@ -26,25 +27,26 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'idVeiculo',
+            'id_veiculo',
             'marca',
             'modelo',
             'combustivel',
             'preco',
             'matricula',
             'descricao',
-            [
+            'id_tipo_veiculo',
+            /*[
                 'label' => 'Tipoveiculo',
                 'value' => function ($model) {
                     {
                         return $model->tipoVeiculo->categoria ;
                     }
                 }
-            ],
+            ],*/
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Veiculo $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'idVeiculo' => $model->idVeiculo]);
+                    return Url::toRoute([$action, 'id_veiculo' => $model->id_veiculo]);
                 }
             ],
         ],

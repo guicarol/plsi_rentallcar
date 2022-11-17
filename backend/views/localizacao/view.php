@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var common\models\Localizacao $model */
 
-$this->title = $model->idLocalizacao;
+$this->title = $model->id_localizacao;
 $this->params['breadcrumbs'][] = ['label' => 'Localizacaos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'idLocalizacao' => $model->idLocalizacao], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'idLocalizacao' => $model->idLocalizacao], [
+        <?= Html::a('Update', ['update', 'id_localizacao' => $model->id_localizacao], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id_localizacao' => $model->id_localizacao], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,9 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idLocalizacao',
+            'id_localizacao',
             'morada',
-            'codPostal',
+            'cod_postal',
         ],
     ]) ?>
 

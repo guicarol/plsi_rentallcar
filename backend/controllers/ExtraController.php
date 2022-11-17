@@ -49,14 +49,14 @@ class ExtraController extends Controller
 
     /**
      * Displays a single Extra model.
-     * @param int $idExtra Id Extra
+     * @param int $id_extra Id Extra
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idExtra)
+    public function actionView($id_extra)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idExtra),
+            'model' => $this->findModel($id_extra),
         ]);
     }
 
@@ -71,7 +71,7 @@ class ExtraController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idExtra' => $model->idExtra]);
+                return $this->redirect(['view', 'id_extra' => $model->id_extra]);
             }
         } else {
             $model->loadDefaultValues();
@@ -85,16 +85,16 @@ class ExtraController extends Controller
     /**
      * Updates an existing Extra model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $idExtra Id Extra
+     * @param int $id_extra Id Extra
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idExtra)
+    public function actionUpdate($id_extra)
     {
-        $model = $this->findModel($idExtra);
+        $model = $this->findModel($id_extra);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idExtra' => $model->idExtra]);
+            return $this->redirect(['view', 'id_extra' => $model->id_extra]);
         }
 
         return $this->render('update', [
@@ -105,13 +105,13 @@ class ExtraController extends Controller
     /**
      * Deletes an existing Extra model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $idExtra Id Extra
+     * @param int $id_extra Id Extra
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idExtra)
+    public function actionDelete($id_extra)
     {
-        $this->findModel($idExtra)->delete();
+        $this->findModel($id_extra)->delete();
 
         return $this->redirect(['index']);
     }
@@ -119,13 +119,13 @@ class ExtraController extends Controller
     /**
      * Finds the Extra model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $idExtra Id Extra
+     * @param int $id_extra Id Extra
      * @return Extra the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idExtra)
+    protected function findModel($id_extra)
     {
-        if (($model = Extra::findOne(['idExtra' => $idExtra])) !== null) {
+        if (($model = Extra::findOne(['id_extra' => $id_extra])) !== null) {
             return $model;
         }
 

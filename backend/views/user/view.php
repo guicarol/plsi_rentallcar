@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]);
 
         if (Yii::$app->user->id == $model->id) {
-            echo Html::a('Update', ['profile/update', 'idProfile' => $model->id], ['class' => 'btn btn-primary']);
+            echo Html::a('Update', ['profile/update', 'id_profile' => $model->id], ['class' => 'btn btn-primary']);
         }
 
         ?>
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
         echo '<tr><td><strong> Email </strong></td><td>' . $model->email . '</td></tr>';
         echo '<tr><td><strong> Telemóvel </strong></td><td>' . $model->profile->telemovel . '</td></tr>';
         echo '<tr><td><strong> Nif </strong></td><td>' . $model->profile->nif . '</td></tr>';
-        echo '<tr><td><strong> Nr Carta Condução </strong></td><td>' . $model->profile->nrCartaConducao . '</td></tr>';
+        echo '<tr><td><strong> Nr Carta Condução </strong></td><td>' . $model->profile->nr_carta_conducao . '</td></tr>';
 
 
         echo '</table>';

@@ -49,14 +49,14 @@ class LocalizacaoController extends Controller
 
     /**
      * Displays a single Localizacao model.
-     * @param int $idLocalizacao Id Localizacao
+     * @param int $id_localizacao Id Localizacao
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idLocalizacao)
+    public function actionView($id_localizacao)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idLocalizacao),
+            'model' => $this->findModel($id_localizacao),
         ]);
     }
 
@@ -71,7 +71,7 @@ class LocalizacaoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idLocalizacao' => $model->idLocalizacao]);
+                return $this->redirect(['view', 'id_localizacao' => $model->id_localizacao]);
             }
         } else {
             $model->loadDefaultValues();
@@ -85,16 +85,16 @@ class LocalizacaoController extends Controller
     /**
      * Updates an existing Localizacao model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $idLocalizacao Id Localizacao
+     * @param int $id_localizacao Id Localizacao
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idLocalizacao)
+    public function actionUpdate($id_localizacao)
     {
-        $model = $this->findModel($idLocalizacao);
+        $model = $this->findModel($id_localizacao);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idLocalizacao' => $model->idLocalizacao]);
+            return $this->redirect(['view', 'id_localizacao' => $model->id_localizacao]);
         }
 
         return $this->render('update', [
@@ -105,13 +105,13 @@ class LocalizacaoController extends Controller
     /**
      * Deletes an existing Localizacao model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $idLocalizacao Id Localizacao
+     * @param int $id_localizacao Id Localizacao
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idLocalizacao)
+    public function actionDelete($id_localizacao)
     {
-        $this->findModel($idLocalizacao)->delete();
+        $this->findModel($id_localizacao)->delete();
 
         return $this->redirect(['index']);
     }
@@ -119,13 +119,13 @@ class LocalizacaoController extends Controller
     /**
      * Finds the Localizacao model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $idLocalizacao Id Localizacao
+     * @param int $id_localizacao Id Localizacao
      * @return Localizacao the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idLocalizacao)
+    protected function findModel($id_localizacao)
     {
-        if (($model = Localizacao::findOne(['idLocalizacao' => $idLocalizacao])) !== null) {
+        if (($model = Localizacao::findOne(['id_localizacao' => $id_localizacao])) !== null) {
             return $model;
         }
 

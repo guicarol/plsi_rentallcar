@@ -50,14 +50,14 @@ class ImagemController extends Controller
 
     /**
      * Displays a single Imagem model.
-     * @param int $idImagem Id Imagem
+     * @param int $id_imagem Id Imagem
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idImagem)
+    public function actionView($id_imagem)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idImagem),
+            'model' => $this->findModel($id_imagem),
         ]);
     }
 
@@ -72,14 +72,14 @@ class ImagemController extends Controller
 
         if ($model->load(\Yii::$app->request->post())) {
             $model->save();
-            $imageId = $model->idImagem;
+            $imageId = $model->id_imagem;
             $image = UploadedFile::getInstance($model, 'imagem');
             $imgname = 'img_'. $imageId . '.' . $image->getExtension();
             $image->saveAs(\Yii::getAlias('@carImgPath') . '/' . $imgname);
             $model->imagem = $imgname;
             $model->save();
 
-            return $this->redirect(['view', 'idImagem' => $model->idImagem]);
+            return $this->redirect(['view', 'id_imagem' => $model->id_imagem]);
 
         }else {
             $model->loadDefaultValues();
@@ -93,23 +93,23 @@ class ImagemController extends Controller
     /**
      * Updates an existing Imagem model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $idImagem Id Imagem
+     * @param int $id_imagem Id Imagem
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idImagem)
+    public function actionUpdate($id_imagem)
     {
-        $model = $this->findModel($idImagem);
+        $model = $this->findModel($id_imagem);
 
         if ($model->load($this->request->post())) {
             $model->save();
             $image = UploadedFile::getInstance($model, 'imagem');
-            $imgname = 'img_' . $model->idImagem . '.' . $image->getExtension();
+            $imgname = 'img_' . $model->id_imagem . '.' . $image->getExtension();
             $image->saveAs(\Yii::getAlias('@carImgPath') . '/' . $imgname);
             $model->imagem = $imgname;
             $model->save();
 
-            return $this->redirect(['view', 'idImagem' => $model->idImagem]);
+            return $this->redirect(['view', 'id_imagem' => $model->id_imagem]);
 
         }
 
@@ -121,13 +121,13 @@ class ImagemController extends Controller
     /**
      * Deletes an existing Imagem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $idImagem Id Imagem
+     * @param int $id_imagem Id Imagem
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idImagem)
+    public function actionDelete($id_imagem)
     {
-        $this->findModel($idImagem)->delete();
+        $this->findModel($id_imagem)->delete();
 
         return $this->redirect(['index']);
     }
@@ -135,13 +135,13 @@ class ImagemController extends Controller
     /**
      * Finds the Imagem model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $idImagem Id Imagem
+     * @param int $id_imagem Id Imagem
      * @return Imagem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idImagem)
+    protected function findModel($id_imagem)
     {
-        if (($model = Imagem::findOne(['idImagem' => $idImagem])) !== null) {
+        if (($model = Imagem::findOne(['id_imagem' => $id_imagem])) !== null) {
             return $model;
         }
 

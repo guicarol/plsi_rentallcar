@@ -49,14 +49,14 @@ class VeiculoController extends Controller
 
     /**
      * Displays a single Veiculo model.
-     * @param int $idVeiculo Id Veiculo
+     * @param int $id_veiculo Id Veiculo
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idVeiculo)
+    public function actionView($id_veiculo)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idVeiculo),
+            'model' => $this->findModel($id_veiculo),
         ]);
     }
 
@@ -71,7 +71,7 @@ class VeiculoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idVeiculo' => $model->idVeiculo]);
+                return $this->redirect(['view', 'id_veiculo' => $model->id_veiculo]);
             }
         } else {
             $model->loadDefaultValues();
@@ -85,16 +85,16 @@ class VeiculoController extends Controller
     /**
      * Updates an existing Veiculo model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $idVeiculo Id Veiculo
+     * @param int $id_veiculo Id Veiculo
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idVeiculo)
+    public function actionUpdate($id_veiculo)
     {
-        $model = $this->findModel($idVeiculo);
+        $model = $this->findModel($id_veiculo);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idVeiculo' => $model->idVeiculo]);
+            return $this->redirect(['view', 'id_veiculo' => $model->id_veiculo]);
         }
 
         return $this->render('update', [
@@ -105,13 +105,13 @@ class VeiculoController extends Controller
     /**
      * Deletes an existing Veiculo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $idVeiculo Id Veiculo
+     * @param int $id_veiculo Id Veiculo
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idVeiculo)
+    public function actionDelete($id_veiculo)
     {
-        $this->findModel($idVeiculo)->delete();
+        $this->findModel($id_veiculo)->delete();
 
         return $this->redirect(['index']);
     }
@@ -119,13 +119,13 @@ class VeiculoController extends Controller
     /**
      * Finds the Veiculo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $idVeiculo Id Veiculo
+     * @param int $id_veiculo Id Veiculo
      * @return Veiculo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idVeiculo)
+    protected function findModel($id_veiculo)
     {
-        if (($model = Veiculo::findOne(['idVeiculo' => $idVeiculo])) !== null) {
+        if (($model = Veiculo::findOne(['id_veiculo' => $id_veiculo])) !== null) {
             return $model;
         }
 

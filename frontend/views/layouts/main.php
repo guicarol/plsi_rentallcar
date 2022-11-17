@@ -151,7 +151,7 @@ AppAsset::register($this);
                         <option selected="selected">Selecione</option>
                         <?php
                         // A sample product array
-                        $products = ArrayHelper::map(Localizacao::find()->all(), 'idLocalizacao', 'morada');
+                        $products = ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'morada');
 
                         // Iterating through the product array
                         foreach($products as $item){
@@ -159,7 +159,7 @@ AppAsset::register($this);
                         }
                         ?>
                     </select>
-                    <!-- <?= Html::dropDownList('null', 'null', ArrayHelper::map(Localizacao::find()->all(), 'idLocalizacao', 'morada'),
+                    <!-- <?= Html::dropDownList('null', 'null', ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'morada'),
                         ['prompt' => 'Selecione']) ?>-->
                 </div>
 
@@ -180,12 +180,12 @@ AppAsset::register($this);
                         <option selected="selected">Selecione</option>
                         <?php
                         // A sample product array
-                        $products = ArrayHelper::map(Tipoveiculo::find()->all(), 'idTipoVeiculo', 'categoria');
+                        //$products = ArrayHelper::map(Tipoveiculo::find()->all(), 'idTipoVeiculo', 'categoria');
 
                         // Iterating through the product array
-                        foreach($products as $item){
-                            echo "<option value='strtolower($item)'>$item</option>";
-                        }
+                        //foreach($products as $item){
+                          //  echo "<option value='strtolower($item)'>$item</option>";
+                        //}
                         ?>
                     </select>
                 </div>

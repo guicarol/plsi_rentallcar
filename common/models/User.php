@@ -221,7 +221,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getAnalises()
     {
-        return $this->hasMany(Analise::class, ['idUser' => 'id']);
+        return $this->hasMany(Analise::class, ['id_user' => 'id']);
     }
 
     /**
@@ -231,7 +231,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getDetalhesalugers()
     {
-        return $this->hasMany(Detalhesaluger::class, ['idUser' => 'id']);
+        return $this->hasMany(Detalhesaluger::class, ['id_user' => 'id']);
     }
 
     /**
@@ -241,6 +241,6 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getProfile()
     {
-        return $this->hasOne(Profile::class, ['idProfile' => 'id']);
+        return $this->hasOne(Profile::class, ['id_profile' => 'id']);
     }
 }

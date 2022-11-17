@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use common\models\Tipoveiculo;
+use common\models\TipoVeiculo;
 
 /** @var yii\web\View $this */
 /** @var common\models\Veiculo $model */
@@ -30,6 +30,8 @@ use common\models\Tipoveiculo;
             ArrayHelper::map(Tipoveiculo::find()->all(),'tipoVeiculo','categoria'),
         ['prompt'=>'Selecione']
     )?>
+
+    <!-- <?= $form->field($model, 'id_tipo_veiculo')->textInput() ?> -->
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

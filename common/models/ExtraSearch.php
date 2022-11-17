@@ -17,7 +17,7 @@ class ExtraSearch extends Extra
     public function rules()
     {
         return [
-            [['idExtra'], 'integer'],
+            [['id_extra'], 'integer'],
             [['descricao'], 'safe'],
             [['preco'], 'number'],
         ];
@@ -59,7 +59,7 @@ class ExtraSearch extends Extra
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idExtra' => $this->idExtra,
+            'id_extra' => $this->id_extra,
             'preco' => $this->preco,
         ]);
 
