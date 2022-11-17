@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'idProfile') ?>
+    <?= $form->field($model, 'id_profile') ?>
 
     <?= $form->field($model, 'nome') ?>
 
@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nif') ?>
 
-    <?php // echo $form->field($model, 'nrCartaConducao') ?>
+    <?php // echo $form->field($model, 'nr_carta_conducao') ?>
 
     <?php // echo $form->field($model, 'idUser') ?>
 

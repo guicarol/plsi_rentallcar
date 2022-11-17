@@ -91,7 +91,7 @@ class SignupForm extends Model
         $profile->apelido = $this->apelido;
         $profile->nif = $this->nif;
         $profile->telemovel = $this->telemovel;
-        $profile->nrCartaConducao = $this->cartaConducao;
+        $profile->nr_carta_conducao = $this->cartaConducao;
         $profile->save();
 
 

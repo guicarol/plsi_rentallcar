@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'idProfile')->textInput(['readonly' => true]) ?>
+    <?= $form->field($model, 'id_profile')->textInput(['readonly' => true]) ?>
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nif')->textInput() ?>
 
-    <?= $form->field($model, 'nrCartaConducao')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nr_carta_conducao')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

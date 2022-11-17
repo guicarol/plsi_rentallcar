@@ -68,18 +68,18 @@ class ProfileController extends Controller
 
     /**
      * Displays a single Profile model.
-     * @param int $idProfile Id Profile
+     * @param int $id_profile Id Profile
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idProfile)
+    public function actionView($id_profile)
     {
-        if (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "cliente" && Yii::$app->user->id == $idProfile) {
+        if (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "cliente" && Yii::$app->user->id == $id_profile) {
             return $this->render('view', [
-                'model' => $this->findModel($idProfile),
+                'model' => $this->findModel($id_profile),
             ]);
         } elseif (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "admin") {
-            return $this->render('view', ['model' => $this->findModel($idProfile),
+            return $this->render('view', ['model' => $this->findModel($id_profile),
             ]);
         } else
             $this->redirect('index');
@@ -97,7 +97,7 @@ class ProfileController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idProfile' => $model->idProfile]);
+                return $this->redirect(['view', 'id_profile' => $model->id_profile]);
             }
         } else {
             $model->loadDefaultValues();
@@ -111,16 +111,16 @@ class ProfileController extends Controller
     /**
      * Updates an existing Profile model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $idProfile Id Profile
+     * @param int $id_profile Id Profile
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idProfile)
+    public function actionUpdate($id_profile)
     {
-        $model = $this->findModel($idProfile);
+        $model = $this->findModel($id_profile);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idProfile' => $model->idProfile]);
+            return $this->redirect(['view', 'id_profile' => $model->id_profile]);
         }
 
         return $this->render('update', [
@@ -131,13 +131,13 @@ class ProfileController extends Controller
     /**
      * Deletes an existing Profile model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $idProfile Id Profile
+     * @param int $id_profile Id Profile
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idProfile)
+    public function actionDelete($id_profile)
     {
-        $this->findModel($idProfile)->delete();
+        $this->findModel($id_profile)->delete();
 
         return $this->redirect(['index']);
     }
@@ -145,13 +145,13 @@ class ProfileController extends Controller
     /**
      * Finds the Profile model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $idProfile Id Profile
+     * @param int $id_profile Id Profile
      * @return Profile the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idProfile)
+    protected function findModel($id_profile)
     {
-        if (($model = Profile::findOne(['idProfile' => $idProfile])) !== null) {
+        if (($model = Profile::findOne(['id_profile' => $id_profile])) !== null) {
             return $model;
         }
 

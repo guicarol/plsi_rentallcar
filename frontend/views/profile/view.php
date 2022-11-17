@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /** @var common\models\User $user */
 
 
-$this->title = $model->idProfile;
+$this->title = $model->id_profile;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="profile-view">
@@ -16,8 +16,8 @@ $this->title = $model->idProfile;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'idProfile' => $model->idProfile], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'idProfile' => $model->idProfile], [
+        <?= Html::a('Update', ['update', 'id_profile' => $model->id_profile], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id_profile' => $model->id_profile], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -27,7 +27,7 @@ $this->title = $model->idProfile;
     </p>
 
     <?=DetailView::widget([
-        'model' => $model->idProfile0,
+        'model' => $model->id_profile0,
         'attributes' => [
             'id',
             'username',
@@ -45,12 +45,12 @@ $this->title = $model->idProfile;
     DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idProfile',
+            'id_profile',
             'nome',
             'apelido',
             'telemovel',
             'nif',
-            'nrCartaConducao',
+            'nr_carta_conducao',
         ],
     ]) ?>
 

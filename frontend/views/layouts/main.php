@@ -117,7 +117,7 @@ AppAsset::register($this);
                 [
                     'label' => Yii::$app->user->identity->username,
                     'items' => [
-                        ['label' => 'Perfil', 'url' => ['profile/view', 'idProfile' => Yii::$app->user->getId()]],
+                        ['label' => 'Perfil', 'url' => ['profile/view', 'id_profile' => Yii::$app->user->getId()]],
                         Html::a('Logout', ['/site/logout'], ['class' => ['dropdown-item'], 'data-method' => 'post'])
                     ],
                 ];
