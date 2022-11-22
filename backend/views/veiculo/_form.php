@@ -13,7 +13,8 @@ use common\models\Localizacao;
 
 <div class="veiculo-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
+
 
     <?= $form->field($model, 'marca')->textInput(['maxlength' => true]) ?>
 
@@ -36,6 +37,9 @@ use common\models\Localizacao;
     <?= $form->field($model, 'localizacao_id')->dropDownList(ArrayHelper::map(Localizacao::find()->all(),'id_localizacao','localizacao'), ['prompt'=>''])?>
 
     <!-- <?= $form->field($model, 'localizacao_id')->textInput() ?> -->
+
+    <?= $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -100,6 +100,7 @@ AppAsset::register($this);
             ['label' => 'Serviço', 'url' => ['/site/service']],
             ['label' => 'Equipa', 'url' => ['/site/team']],
             ['label' => 'Contacto', 'url' => ['/site/contact']],
+
         ];
 
         if (Yii::$app->user->isGuest) {
@@ -110,6 +111,7 @@ AppAsset::register($this);
 
             if (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "cliente") {
                 $menuItems[] = ['label' => 'As minhas Reservas', 'url' => ['/site/reserva']];
+                $menuItems[] = ['label' => 'Analise', 'url' => ['/analise/index', 'id_user' => Yii::$app->user->getId()]];
 
             }
             $menuItems[] =
