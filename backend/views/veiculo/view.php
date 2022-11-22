@@ -34,11 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'preco',
             'matricula',
             'descricao',
-            'id_tipo_veiculo',
+            'tipo_veiculo_id',
         ],
     ]) ?>
 
-    <table>
+    <!-- <table>
         <?php
         echo '<tr><td><strong> ID </strong></td><td>' . $model->id_veiculo . '</td></tr>';
         echo '<tr><td><strong> Marca </strong></td><td>' . $model->marca . '</td></tr>';
@@ -50,6 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
         //echo '<tr><td><strong> Tipo de veiculo </strong></td><td>' . $model->id_tipo_veiculo0->categoria . '</td></tr>';
         echo '<tr><td><strong> Tipo de veiculo </strong></td><td>' . $model->tipoVeiculo->categoria . '</td></tr>';
         echo '</table>';
-        ?>
+        ?>-->
 
 </div>
