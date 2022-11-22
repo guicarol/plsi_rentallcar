@@ -20,7 +20,6 @@ $tipoVeiculos = \yii\helpers\ArrayHelper::map(\common\models\TipoVeiculo::find()
 ?>
 <div class="veiculo-index">
 
-    <h1><?= Html::encode($this->title) ?></h1> 
 
     <p>
         <?= Html::a('Create Veiculo', ['create'], ['class' => 'btn btn-success']) ?>

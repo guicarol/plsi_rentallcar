@@ -69,18 +69,18 @@ class ImagemController extends Controller
     public function actionCreate()
     {
         $model = new Imagem();
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                $model->save();
+                $imageId = $model->id_imagem;
+                $image = UploadedFile::getInstance($model, 'imagem');
+                $imgname = 'img_' . $imageId . '.' . $image->getExtension();
+                $image->saveAs(\Yii::getAlias('@carImgPath') . '/' . $imgname);
+                $model->imagem = $imgname;
+                $model->save();
 
-        if ($model->load(\Yii::$app->request->post())) {
-            $model->save();
-            $imageId = $model->id_imagem;
-            $image = UploadedFile::getInstance($model, 'imagem');
-            $imgname = 'img_'. $imageId . '.' . $image->getExtension();
-            $image->saveAs(\Yii::getAlias('@carImgPath') . '/' . $imgname);
-            $model->imagem = $imgname;
-            $model->save();
-
-            return $this->redirect(['view', 'id_imagem' => $model->id_imagem]);
-
+                return $this->redirect(['view', 'id_imagem' => $model->id_imagem]);
+            }
         }else {
             $model->loadDefaultValues();
         }

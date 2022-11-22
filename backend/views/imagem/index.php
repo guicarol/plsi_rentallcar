@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="imagem-index">
 
-    <h1><?= Html::encode($this->title) ?></h1> 
 
     <p>
         <?= Html::a('Create Imagem', ['create'], ['class' => 'btn btn-success']) ?>
@@ -31,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id_imagem',
             'imagem',
+            'veiculo_id',
             [
                 'label' => 'Veiculo ',
                 'value' => function ($model) {
