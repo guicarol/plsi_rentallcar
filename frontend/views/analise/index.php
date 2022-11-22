@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'comentario',
             'classificacao',
             'data_analise',
-            'id_user',
+            'profile_id',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Analise $model, $key, $index, $column) {

@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'data_inicio',
             'data_fim',
             'veiculo_id',
-            'id_user',
+            'profile_id',
             'seguro_id',
             'localizacao_levantamento_id',
             'localizacao_devolucao_id',

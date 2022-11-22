@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'veiculo_id')->textInput() ?>
 
-    <?= $form->field($model, 'id_user')->textInput() ?>
+    <?= $form->field($model, 'profile_id')->textInput() ?>
 
     <?= $form->field($model, 'seguro_id')->textInput() ?>
 
