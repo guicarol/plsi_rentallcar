@@ -27,7 +27,7 @@ $this->title = $model->id_profile;
     </p>
 
     <?=DetailView::widget([
-        'model' => $model->id_profile0,
+        'model' => $model->id_profile,
         'attributes' => [
             'id',
             'username',

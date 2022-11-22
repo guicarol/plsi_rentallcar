@@ -71,8 +71,8 @@ create table analise (
     comentario varchar(255) not null,
     classificacao int not null,
     data_analise datetime,
-    id_user int not null,
-    foreign key(id_user) references user(id)
+    profile_id int not null,
+    foreign key(profile_id) references profile(id_profile)
 )engine=InnoDB;
 
 create table detalhes_aluger (
@@ -80,12 +80,12 @@ create table detalhes_aluger (
     data_inicio datetime,
     data_fim datetime,
     veiculo_id int not null,
-    id_user int not null,
+    profile_id int not null,
     seguro_id int not null,
     localizacao_levantamento_id int not null,
     localizacao_devolucao_id int not null,
     foreign key(veiculo_id) references veiculo(id_veiculo),
-    foreign key(id_user) references user(id),
+    foreign key(profile_id) references profile(id_profile),
     foreign key(seguro_id) references seguro(id_seguro),
     foreign key(localizacao_levantamento_id) references localizacao(id_localizacao),
     foreign key(localizacao_devolucao_id) references localizacao(id_localizacao)
