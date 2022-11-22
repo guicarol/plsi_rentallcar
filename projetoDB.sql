@@ -15,7 +15,10 @@ create table veiculo (
     preco double(5,2) not null,
     matricula varchar(9) not null unique,
     descricao varchar(255) not null,
+    estado enum("pronto", "manutencao") not null,
     id_tipo_veiculo int not null,
+    id_localizacao int not null,
+    foreign key (id_localizacao) references localizacao(id_localizacao),
     FOREIGN KEY (id_tipo_veiculo) REFERENCES tipo_veiculo(id_tipo_veiculo)
 )engine=InnoDB;
 
@@ -106,8 +109,8 @@ insert into tipo_veiculo values
 (default, "Utilitário");
 
 insert into veiculo values
-(default, "VW", "Golf", "Diesel", 29.99, "AA-11-AA", "Longa descrição do veiculo", 8),
-(default, "BMW", "X1", "Diesel", 59.99, "BB-22-BB", "Longa descrição do veiculo", 7);
+(default, "VW", "Golf", "Diesel", 29.99, "AA-11-AA", "Longa descrição do veiculo", "Pronto", 8, 1),
+(default, "BMW", "X1", "Diesel", 59.99, "BB-22-BB", "Longa descrição do veiculo", "Pronto", 7, 2);
 
 insert into localizacao values
 (default, "Leiria", "2400-137"),
