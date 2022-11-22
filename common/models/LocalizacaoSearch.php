@@ -18,7 +18,7 @@ class LocalizacaoSearch extends Localizacao
     {
         return [
             [['id_localizacao'], 'integer'],
-            [['morada', 'cod_postal'], 'safe'],
+            [['localizacao', 'morada', 'cod_postal'], 'safe'],
         ];
     }
 
@@ -61,7 +61,8 @@ class LocalizacaoSearch extends Localizacao
             'id_localizacao' => $this->id_localizacao,
         ]);
 
-        $query->andFilterWhere(['like', 'morada', $this->morada])
+        $query->andFilterWhere(['like', 'localizacao', $this->localizacao])
+            ->andFilterWhere(['like', 'morada', $this->morada])
             ->andFilterWhere(['like', 'cod_postal', $this->cod_postal]);
 
         return $dataProvider;

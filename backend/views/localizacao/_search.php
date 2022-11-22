@@ -17,6 +17,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_localizacao') ?>
 
+    <?= $form->field($model, 'localizacao') ?>
+
     <?= $form->field($model, 'morada') ?>
 
     <?= $form->field($model, 'cod_postal') ?>

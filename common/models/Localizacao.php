@@ -8,11 +8,13 @@ use Yii;
  * This is the model class for table "localizacao".
  *
  * @property int $id_localizacao
+ * @property string $localizacao
  * @property string $morada
  * @property string $cod_postal
  *
  * @property DetalhesAluger[] $detalhesAlugers
  * @property DetalhesAluger[] $detalhesAlugers0
+ * @property Veiculo[] $veiculos
  */
 class Localizacao extends \yii\db\ActiveRecord
 {
@@ -30,8 +32,9 @@ class Localizacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['morada', 'cod_postal'], 'required'],
-            [['morada'], 'string', 'max' => 51],
+            [['localizacao', 'morada', 'cod_postal'], 'required'],
+            [['localizacao'], 'string', 'max' => 51],
+            [['morada'], 'string', 'max' => 71],
             [['cod_postal'], 'string', 'max' => 9],
         ];
     }
@@ -43,6 +46,7 @@ class Localizacao extends \yii\db\ActiveRecord
     {
         return [
             'id_localizacao' => 'Id Localizacao',
+            'localizacao' => 'Localizacao',
             'morada' => 'Morada',
             'cod_postal' => 'Cod Postal',
         ];
@@ -55,7 +59,7 @@ class Localizacao extends \yii\db\ActiveRecord
      */
     public function getDetalhesAlugers()
     {
-        return $this->hasMany(DetalhesAluger::class, ['id_localizacao_levantamento' => 'id_localizacao']);
+        return $this->hasMany(DetalhesAluger::class, ['localizacao_levantamento_id' => 'id_localizacao']);
     }
 
     /**
@@ -65,6 +69,16 @@ class Localizacao extends \yii\db\ActiveRecord
      */
     public function getDetalhesAlugers0()
     {
-        return $this->hasMany(DetalhesAluger::class, ['id_localizacao_devolucao' => 'id_localizacao']);
+        return $this->hasMany(DetalhesAluger::class, ['localizacao_devolucao_id' => 'id_localizacao']);
+    }
+
+    /**
+     * Gets query for [[Veiculos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVeiculos()
+    {
+        return $this->hasMany(Veiculo::class, ['localizacao_id' => 'id_localizacao']);
     }
 }

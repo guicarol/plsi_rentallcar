@@ -37,7 +37,8 @@ create table imagem(
 
 create table localizacao (
 	id_localizacao int not null primary key auto_increment,
-    morada varchar(51) not null,
+    localizacao varchar(51) not null,
+    morada varchar(71) not null,
     cod_postal varchar(9) not null
 )engine=InnoDB;
 
@@ -104,7 +105,7 @@ create table extra_detalhes_aluger(
     PRIMARY KEY (extra_id, detalhes_aluger_id)
 )engine=InnoDB;
 
-create table assitencia(
+create table assistencia(
 	id_assistencia int not null auto_increment primary key,
     dataPedido datetime not null,
     mensagem varchar(91) not null,

@@ -12,6 +12,8 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'localizacao')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'morada')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'cod_postal')->textInput(['maxlength' => true]) ?>
