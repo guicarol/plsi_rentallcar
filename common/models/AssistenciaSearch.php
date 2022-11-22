@@ -4,12 +4,12 @@ namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Imagem;
+use common\models\Assistencia;
 
 /**
- * ImagemSearch represents the model behind the search form of `common\models\Imagem`.
+ * AssistenciaSearch represents the model behind the search form of `common\models\Assistencia`.
  */
-class ImagemSearch extends Imagem
+class AssistenciaSearch extends Assistencia
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class ImagemSearch extends Imagem
     public function rules()
     {
         return [
-            [['id_imagem', 'veiculo_id'], 'integer'],
-            [['imagem'], 'safe'],
+            [['id_assistencia', 'veiculo_id'], 'integer'],
+            [['dataPedido', 'mensagem', 'localizacao'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class ImagemSearch extends Imagem
      */
     public function search($params)
     {
-        $query = Imagem::find();
+        $query = Assistencia::find();
 
         // add conditions that should always apply here
 
@@ -58,11 +58,13 @@ class ImagemSearch extends Imagem
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_imagem' => $this->id_imagem,
+            'id_assistencia' => $this->id_assistencia,
+            'dataPedido' => $this->dataPedido,
             'veiculo_id' => $this->veiculo_id,
         ]);
 
-        $query->andFilterWhere(['like', 'imagem', $this->imagem]);
+        $query->andFilterWhere(['like', 'mensagem', $this->mensagem])
+            ->andFilterWhere(['like', 'localizacao', $this->localizacao]);
 
         return $dataProvider;
     }

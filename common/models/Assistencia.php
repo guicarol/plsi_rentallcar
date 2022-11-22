@@ -5,22 +5,24 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "imagem".
+ * This is the model class for table "assistencia".
  *
- * @property int $id_imagem
- * @property string $imagem
+ * @property int $id_assistencia
+ * @property string $dataPedido
+ * @property string $mensagem
+ * @property string $localizacao
  * @property int $veiculo_id
  *
  * @property Veiculo $veiculo
  */
-class Imagem extends \yii\db\ActiveRecord
+class Assistencia extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'imagem';
+        return 'assistencia';
     }
 
     /**
@@ -29,9 +31,11 @@ class Imagem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['imagem', 'veiculo_id'], 'required'],
+            [['dataPedido', 'mensagem', 'localizacao', 'veiculo_id'], 'required'],
+            [['dataPedido'], 'safe'],
             [['veiculo_id'], 'integer'],
-            [['imagem'], 'string', 'max' => 81],
+            [['mensagem'], 'string', 'max' => 91],
+            [['localizacao'], 'string', 'max' => 51],
             [['veiculo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Veiculo::class, 'targetAttribute' => ['veiculo_id' => 'id_veiculo']],
         ];
     }
@@ -42,8 +46,10 @@ class Imagem extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_imagem' => 'Id Imagem',
-            'imagem' => 'Imagem',
+            'id_assistencia' => 'Id Assistencia',
+            'dataPedido' => 'Data Pedido',
+            'mensagem' => 'Mensagem',
+            'localizacao' => 'Localizacao',
             'veiculo_id' => 'Veiculo ID',
         ];
     }

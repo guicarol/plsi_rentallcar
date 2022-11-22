@@ -12,6 +12,11 @@ use yii\grid\GridView;
 
 $this->title = 'Veiculos';
 $this->params['breadcrumbs'][] = $this->title;
+
+// \yii\helpers\ArrayHelper::map(\common\models\Genre::find()->asArray()->all(), 'id', 'name')
+
+$tipoVeiculos = \yii\helpers\ArrayHelper::map(\common\models\TipoVeiculo::find()->asArray()->all(), 'id_tipo_veiculo', 'categoria');
+
 ?>
 <div class="veiculo-index">
 
@@ -34,15 +39,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'preco',
             'matricula',
             'descricao',
-            'id_tipo_veiculo',
-            /*[
-                'label' => 'Tipoveiculo',
+            //'id_tipo_veiculo',
+            [
+                'label' => 'Tipo Veiculo',
+                'attribute' => 'tipoVeiculos',
+                'format' => 'raw',
+                'filter' => $tipoVeiculos,
                 'value' => function ($model) {
                     {
                         return $model->tipoVeiculo->categoria ;
                     }
                 }
-            ],*/
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Veiculo $model, $key, $index, $column) {

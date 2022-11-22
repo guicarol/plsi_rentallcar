@@ -7,8 +7,8 @@ use Yii;
 /**
  * This is the model class for table "extra_detalhes_aluger".
  *
- * @property int $id_extra
- * @property int $id_detalhes_aluger
+ * @property int $extra_id
+ * @property int $detalhes_aluger_id
  *
  * @property DetalhesAluger $detalhesAluger
  * @property Extra $extra
@@ -29,11 +29,11 @@ class ExtraDetalhesAluger extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_extra', 'id_detalhes_aluger'], 'required'],
-            [['id_extra', 'id_detalhes_aluger'], 'integer'],
-            [['id_extra', 'id_detalhes_aluger'], 'unique', 'targetAttribute' => ['id_extra', 'id_detalhes_aluger']],
-            [['id_extra'], 'exist', 'skipOnError' => true, 'targetClass' => Extra::class, 'targetAttribute' => ['id_extra' => 'id_extra']],
-            [['id_detalhes_aluger'], 'exist', 'skipOnError' => true, 'targetClass' => DetalhesAluger::class, 'targetAttribute' => ['id_detalhes_aluger' => 'id_detalhes_aluguer']],
+            [['extra_id', 'detalhes_aluger_id'], 'required'],
+            [['extra_id', 'detalhes_aluger_id'], 'integer'],
+            [['extra_id', 'detalhes_aluger_id'], 'unique', 'targetAttribute' => ['extra_id', 'detalhes_aluger_id']],
+            [['extra_id'], 'exist', 'skipOnError' => true, 'targetClass' => Extra::class, 'targetAttribute' => ['extra_id' => 'id_extra']],
+            [['detalhes_aluger_id'], 'exist', 'skipOnError' => true, 'targetClass' => DetalhesAluger::class, 'targetAttribute' => ['detalhes_aluger_id' => 'id_detalhes_aluguer']],
         ];
     }
 
@@ -43,8 +43,8 @@ class ExtraDetalhesAluger extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_extra' => 'Id Extra',
-            'id_detalhes_aluger' => 'Id Detalhes Aluger',
+            'extra_id' => 'Extra ID',
+            'detalhes_aluger_id' => 'Detalhes Aluger ID',
         ];
     }
 
@@ -55,7 +55,7 @@ class ExtraDetalhesAluger extends \yii\db\ActiveRecord
      */
     public function getDetalhesAluger()
     {
-        return $this->hasOne(DetalhesAluger::class, ['id_detalhes_aluguer' => 'id_detalhes_aluger']);
+        return $this->hasOne(DetalhesAluger::class, ['id_detalhes_aluguer' => 'detalhes_aluger_id']);
     }
 
     /**
@@ -65,6 +65,6 @@ class ExtraDetalhesAluger extends \yii\db\ActiveRecord
      */
     public function getExtra()
     {
-        return $this->hasOne(Extra::class, ['id_extra' => 'id_extra']);
+        return $this->hasOne(Extra::class, ['id_extra' => 'extra_id']);
     }
 }

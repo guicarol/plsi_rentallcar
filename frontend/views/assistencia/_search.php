@@ -4,20 +4,24 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var common\models\ImagemSearch $model */
+/** @var common\models\AssistenciaSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="imagem-search">
+<div class="assistencia-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id_imagem') ?>
+    <?= $form->field($model, 'id_assistencia') ?>
 
-    <?= $form->field($model, 'imagem') ?>
+    <?= $form->field($model, 'dataPedido') ?>
+
+    <?= $form->field($model, 'mensagem') ?>
+
+    <?= $form->field($model, 'localizacao') ?>
 
     <?= $form->field($model, 'veiculo_id') ?>
 

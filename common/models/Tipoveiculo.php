@@ -51,6 +51,6 @@ class TipoVeiculo extends \yii\db\ActiveRecord
      */
     public function getVeiculos()
     {
-        return $this->hasMany(Veiculo::class, ['id_tipo_veiculo' => 'id_tipo_veiculo']);
+        return $this->hasMany(Veiculo::class, ['tipo_veiculo_id' => 'id_tipo_veiculo']);
     }
 }

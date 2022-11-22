@@ -13,6 +13,7 @@ use yii\rbac\Role;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Users';
+$roles = array('admin'=>'admin','gestor'=>'gestor','cliente'=>'cliente');
 ?>
 <div class="user-index">
 
@@ -29,13 +30,11 @@ $this->title = 'Users';
             'id',
             'username',
             'email:email',
-
-
             [
                 'label' => 'Role',
                 'attribute' => 'role',
                 'format' => 'raw',
-                'filter' =>array('admin'=>'admin','gestor'=>'gestor','cliente'=>'cliente'),
+                'filter' =>$roles,
                 'value' => function ($model) {
                     if (Yii::$app->authManager->getRolesByUser($model->id) != null) {
                         return array_keys(Yii::$app->authManager->getRolesByUser($model->id))[0];

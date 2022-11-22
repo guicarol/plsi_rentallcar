@@ -29,7 +29,11 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'descricao') ?>
 
-    <?php // echo $form->field($model, 'id_tipo_veiculo') ?>
+    <?php // echo $form->field($model, 'estado') ?>
+
+    <?php // echo $form->field($model, 'tipo_veiculo_id') ?>
+
+    <?php // echo $form->field($model, 'localizacao_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -17,11 +17,11 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'imagem')->fileInput() ?>
 
     <?= $form->field($model, 'veiculo')->dropDownList(
-        ArrayHelper::map(Veiculo::find()->all(),'id_veiculo','modelo','marca'),
+        ArrayHelper::map(Veiculo::find()->all(),'veiculo_id','modelo','marca'),
         ['prompt'=>'Selecione']
     )?>
 
-    <!-- <?= $form->field($model, 'id_veiculo')->textInput() ?> -->
+    <!-- <?= $form->field($model, 'veiculo_id')->textInput() ?> -->
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

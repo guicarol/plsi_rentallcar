@@ -17,9 +17,10 @@ class VeiculoSearch extends Veiculo
     public function rules()
     {
         return [
-            [['id_veiculo', 'id_tipo_veiculo'], 'integer'],
-            [['marca', 'modelo', 'combustivel', 'matricula', 'descricao'], 'safe'],
+            [['id_veiculo', 'tipo_veiculo_id', 'localizacao_id'], 'integer'],
+            [['marca', 'modelo', 'combustivel', 'matricula', 'descricao', 'estado'], 'safe'],
             [['preco'], 'number'],
+            [['tipoVeiculos'], 'safe'],
         ];
     }
 
@@ -57,18 +58,26 @@ class VeiculoSearch extends Veiculo
             return $dataProvider;
         }
 
+        
+        if($this->tipoVeiculos){
+            $query->join('INNER JOIN','tipo_veiculo','tipo_veiculo.id_tipo_veiculo = tipo_veiculo_id')
+            ->andFilterWhere(['veiculo.tipo_veiculo_id' => $this->tipoVeiculos]);
+        }
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id_veiculo' => $this->id_veiculo,
             'preco' => $this->preco,
-            'id_tipo_veiculo' => $this->id_tipo_veiculo,
+            'tipo_veiculo_id' => $this->tipo_veiculo_id,
+            'localizacao_id' => $this->localizacao_id,
         ]);
 
         $query->andFilterWhere(['like', 'marca', $this->marca])
             ->andFilterWhere(['like', 'modelo', $this->modelo])
             ->andFilterWhere(['like', 'combustivel', $this->combustivel])
             ->andFilterWhere(['like', 'matricula', $this->matricula])
-            ->andFilterWhere(['like', 'descricao', $this->descricao]);
+            ->andFilterWhere(['like', 'descricao', $this->descricao])
+            ->andFilterWhere(['like', 'estado', $this->estado]);
 
         return $dataProvider;
     }
