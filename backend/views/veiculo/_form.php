@@ -29,11 +29,11 @@ use common\models\Localizacao;
 
     <?= $form->field($model, 'estado')->dropDownList([ 'pronto' => 'Pronto', 'manutencao' => 'Manutencao', ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'tipo_veiculo_id')->dropDownList(ArrayHelper::map(Tipoveiculo::find()->all(),'id_tipo_veiculo','categoria'), ['prompt'=>'Selecione'])?>
+    <?= $form->field($model, 'tipo_veiculo_id')->dropDownList(ArrayHelper::map(Tipoveiculo::find()->all(),'id_tipo_veiculo','categoria'), ['prompt'=>''])?>
 
     <!-- <?= $form->field($model, 'tipo_veiculo_id')->textInput() ?> -->
 
-    <?= $form->field($model, 'localizacao_id')->dropDownList(ArrayHelper::map(Localizacao::find()->all(),'id_localizacao','localizacao'), ['prompt'=>'Selecione'])?>
+    <?= $form->field($model, 'localizacao_id')->dropDownList(ArrayHelper::map(Localizacao::find()->all(),'id_localizacao','localizacao'), ['prompt'=>''])?>
 
     <!-- <?= $form->field($model, 'localizacao_id')->textInput() ?> -->
 

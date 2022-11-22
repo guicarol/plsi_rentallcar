@@ -70,8 +70,8 @@ class Veiculo extends \yii\db\ActiveRecord
             'matricula' => 'Matricula',
             'descricao' => 'Descricao',
             'estado' => 'Estado',
-            'tipo_veiculo_id' => 'Tipo Veiculo ID',
-            'localizacao_id' => 'Localizacao ID',
+            'tipo_veiculo_id' => 'Categoria',
+            'localizacao_id' => 'Localizacao carro',
         ];
     }
 
