@@ -24,7 +24,7 @@ use Yii;
  * @property User $user
  * @property Veiculo $veiculo
  */
-class DetalhesAluger extends \yii\db\ActiveRecord
+class Detalhesaluguer extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
