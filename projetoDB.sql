@@ -1,16 +1,17 @@
 create database projetoDB;
 
-drop table imagem;
-drop table extra_detalhes_aluger;
-drop table detalhes_aluger;
-drop table veiculo;
-drop table tipo_veiculo;
-
 use projetoDB;
 
 create table tipo_veiculo (
     id_tipo_veiculo INT NOT NULL PRIMARY KEY auto_increment,
     categoria VARCHAR(21) NOT NULL
+)engine=InnoDB;
+
+create table localizacao (
+	id_localizacao int not null primary key auto_increment,
+    localizacao varchar(51) not null,
+    morada varchar(71) not null,
+    cod_postal varchar(9) not null
 )engine=InnoDB;
 
 create table veiculo (
@@ -33,13 +34,6 @@ create table imagem(
     imagem varchar(81) not null,
     veiculo_id int not null,
     foreign key(veiculo_id) references veiculo(id_veiculo)
-)engine=InnoDB;
-
-create table localizacao (
-	id_localizacao int not null primary key auto_increment,
-    localizacao varchar(51) not null,
-    morada varchar(71) not null,
-    cod_postal varchar(9) not null
 )engine=InnoDB;
 
 create table extra (
@@ -124,13 +118,13 @@ insert into tipo_veiculo values
 (default, "SUV/TT"),
 (default, "Utilitário");
 
+insert into localizacao values
+(default, "Leiria", "Rua dos testes Leiria", "2400-137"),
+(default, "Leiria - Batalha", "Rua dos teste Batalha", "2440-041");
+
 insert into veiculo values
 (default, "VW", "Golf", "Diesel", 29.99, "AA-11-AA", "Longa descrição do veiculo", "Pronto", 8, 1),
 (default, "BMW", "X1", "Diesel", 59.99, "BB-22-BB", "Longa descrição do veiculo", "Pronto", 7, 2);
-
-insert into localizacao values
-(default, "Leiria", "2400-137"),
-(default, "Leiria - Batalha", "2440-041");
 
 insert into extra values
 (default, "Via-Verde", 6.99),
