@@ -29,15 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function ($model) {
                     {
-                        return $model->tipoVeiculo->categoria ;
+                        return $model->tipoVeiculo->categoria;
                     }
                 }
             ],
         ],
     ]) ?>
 
-    <?= Html::a('Reservar', ['detalhesaluguer/create', 'id_veiculo' => $model->id_veiculo], ['class' => 'btn btn-primary']);?>
-
-
-
+    <?= Html::a('Reservar', ['/detalhesaluguer/create','id_veiculo'=>$model->id_veiculo], ['class' => 'btn btn-primary']); ?>
 </div>

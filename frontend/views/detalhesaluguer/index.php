@@ -4,7 +4,7 @@ use common\models\Detalhesaluguer;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
-use yii\widgets\ListView;
+use yii\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var common\models\DetalhesaluguerSearch $searchModel */
@@ -21,15 +21,48 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Detalhesaluguer', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= ListView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'itemOptions' => ['class' => 'item'],
-        'itemView' => function ($model, $key, $index, $widget) {
-            return Html::a(Html::encode($model->id_detalhes_aluguer), ['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
-        },
-    ]) ?>
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'data_inicio',
+            'data_fim',
+            [
+                'label' => 'Carro',
+                'value' => function ($model) {
+                    return $model->veiculo->marca;
+                }
+            ],
+            [
+                'label' => 'Tipo de seguro',
+                'value' => function ($model) {
+                    return $model->seguro->cobertura;
+                }
+            ],
+            [
+                'label' => 'Localizacao de recolha',
+                'value' => function ($model) {
+                    return $model->localizacaoLevantamento->morada;
+                }
+            ],
+            [
+                'label' => 'Localizacao de devolucao',
+                'value' => function ($model) {
+                    return $model->localizacaoDevolucao->morada;
+                }
+            ],
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, Detalhesaluguer $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
+                }
+            ],
+        ],
+    ]); ?>
 
 
 </div>

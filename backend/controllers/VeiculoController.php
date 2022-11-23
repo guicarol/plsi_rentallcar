@@ -4,9 +4,12 @@ namespace backend\controllers;
 
 use common\models\Veiculo;
 use common\models\VeiculoSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\UploadForm;
+use yii\web\UploadedFile;
 
 /**
  * VeiculoController implements the CRUD actions for Veiculo model.
@@ -130,5 +133,21 @@ class VeiculoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    public function actionUpload()
+    {
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+            if ($model->upload()) {
+                $model->saveAs(\Yii::getAlias('@carImgPath') . '/' . $imgname);
+                return;
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
     }
 }
