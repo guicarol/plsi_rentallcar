@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'veiculo_id')->textInput(['value'=> $model->veiculo_id]); ?>
 
-    <?= $form->field($model, 'id_user' )->textInput(['value' => Yii::$app->user->identity->getId()]); ?>
+    <?= $form->field($model, 'profile_id' )->textInput(['value' => Yii::$app->user->identity->getId()]); ?>
 
     <?= $form->field($model, 'seguro_id')->dropDownList(ArrayHelper::map(\common\models\Seguro::find()->all(),'id_seguro','cobertura'), ['prompt'=>''])?>
 

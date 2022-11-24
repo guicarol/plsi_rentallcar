@@ -110,7 +110,7 @@ AppAsset::register($this);
         } else {
 
             if (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "cliente") {
-                $menuItems[] = ['label' => 'As minhas Reservas', 'url' => ['/site/reserva']];
+                $menuItems[] = ['label' => 'As minhas Reservas', 'url' => ['/detalhesaluguer/index']];
                 $menuItems[] = ['label' => 'Analise', 'url' => ['/analise/index', 'id_user' => Yii::$app->user->getId()]];
 
             }
