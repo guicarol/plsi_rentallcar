@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'data_pedido',
             'mensagem',
             'localizacao',
+            'condicao',
             'veiculo_id',
             'profile_id',
         ],

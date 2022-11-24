@@ -117,6 +117,7 @@ create table assistencia(
     data_pedido datetime not null,
     mensagem varchar(91) not null,
     localizacao varchar(51) not null,
+    condicao enum("resolvido", "nao_resolvido") not null default 'nao_resolvido',
     veiculo_id int not null,
     profile_id int not null,
     foreign key(profile_id) references profile(id_profile),
@@ -154,4 +155,6 @@ insert into analise values
 (default, "Melhor serviço para alugar carros, com vários extras. Recomendo!", 5, now(),3);
 
 insert into assistencia values
-(default, now(), "O veiculo deixou de pegar.", "Leiria, Rua de Leiria", 2, 3);
+(default, now(), "O veiculo deixou de pegar.", "Leiria, Rua de Leiria", 'resolvido', 2, 3),
+(default, now(), "O veiculo ficou sem combustivel.", "Batalha, Rua da Batalha", default, 1, 2),
+(default, now(), "O veiculo nao fecha vidro do condutor.", "Leiria, Rua do IPL", default, 2, 2);
