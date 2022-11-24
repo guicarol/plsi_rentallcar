@@ -17,7 +17,7 @@ class DetalhesaluguerSearch extends Detalhesaluguer
     public function rules()
     {
         return [
-            [['id_detalhes_aluguer', 'veiculo_id', 'id_user', 'seguro_id', 'localizacao_levantamento_id', 'localizacao_devolucao_id'], 'integer'],
+            [['id_detalhes_aluguer', 'veiculo_id', 'profile_id', 'seguro_id', 'localizacao_levantamento_id', 'localizacao_devolucao_id'], 'integer'],
             [['data_inicio', 'data_fim'], 'safe'],
         ];
     }
@@ -62,7 +62,7 @@ class DetalhesaluguerSearch extends Detalhesaluguer
             'data_inicio' => $this->data_inicio,
             'data_fim' => $this->data_fim,
             'veiculo_id' => $this->veiculo_id,
-            'id_user' => $this->id_user,
+            'profile_id' => $this->profile_id,
             'seguro_id' => $this->seguro_id,
             'localizacao_levantamento_id' => $this->localizacao_levantamento_id,
             'localizacao_devolucao_id' => $this->localizacao_devolucao_id,

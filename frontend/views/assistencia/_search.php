@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_assistencia') ?>
 
-    <?= $form->field($model, 'dataPedido') ?>
+    <?= $form->field($model, 'data_pedido') ?>
 
     <?= $form->field($model, 'mensagem') ?>
 

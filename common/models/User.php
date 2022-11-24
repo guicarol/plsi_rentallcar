@@ -213,27 +213,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
-
-    /**
-     * Gets query for [[Analises]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAnalises()
-    {
-        return $this->hasMany(Analise::class, ['id_user' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Detalhesalugers]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getDetalhesalugers()
-    {
-        return $this->hasMany(Detalhesaluger::class, ['id_user' => 'id']);
-    }
-
+    
     /**
      * Gets query for [[Profile]].
      *

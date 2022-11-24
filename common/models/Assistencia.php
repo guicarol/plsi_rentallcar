@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "assistencia".
  *
  * @property int $id_assistencia
- * @property string $dataPedido
+ * @property string $data_pedido
  * @property string $mensagem
  * @property string $localizacao
  * @property int $veiculo_id
@@ -31,8 +31,8 @@ class Assistencia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['dataPedido', 'mensagem', 'localizacao', 'veiculo_id'], 'required'],
-            [['dataPedido'], 'safe'],
+            [['data_pedido', 'mensagem', 'localizacao', 'veiculo_id'], 'required'],
+            [['data_pedido'], 'safe'],
             [['veiculo_id'], 'integer'],
             [['mensagem'], 'string', 'max' => 91],
             [['localizacao'], 'string', 'max' => 51],
@@ -47,7 +47,7 @@ class Assistencia extends \yii\db\ActiveRecord
     {
         return [
             'id_assistencia' => 'Id Assistencia',
-            'dataPedido' => 'Data Pedido',
+            'data_pedido' => 'Data Pedido',
             'mensagem' => 'Mensagem',
             'localizacao' => 'Localizacao',
             'veiculo_id' => 'Veiculo ID',

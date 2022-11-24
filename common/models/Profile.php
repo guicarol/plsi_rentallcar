@@ -14,6 +14,8 @@ use Yii;
  * @property int $nif
  * @property string $nr_carta_conducao
  *
+ * @property Analise[] $analises
+ * @property DetalhesAluguer[] $detalhesAluguers
  * @property User $profile
  */
 class Profile extends \yii\db\ActiveRecord
@@ -57,6 +59,26 @@ class Profile extends \yii\db\ActiveRecord
             'nif' => 'Nif',
             'nr_carta_conducao' => 'Nr Carta Conducao',
         ];
+    }
+
+    /**
+     * Gets query for [[Analises]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAnalises()
+    {
+        return $this->hasMany(Analise::class, ['profile_id' => 'id_profile']);
+    }
+
+    /**
+     * Gets query for [[DetalhesAluguers]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDetalhesAluguers()
+    {
+        return $this->hasMany(DetalhesAluguer::class, ['profile_id' => 'id_profile']);
     }
 
     /**

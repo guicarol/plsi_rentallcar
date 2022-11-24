@@ -18,7 +18,8 @@ use Yii;
  * @property int $tipo_veiculo_id
  * @property int $localizacao_id
  *
- * @property DetalhesAluger[] $detalhesAlugers
+ * @property Assistencia[] $assistencias
+ * @property DetalhesAluguer[] $detalhesAluguers
  * @property Imagem[] $imagems
  * @property Localizacao $localizacao
  * @property TipoVeiculo $tipoVeiculo
@@ -76,13 +77,23 @@ class Veiculo extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[DetalhesAlugers]].
+     * Gets query for [[Assistencias]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDetalhesAlugers()
+    public function getAssistencias()
     {
-        return $this->hasMany(DetalhesAluger::class, ['veiculo_id' => 'id_veiculo']);
+        return $this->hasMany(Assistencia::class, ['veiculo_id' => 'id_veiculo']);
+    }
+
+    /**
+     * Gets query for [[DetalhesAluguers]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDetalhesAluguers()
+    {
+        return $this->hasMany(DetalhesAluguer::class, ['veiculo_id' => 'id_veiculo']);
     }
 
     /**

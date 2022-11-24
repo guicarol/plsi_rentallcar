@@ -17,7 +17,7 @@ class AnaliseSearch extends Analise
     public function rules()
     {
         return [
-            [['id_analise', 'classificacao', 'id_user'], 'integer'],
+            [['id_analise', 'classificacao', 'profile_id'], 'integer'],
             [['comentario', 'data_analise'], 'safe'],
         ];
     }
@@ -61,7 +61,7 @@ class AnaliseSearch extends Analise
             'id_analise' => $this->id_analise,
             'classificacao' => $this->classificacao,
             'data_analise' => $this->data_analise,
-            'id_user' => $this->id_user,
+            'profile_id' => $this->profile_id,
         ]);
 
         $query->andFilterWhere(['like', 'comentario', $this->comentario]);

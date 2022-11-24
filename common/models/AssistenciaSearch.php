@@ -18,7 +18,7 @@ class AssistenciaSearch extends Assistencia
     {
         return [
             [['id_assistencia', 'veiculo_id'], 'integer'],
-            [['dataPedido', 'mensagem', 'localizacao'], 'safe'],
+            [['data_pedido', 'mensagem', 'localizacao'], 'safe'],
         ];
     }
 
@@ -59,7 +59,7 @@ class AssistenciaSearch extends Assistencia
         // grid filtering conditions
         $query->andFilterWhere([
             'id_assistencia' => $this->id_assistencia,
-            'dataPedido' => $this->dataPedido,
+            'data_pedido' => $this->data_pedido,
             'veiculo_id' => $this->veiculo_id,
         ]);
 

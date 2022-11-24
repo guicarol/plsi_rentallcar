@@ -11,8 +11,7 @@ use Yii;
  * @property string $descricao
  * @property float $preco
  *
- * @property DetalhesAluger[] $detalhesAlugers
- * @property ExtraDetalhesAluger[] $extraDetalhesAlugers
+ * @property ExtraDetalhesAluguer[] $extraDetalhesAluguers
  */
 class Extra extends \yii\db\ActiveRecord
 {
@@ -49,22 +48,12 @@ class Extra extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[DetalhesAlugers]].
+     * Gets query for [[ExtraDetalhesAluguers]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDetalhesAlugers()
+    public function getExtraDetalhesAluguers()
     {
-        return $this->hasMany(DetalhesAluger::class, ['id_detalhes_aluguer' => 'id_detalhes_aluger'])->viaTable('extra_detalhes_aluger', ['id_extra' => 'id_extra']);
-    }
-
-    /**
-     * Gets query for [[ExtraDetalhesAlugers]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getExtraDetalhesAlugers()
-    {
-        return $this->hasMany(ExtraDetalhesAluger::class, ['id_extra' => 'id_extra']);
+        return $this->hasMany(ExtraDetalhesAluguer::class, ['extra_id' => 'id_extra']);
     }
 }

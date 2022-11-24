@@ -35,7 +35,7 @@ class Analise extends \yii\db\ActiveRecord
             [['classificacao', 'profile_id'], 'integer'],
             [['data_analise'], 'safe'],
             [['comentario'], 'string', 'max' => 255],
-            [['profile_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['profile_id' => 'id_profile']],
+            [['profile_id'], 'exist', 'skipOnError' => true, 'targetClass' => Profile::class, 'targetAttribute' => ['profile_id' => 'id_profile']],
         ];
     }
 

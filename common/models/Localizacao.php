@@ -12,8 +12,8 @@ use Yii;
  * @property string $morada
  * @property string $cod_postal
  *
- * @property DetalhesAluger[] $detalhesAlugers
- * @property DetalhesAluger[] $detalhesAlugers0
+ * @property DetalhesAluguer[] $detalhesAluguerLevantamento
+ * @property DetalhesAluguer[] $detalhesAluguerDevolucao
  * @property Veiculo[] $veiculos
  */
 class Localizacao extends \yii\db\ActiveRecord
@@ -53,23 +53,23 @@ class Localizacao extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[DetalhesAlugers]].
+     * Gets query for [[DetalhesAluguerLevantamento]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDetalhesAlugers()
+    public function getDetalhesAluguerLevantamento()
     {
-        return $this->hasMany(DetalhesAluger::class, ['localizacao_levantamento_id' => 'id_localizacao']);
+        return $this->hasMany(DetalhesAluguer::class, ['localizacao_levantamento_id' => 'id_localizacao']);
     }
 
     /**
-     * Gets query for [[DetalhesAlugers0]].
+     * Gets query for [[DetalhesAluguerDevolucao]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDetalhesAlugers0()
+    public function getDetalhesAluguerDevolucao()
     {
-        return $this->hasMany(DetalhesAluger::class, ['localizacao_devolucao_id' => 'id_localizacao']);
+        return $this->hasMany(DetalhesAluguer::class, ['localizacao_devolucao_id' => 'id_localizacao']);
     }
 
     /**

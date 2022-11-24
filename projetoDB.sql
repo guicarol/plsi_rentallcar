@@ -2,6 +2,8 @@ create database projetoDB;
 
 use projetoDB;
 
+drop table assistencia, linha_fatura, fatura, extra_detalhes_aluguer, detalhes_aluguer, analise, seguro, extra, imagem, veiculo, localizacao, tipo_veiculo;
+
 create table tipo_veiculo (
     id_tipo_veiculo INT NOT NULL PRIMARY KEY auto_increment,
     categoria VARCHAR(21) NOT NULL
@@ -49,13 +51,6 @@ create table seguro (
     preco double(4,2) not null
 )engine=InnoDB;
 
-create table fatura (
-	id_fatura int not null primary key auto_increment,
-    data_fatura datetime,
-    preco_total double (5,2) not null
-)engine=InnoDB;
-
-
 create table profile (
 	id_profile int not null primary key,
     nome varchar(21) not null,
@@ -75,7 +70,7 @@ create table analise (
     foreign key(profile_id) references profile(id_profile)
 )engine=InnoDB;
 
-create table detalhes_aluger (
+create table detalhes_aluguer (
 	id_detalhes_aluguer int not null primary key auto_increment,
     data_inicio datetime,
     data_fim datetime,
@@ -91,22 +86,41 @@ create table detalhes_aluger (
     foreign key(localizacao_devolucao_id) references localizacao(id_localizacao)
 )engine=InnoDB;
 
-create table extra_detalhes_aluger(
+create table extra_detalhes_aluguer(
+	id_extra_detalhes_aluguer int not null auto_increment primary key,
 	extra_id int not null,
-    detalhes_aluger_id int not null,
+    detalhes_aluguer_id int not null,
     foreign key(extra_id) references extra(id_extra),
-    foreign key(detalhes_aluger_id) references detalhes_aluger(id_detalhes_aluguer),
-    PRIMARY KEY (extra_id, detalhes_aluger_id)
+    foreign key(detalhes_aluguer_id) references detalhes_aluguer(id_detalhes_aluguer)
+)engine=InnoDB;
+
+create table fatura (
+	id_fatura int not null primary key auto_increment,
+    data_inicio_aluguer datetime not null,
+    data_fim_aluguer datetime not null,
+    data_fatura datetime not null,
+    preco_total double (5,2) not null,
+    detalhes_aluguer_fatura_id int not null,
+    foreign key(detalhes_aluguer_fatura_id) references detalhes_aluguer(id_detalhes_aluguer)
+)engine=InnoDB;
+
+create table linha_fatura(
+	id_linha_fatura int not null auto_increment primary key,
+    fatura_id int not null,
+    extra_detalhes_aluguer_id int not null,
+    foreign key (extra_detalhes_aluguer_id) references extra_detalhes_aluguer(id_extra_detalhes_aluguer),
+    foreign key(fatura_id) references fatura(id_fatura)
 )engine=InnoDB;
 
 create table assistencia(
 	id_assistencia int not null auto_increment primary key,
-    dataPedido datetime not null,
+    data_pedido datetime not null,
     mensagem varchar(91) not null,
     localizacao varchar(51) not null,
     veiculo_id int not null,
     foreign key(veiculo_id) references veiculo(id_veiculo)
 )engine=InnoDB;
+
 
 insert into tipo_veiculo values 
 (default, "Cabrio"),

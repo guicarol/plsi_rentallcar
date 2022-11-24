@@ -12,7 +12,7 @@ use Yii;
  * @property string $cobertura
  * @property float $preco
  *
- * @property DetalhesAluger[] $detalhesAlugers
+ * @property DetalhesAluguer[] $detalhesAluguers
  */
 class Seguro extends \yii\db\ActiveRecord
 {
@@ -51,12 +51,12 @@ class Seguro extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[DetalhesAlugers]].
+     * Gets query for [[DetalhesAluguers]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDetalhesAlugers()
+    public function getDetalhesAluguers()
     {
-        return $this->hasMany(DetalhesAluger::class, ['id_seguro' => 'id_seguro']);
+        return $this->hasMany(DetalhesAluguer::class, ['seguro_id' => 'id_seguro']);
     }
 }
