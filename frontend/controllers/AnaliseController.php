@@ -42,25 +42,15 @@ class AnaliseController extends Controller
      */
     public function actionIndex($id_user)
     {
-        $book = User::findOne($id_user);
+        $profile = Profile::findOne($id_user);
         $dataProvider = new ActiveDataProvider([
-            'query' => $book->getAnalises(),
-        ]);
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'book' => $book
+            'query' => $profile->getAnalises(),
         ]);
 
-
-        /*$searchModel = new AnaliseSearch();
-        $analise = Analise::find()->where(['id_user'=>$id_user])->all();
-        //$dataProvider = $searchModel->search($this->request->queryParams);
-
         return $this->render('index', [
-            'analise'=>$analise,
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);*/
+            'profile' => $profile
+        ]);
     }
 
     /**
