@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'veiculo_id') ?>
 
-    <?= $form->field($model, 'profile_id') ?>
+    <?= $form->field($model, 'id_user') ?>
 
     <?php // echo $form->field($model, 'seguro_id') ?>
 

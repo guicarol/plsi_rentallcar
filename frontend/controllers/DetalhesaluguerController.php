@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Detalhesaluguer;
 use common\models\DetalhesaluguerSearch;
+use common\models\Veiculo;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,10 +66,10 @@ class DetalhesaluguerController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($id_veiculo)
     {
         $model = new Detalhesaluguer();
-
+        $model->veiculo_id=$id_veiculo;
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);

@@ -80,7 +80,7 @@ class LoginForm extends Model
 
     public function hasProfile($id){
         //var_dump(Yii::$app->user->id);die;
-        
+
         if(Profile::findOne(['id_profile' => $id]) != null){
             return true;
         }else{
@@ -88,6 +88,6 @@ class LoginForm extends Model
             return false;
 
         }
-        
+
     }
 }

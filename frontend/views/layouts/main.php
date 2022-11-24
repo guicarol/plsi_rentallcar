@@ -145,24 +145,25 @@ AppAsset::register($this);
         <!-- Search Start -->
         <div class="container-fluid bg-white pt-3 px-lg-5">
             <div class="row mx-n2">
+                <form class="row">
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                     <h1>RentAllCar</h1>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                    <select  class="custom-select px-4 mb-3" style="height: 50px;">
+                    <select class="custom-select px-4 mb-3" style="height: 50px;">
                         <option selected="selected">Selecione</option>
                         <?php
                         // A sample product array
                         $products = ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'morada');
 
                         // Iterating through the product array
-                        foreach($products as $item){
+                        foreach ($products as $item) {
                             echo "<option value='strtolower($item)'>$item</option>";
                         }
                         ?>
                     </select>
                     <!-- <?= Html::dropDownList('null', 'null', ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'morada'),
-                        ['prompt' => 'Selecione']) ?>-->
+                        ['prompt' => 'Selecione']) ?> -->
                 </div>
 
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
@@ -182,18 +183,20 @@ AppAsset::register($this);
                         <option selected="selected">Selecione</option>
                         <?php
                         // A sample product array
-                        //$products = ArrayHelper::map(Tipoveiculo::find()->all(), 'idTipoVeiculo', 'categoria');
+                        $products = ArrayHelper::map(Tipoveiculo::find()->all(), 'id_tipo_veiculo', 'categoria');
 
                         // Iterating through the product array
-                        //foreach($products as $item){
-                          //  echo "<option value='strtolower($item)'>$item</option>";
+                        foreach ($products as $item) {
+                            echo "<option value='strtolower($item)'>$item</option>";
+                        }
                         //}
                         ?>
                     </select>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                    <button  class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Procurar</button>
+                    <button class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Procurar</button>
                 </div>
+                </form>
             </div>
         </div>
         <!-- Search End -->
@@ -242,8 +245,10 @@ AppAsset::register($this);
                                     class="fa fa-angle-right text-white mr-2"></i>Sobre</a>
                         <a class="text-body mb-2" href="index.php?r=site%2Fservice"><i
                                     class="fa fa-angle-right text-white mr-2"></i>Servico</a>
-                        <a class="text-body mb-2" href="index.php?r=site%2Fteam"><i class="fa fa-angle-right text-white mr-2"></i>Team</a>
-                        <a class="text-body mb-2" href="index.php?r=site%2Fcontact"><i class="fa fa-angle-right text-white mr-2"></i>Contactos</a>
+                        <a class="text-body mb-2" href="index.php?r=site%2Fteam"><i
+                                    class="fa fa-angle-right text-white mr-2"></i>Team</a>
+                        <a class="text-body mb-2" href="index.php?r=site%2Fcontact"><i
+                                    class="fa fa-angle-right text-white mr-2"></i>Contactos</a>
 
                     </div>
                 </div>

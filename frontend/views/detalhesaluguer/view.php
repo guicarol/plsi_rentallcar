@@ -32,11 +32,35 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_detalhes_aluguer',
             'data_inicio',
             'data_fim',
-            'veiculo_id',
-            'profile_id',
-            'seguro_id',
-            'localizacao_levantamento_id',
-            'localizacao_devolucao_id',
+            [
+                'label' => 'Carro',
+                'value' => function($model) {
+                    return $model->veiculo->marca;
+                }
+            ],
+            [
+                'label' => 'Nome',
+                'value' => function($model) {
+                    return Yii::$app->user->identity->username;
+                }
+            ],            [
+                'label' => 'Tipo de seguro',
+                'value' => function($model) {
+                    return $model->seguro->cobertura;
+                }
+            ],
+            [
+                'label' => 'Localizacao de recolha',
+                'value' => function($model) {
+                    return $model->localizacaoLevantamento->morada;
+                }
+            ],
+            [
+                'label' => 'Localizacao de devolucao',
+                'value' => function($model) {
+                    return $model->localizacaoDevolucao->morada;
+                }
+            ],
         ],
     ]) ?>
 

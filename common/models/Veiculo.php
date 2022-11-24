@@ -4,6 +4,10 @@ namespace common\models;
 
 use Yii;
 
+use common\models\UploadForm;
+use yii\base\Model;
+use yii\web\UploadedFile;
+
 /**
  * This is the model class for table "veiculo".
  *
@@ -26,6 +30,7 @@ use Yii;
  */
 class Veiculo extends \yii\db\ActiveRecord
 {
+    public $imageFiles;
 
     public $tipoVeiculos;
 
@@ -43,6 +48,8 @@ class Veiculo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['imageFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'maxFiles' => 4],
+
             [['marca', 'modelo', 'combustivel', 'preco', 'matricula', 'descricao', 'estado', 'tipo_veiculo_id', 'localizacao_id'], 'required'],
             [['preco'], 'number'],
             [['estado'], 'string'],
@@ -124,5 +131,18 @@ class Veiculo extends \yii\db\ActiveRecord
     public function getTipoVeiculo()
     {
         return $this->hasOne(TipoVeiculo::class, ['id_tipo_veiculo' => 'tipo_veiculo_id']);
+    }
+
+    public function upload()
+    {
+        if ($this->validate()) {
+            foreach ($this->imageFiles as $file) {
+                $file->saveAs('uploads/' . $file->baseName . '.' . $file->extension);
+
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }
