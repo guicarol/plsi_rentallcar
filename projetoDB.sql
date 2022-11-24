@@ -149,4 +149,7 @@ insert into seguro values
 (default, "Seguro Directo" , "Seguro de danos próprios", 12.99);
 
 insert into analise values
-(default, "Melhor serviço para alugar carros, com vários extras. Recomendo!", 5, '2022-11-17',3);
+(default, "Melhor serviço para alugar carros, com vários extras. Recomendo!", 5, now(),3);
+
+insert into assistencia values
+(default, now(), "O veiculo deixou de pegar.", "Leiria, Rua de Leiria", 2);
