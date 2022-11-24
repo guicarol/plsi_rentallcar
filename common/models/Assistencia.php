@@ -11,12 +11,18 @@ use Yii;
  * @property string $data_pedido
  * @property string $mensagem
  * @property string $localizacao
+ * @property string $condicao
  * @property int $veiculo_id
+ * @property int $profile_id
  *
+ * @property Profile $profile
  * @property Veiculo $veiculo
  */
 class Assistencia extends \yii\db\ActiveRecord
 {
+
+    public $veiculoDrop, $condicaoDrop;
+
     /**
      * {@inheritdoc}
      */
@@ -31,11 +37,13 @@ class Assistencia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['data_pedido', 'mensagem', 'localizacao', 'veiculo_id'], 'required'],
+            [['data_pedido', 'mensagem', 'localizacao', 'veiculo_id', 'profile_id'], 'required'],
             [['data_pedido'], 'safe'],
-            [['veiculo_id'], 'integer'],
+            [['condicao'], 'string'],
+            [['veiculo_id', 'profile_id'], 'integer'],
             [['mensagem'], 'string', 'max' => 91],
             [['localizacao'], 'string', 'max' => 51],
+            [['profile_id'], 'exist', 'skipOnError' => true, 'targetClass' => Profile::class, 'targetAttribute' => ['profile_id' => 'id_profile']],
             [['veiculo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Veiculo::class, 'targetAttribute' => ['veiculo_id' => 'id_veiculo']],
         ];
     }
@@ -50,8 +58,20 @@ class Assistencia extends \yii\db\ActiveRecord
             'data_pedido' => 'Data Pedido',
             'mensagem' => 'Mensagem',
             'localizacao' => 'Localizacao',
+            'condicao' => 'Condicao',
             'veiculo_id' => 'Veiculo ID',
+            'profile_id' => 'Profile ID',
         ];
+    }
+
+    /**
+     * Gets query for [[Profile]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::class, ['id_profile' => 'profile_id']);
     }
 
     /**

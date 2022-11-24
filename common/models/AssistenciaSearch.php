@@ -17,8 +17,9 @@ class AssistenciaSearch extends Assistencia
     public function rules()
     {
         return [
-            [['id_assistencia', 'veiculo_id'], 'integer'],
-            [['data_pedido', 'mensagem', 'localizacao'], 'safe'],
+            [['id_assistencia', 'veiculo_id', 'profile_id'], 'integer'],
+            [['data_pedido', 'mensagem', 'localizacao', 'condicao'], 'safe'],
+            [['veiculoDrop', 'condicaoDrop'], 'safe']
         ];
     }
 
@@ -56,11 +57,22 @@ class AssistenciaSearch extends Assistencia
             return $dataProvider;
         }
 
+        if($this->veiculoDrop){
+            $query->join('INNER JOIN','veiculo','veiculo.id_veiculo = assistencia.veiculo_id')
+            ->andFilterWhere(['assistencia.veiculo_id' => $this->veiculoDrop]);
+       }
+
+       if($this->condicaoDrop){
+            $query->join('INNER JOIN','veiculo','veiculo.id_veiculo = assistencia.veiculo_id')
+            ->andFilterWhere(['assistencia.condicao' => $this->condicaoDrop]);
+        }
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id_assistencia' => $this->id_assistencia,
             'data_pedido' => $this->data_pedido,
             'veiculo_id' => $this->veiculo_id,
+            'profile_id' => $this->profile_id,
         ]);
 
         $query->andFilterWhere(['like', 'mensagem', $this->mensagem])

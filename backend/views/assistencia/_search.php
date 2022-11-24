@@ -23,7 +23,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'localizacao') ?>
 
-    <?= $form->field($model, 'veiculo_id') ?>
+    <?= $form->field($model, 'condicao') ?>
+
+    <?php // echo $form->field($model, 'veiculo_id') ?>
 
     <?php // echo $form->field($model, 'profile_id') ?>
 

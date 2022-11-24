@@ -18,6 +18,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'localizacao')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'condicao')->dropDownList([ 'resolvido' => 'Resolvido', 'nao_resolvido' => 'Nao resolvido', ], ['prompt' => '']) ?>
+
     <?= $form->field($model, 'veiculo_id')->textInput() ?>
 
     <?= $form->field($model, 'profile_id')->textInput() ?>
