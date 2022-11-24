@@ -118,6 +118,8 @@ create table assistencia(
     mensagem varchar(91) not null,
     localizacao varchar(51) not null,
     veiculo_id int not null,
+    profile_id int not null,
+    foreign key(profile_id) references profile(id_profile),
     foreign key(veiculo_id) references veiculo(id_veiculo)
 )engine=InnoDB;
 
@@ -152,4 +154,4 @@ insert into analise values
 (default, "Melhor serviço para alugar carros, com vários extras. Recomendo!", 5, now(),3);
 
 insert into assistencia values
-(default, now(), "O veiculo deixou de pegar.", "Leiria, Rua de Leiria", 2);
+(default, now(), "O veiculo deixou de pegar.", "Leiria, Rua de Leiria", 2, 3);
