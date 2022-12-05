@@ -76,8 +76,12 @@ class AnaliseController extends Controller
         $model = new Analise();
 
         if ($this->request->isPost) {
-            var_dump($this->request->post());var_dump($model);die;
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+
+                $model->data_analise = date("Y-m-d H:i:s");;
+                $model->profile_id = Yii::$app->user->id;
+                $model->save();
+
                 return $this->redirect(['view', 'id_analise' => $model->id_analise]);
             }
         } else {
