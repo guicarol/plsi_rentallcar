@@ -96,7 +96,8 @@ class AnaliseController extends Controller
                 'model' => $model,
             ]);
         }
-    }
+    
+
 
     /**
      * Updates an existing Analise model.
@@ -105,8 +106,8 @@ class AnaliseController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id_analise)
-    {
+    public function actionUpdate($id_analise){
+
         $model = $this->findModel($id_analise);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
