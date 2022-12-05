@@ -92,12 +92,11 @@ class AnaliseController extends Controller
             $model->loadDefaultValues();
         }
 
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
     
-
 
     /**
      * Updates an existing Analise model.
