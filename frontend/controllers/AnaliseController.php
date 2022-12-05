@@ -76,6 +76,7 @@ class AnaliseController extends Controller
         $model = new Analise();
 
         if ($this->request->isPost) {
+            var_dump($this->request->post());var_dump($model);die;
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id_analise' => $model->id_analise]);
             }
