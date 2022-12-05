@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'comentario')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'classificacao')->textInput() ?>
+    <?= $form->field($model, 'classificacao')->textInput(['type'=>'number'])?>
 
     
 

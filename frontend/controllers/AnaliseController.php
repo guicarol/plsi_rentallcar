@@ -10,6 +10,8 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
+
 
 
 /**
@@ -43,6 +45,7 @@ class AnaliseController extends Controller
     public function actionIndex($id_user)
     {
         $profile = Profile::findOne($id_user);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $profile->getAnalises(),
         ]);
@@ -51,6 +54,7 @@ class AnaliseController extends Controller
             'dataProvider' => $dataProvider,
             'profile' => $profile
         ]);
+
     }
 
     /**
@@ -88,9 +92,10 @@ class AnaliseController extends Controller
             $model->loadDefaultValues();
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
