@@ -3,6 +3,7 @@
 /** @var yii\web\View $this */
 
 use yii\bootstrap4\Html;
+
 /** @var common\models\Veiculo $model */
 
 
@@ -19,7 +20,7 @@ $this->title = 'RentAllCar';
                         <div class="p-3" style="max-width: 900px;">
                             <h4 class="text-white text-uppercase mb-md-3">RentAllCar</h4>
                             <h1 class="display-1 text-white mb-md-4">Serviço de excelência</h1>
-                            <?php echo Html::a('Faça a sua reserva agora!', ['veiculo/index'], ['class' => 'btn btn-primary py-md-3 px-md-5 mt-2']);?>
+                            <?php echo Html::a('Faça a sua reserva agora!', ['veiculo/index'], ['class' => 'btn btn-primary py-md-3 px-md-5 mt-2']); ?>
                         </div>
                     </div>
                 </div>
@@ -29,7 +30,7 @@ $this->title = 'RentAllCar';
                         <div class="p-3" style="max-width: 900px;">
                             <h4 class="text-white text-uppercase mb-md-3">RentAllCar</h4>
                             <h1 class="display-1 text-white mb-md-4">Mais de 100 marcas e modelos disponiveis</h1>
-                            <?php echo Html::a('Faça a sua reserva agora!', ['veiculo/index'], ['class' => 'btn btn-primary py-md-3 px-md-5 mt-2']);?>
+                            <?php echo Html::a('Faça a sua reserva agora!', ['veiculo/index'], ['class' => 'btn btn-primary py-md-3 px-md-5 mt-2']); ?>
                         </div>
                     </div>
                 </div>
@@ -155,142 +156,29 @@ $this->title = 'RentAllCar';
     <!-- Services End -->
 
 
-
-
-
     <!-- Rent A Car Start -->
     <div class="container-fluid py-5">
         <div class="container pt-5 pb-3">
             <h1 class="display-1 text-primary text-center">03</h1>
-            <h1 class="display-4 text-uppercase text-center mb-5">Find Your Car</h1>
+            <h1 class="display-4 text-uppercase text-center mb-5">Encontre o seu veiculo</h1>
             <div class="row">
-
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="rent-item mb-4">
-                        <img class="img-fluid mb-4" src="img/car-rent-1.png" alt="">
-                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                        <div class="d-flex justify-content-center mb-4">
-                            <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span>2015</span>
-                            </div>
-                            <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span>AUTO</span>
-                            </div>
-                            <div class="px-2">
-                                <i class="fa fa-road text-primary mr-1"></i>
-                                <span>25K</span>
+                <?php
+                $model = \common\models\Veiculo::find()->all();
+                foreach ($model as $value) { ?>
+                    <div class="col-4" style="margin-bottom: 10vh">
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="img/car-rent-1.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= $value->marca ?> <?= $value->modelo ?></h5>
+                                <p class="card-text"><?= $value->descricao ?></p>
+                                <a>    <?= Html::a('Ver informação', ['veiculo/view', 'id_veiculo' => $value->id_veiculo], ['class' => 'btn btn-primary']); ?>
+                                </a>
                             </div>
                         </div>
-                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="rent-item active mb-4">
-                        <img class="img-fluid mb-4" src="img/car-rent-2.png" alt="">
-                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                        <div class="d-flex justify-content-center mb-4">
-                            <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span>2015</span>
-                            </div>
-                            <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span>AUTO</span>
-                            </div>
-                            <div class="px-2">
-                                <i class="fa fa-road text-primary mr-1"></i>
-                                <span>25K</span>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="rent-item mb-4">
-                        <img class="img-fluid mb-4" src="img/car-rent-3.png" alt="">
-                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                        <div class="d-flex justify-content-center mb-4">
-                            <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span>2015</span>
-                            </div>
-                            <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span>AUTO</span>
-                            </div>
-                            <div class="px-2">
-                                <i class="fa fa-road text-primary mr-1"></i>
-                                <span>25K</span>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="rent-item mb-4">
-                        <img class="img-fluid mb-4" src="img/car-rent-4.png" alt="">
-                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                        <div class="d-flex justify-content-center mb-4">
-                            <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span>2015</span>
-                            </div>
-                            <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span>AUTO</span>
-                            </div>
-                            <div class="px-2">
-                                <i class="fa fa-road text-primary mr-1"></i>
-                                <span>25K</span>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="rent-item mb-4">
-                        <img class="img-fluid mb-4" src="img/car-rent-5.png" alt="">
-                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                        <div class="d-flex justify-content-center mb-4">
-                            <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span>2015</span>
-                            </div>
-                            <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span>AUTO</span>
-                            </div>
-                            <div class="px-2">
-                                <i class="fa fa-road text-primary mr-1"></i>
-                                <span>25K</span>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="rent-item mb-4">
-                        <img class="img-fluid mb-4" src="img/car-rent-6.png" alt="">
-                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                        <div class="d-flex justify-content-center mb-4">
-                            <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span>2015</span>
-                            </div>
-                            <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span>AUTO</span>
-                            </div>
-                            <div class="px-2">
-                                <i class="fa fa-road text-primary mr-1"></i>
-                                <span>25K</span>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                    </div>
-                </div>
+                    <?php
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -370,26 +258,23 @@ $this->title = 'RentAllCar';
             <h1 class="display-1 text-primary text-center">05</h1>
             <h1 class="display-4 text-uppercase text-center mb-5">Our Client's Say</h1>
             <div class="owl-carousel testimonial-carousel">
-                <div class="testimonial-item d-flex flex-column justify-content-center px-4">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <img class="img-fluid ml-n4" src="img/testimonial-1.jpg" alt="">
-                        <h1 class="display-2 text-white m-0 fa fa-quote-right"></h1>
-                    </div>
-                    <h4 class="text-uppercase mb-2">Client Name</h4>
-                    <i class="mb-2">Profession</i>
-                    <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo elitr
-                        dolor amet sit sea sed</p>
-                </div>
+                <?php
+                $model = \common\models\Analise::find()->all();
+                foreach ($model as $value) { ?>
+
                 <div class="testimonial-item d-flex flex-column justify-content-center px-4">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <img class="img-fluid ml-n4" src="img/testimonial-2.jpg" alt="">
                         <h1 class="display-2 text-white m-0 fa fa-quote-right"></h1>
                     </div>
-                    <h4 class="text-uppercase mb-2">Client Name</h4>
-                    <i class="mb-2">Profession</i>
-                    <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo elitr
-                        dolor amet sit sea sed</p>
+                    <h4 class="text-uppercase mb-2"><?= $value->profile->nome  ?></h4>
+                    <i class="mb-2"><?= $value->classificacao  ?></i>
+                    <p class="m-0"><?= $value->comentario  ?></p>
                 </div>
+                    <?php
+                }
+                ?>
+
                 <div class="testimonial-item d-flex flex-column justify-content-center px-4">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <img class="img-fluid ml-n4" src="img/testimonial-3.jpg" alt="">

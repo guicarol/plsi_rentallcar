@@ -60,11 +60,11 @@ class Detalhesaluguer extends \yii\db\ActiveRecord
             'id_detalhes_aluguer' => 'Id Detalhes Aluguer',
             'data_inicio' => 'Data Inicio',
             'data_fim' => 'Data Fim',
-            'veiculo_id' => 'Veiculo ID',
-            'profile_id' => 'Profile ID',
-            'seguro_id' => 'Seguro ID',
-            'localizacao_levantamento_id' => 'Localizacao Levantamento ID',
-            'localizacao_devolucao_id' => 'Localizacao Devolucao ID',
+            'veiculo_id' => 'Veiculo',
+            'profile_id' => 'Profile',
+            'seguro_id' => 'Seguro',
+            'localizacao_levantamento_id' => 'Localizacao Levantamento',
+            'localizacao_devolucao_id' => 'Localizacao Devolucao',
         ];
     }
 

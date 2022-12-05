@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
@@ -11,6 +12,8 @@ use yii\widgets\ActiveForm;
 <div class="assistencia-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model,'attributeName')->widget(DatePicker::className(),['clientOptions' => ['defaultDate' => '2022-01-01']]) ?>
 
     <?= $form->field($model, 'data_pedido')->textInput() ?>
 

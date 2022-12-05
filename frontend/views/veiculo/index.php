@@ -29,17 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php
         foreach ($model as $veiculo) { ?>
-        <div class="col-4"  style="margin-bottom: 10vh">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="img/car-rent-1.png" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title"><?= $veiculo->marca?> <?= $veiculo->modelo?></h5>
-                    <p class="card-text"><?= $veiculo->descricao ?></p>
-                    <a >    <?= Html::a('Ver informação', ['veiculo/view', 'id_veiculo' => $veiculo->id_veiculo], ['class' => 'btn btn-primary']);?>
-                    </a>
-                </div>
-            </div>
-        </div>
+        
             <div class="col-lg-4 col-md-6 mb-2">
                 <div class="rent-item mb-4">
                     <img class="img-fluid mb-4" src="img/car-rent-1.png" alt="">
