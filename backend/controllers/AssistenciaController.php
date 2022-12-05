@@ -65,7 +65,7 @@ class AssistenciaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    /*public function actionCreate()
     {
         $model = new Assistencia();
 
@@ -80,7 +80,7 @@ class AssistenciaController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
-    }
+    }*/
 
     /**
      * Updates an existing Assistencia model.
