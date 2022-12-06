@@ -1,9 +1,9 @@
 <?php
 
 use common\models\Localizacao;
+use kartik\date\DatePicker;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 
 
@@ -16,14 +16,22 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?=
+    DatePicker::widget([
+        'model' => $model,
+        'attribute' => 'data_inicio',
+        'attribute2' => 'data_fim',
+        'options' => ['placeholder' => 'teste'],
+        'type' => DatePicker::TYPE_RANGE,
+        'form' => $form,
+        'pluginOptions' => [
+            'format' => 'yyyy-MM-dd',
+        ]
+    ])
+    ?>
+    <?= $form->field($model, 'veiculo')->textInput(['value' => $model->veiculo->marca . " " . $model->veiculo->modelo, 'readonly' => true]); ?>
 
-    <?= $form->field($model,'data_inicio')->widget(DatePicker::className()) ?>
-
-    <?= $form->field($model, 'data_fim')->widget(DatePicker::className()) ?>
-
-    <?= $form->field($model, 'veiculo')->textInput(['value' => $model->veiculo->marca ." ".$model->veiculo->modelo , 'readonly'=>true] ); ?>
-
-    <?= $form->field($model, 'profile')->textInput(['value' => Yii::$app->user->identity->username ,'readonly'=>true]); ?>
+    <?= $form->field($model, 'profile')->textInput(['value' => Yii::$app->user->identity->username, 'readonly' => true]); ?>
 
     <?= $form->field($model, 'seguro_id')->dropDownList(ArrayHelper::map(\common\models\Seguro::find()->all(), 'id_seguro', 'cobertura'), ['prompt' => '']) ?>
 

@@ -72,7 +72,9 @@ class DetalhesaluguerController extends Controller
         $model = new Detalhesaluguer();
         $model->veiculo_id=$id_veiculo;
         $model->profile_id=Yii::$app->user->identity->getId();
+
         if ($this->request->isPost) {
+
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
             }
