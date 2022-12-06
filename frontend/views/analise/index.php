@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Utilizador',
                 'value' => function ($model) {
-                    return Yii::$app->user->identity->username;
+                    return $model->profile->nome;
                 }
             ],
 
