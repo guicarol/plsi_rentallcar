@@ -16,7 +16,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'classificacao')->textInput(['type'=>'number'])?>
 
-    
+    <?= $form->field($model, 'classificacao')->widget(\alfa6661\widgets\Raty::className(), [
+        'options' => [
+            // the HTML attributes for the widget container
+        ],
+        'pluginOptions' => [
+            // the options for the underlying jQuery Raty plugin
+            // see : https://github.com/wbotelhos/raty#options
+        ]
+    ]); ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

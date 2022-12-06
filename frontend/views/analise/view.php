@@ -34,7 +34,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'classificacao',
             'data_analise',
             'profile_id',
+
+        ]]) ?>
+    <?= \alfa6661\widgets\Raty::widget([
+        'model' => $model,
+        'attribute' => 'classificacao',
+        'options' => [
+            // the HTML attributes for the widget container
         ],
-    ]) ?>
+        'pluginOptions' => [
+            // the options for the underlying jQuery Raty plugin
+            // see : https://github.com/wbotelhos/raty#options
+
+        ]
+    ]); ?>
+
 
 </div>
