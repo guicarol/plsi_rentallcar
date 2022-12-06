@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
         'type' => DatePicker::TYPE_RANGE,
         'form' => $form,
         'pluginOptions' => [
-            'format' => 'yyyy-MM-dd',
+            'format' => 'yyyy-mm-dd',
         ]
     ])
     ?>

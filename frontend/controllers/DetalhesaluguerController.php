@@ -4,8 +4,10 @@ namespace frontend\controllers;
 
 use common\models\Detalhesaluguer;
 use common\models\DetalhesaluguerSearch;
+use common\models\Profile;
 use common\models\Veiculo;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,14 +40,18 @@ class DetalhesaluguerController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($id_user)
     {
         $searchModel = new DetalhesaluguerSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
+        $profile = Profile::findOne($id_user);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $profile->getDetalhesAluguers(),
+        ]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'profile' => $profile
+
         ]);
     }
 
@@ -57,21 +63,27 @@ class DetalhesaluguerController extends Controller
      */
     public function actionView($id_detalhes_aluguer)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id_detalhes_aluguer),
-        ]);
+        $model=$this->findModel($id_detalhes_aluguer);
+        if (Yii::$app->user->id == $model->profile_id) {
+            return $this->render('view', [
+                'model' => $this->findModel($id_detalhes_aluguer),
+            ]);
+        } else
+            $this->redirect('index');
     }
+
 
     /**
      * Creates a new Detalhesaluguer model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate($id_veiculo)
+    public
+    function actionCreate($id_veiculo)
     {
         $model = new Detalhesaluguer();
-        $model->veiculo_id=$id_veiculo;
-        $model->profile_id=Yii::$app->user->identity->getId();
+        $model->veiculo_id = $id_veiculo;
+        $model->profile_id = Yii::$app->user->identity->getId();
 
         if ($this->request->isPost) {
 
@@ -94,7 +106,8 @@ class DetalhesaluguerController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id_detalhes_aluguer)
+    public
+    function actionUpdate($id_detalhes_aluguer)
     {
         $model = $this->findModel($id_detalhes_aluguer);
 
@@ -114,7 +127,8 @@ class DetalhesaluguerController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id_detalhes_aluguer)
+    public
+    function actionDelete($id_detalhes_aluguer)
     {
         $this->findModel($id_detalhes_aluguer)->delete();
 
@@ -128,7 +142,8 @@ class DetalhesaluguerController extends Controller
      * @return Detalhesaluguer the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id_detalhes_aluguer)
+    protected
+    function findModel($id_detalhes_aluguer)
     {
         if (($model = Detalhesaluguer::findOne(['id_detalhes_aluguer' => $id_detalhes_aluguer])) !== null) {
             return $model;

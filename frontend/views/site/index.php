@@ -15,7 +15,7 @@ $this->title = 'RentAllCar';
 
 <div class="site-index">
 
-        
+
 
 <div class="container">
     <!-- Carousel Start -->
