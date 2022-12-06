@@ -6,12 +6,16 @@ use yii\bootstrap4\Html;
 use yii\helpers\ArrayHelper;;
 use common\models\Localizacao;
 use common\models\TipoVeiculo;
+use common\models\Localizacao;
+use common\models\Tipoveiculo;
+use yii\helpers\ArrayHelper;
 
 /** @var common\models\Veiculo $model */
 
 
 $this->title = 'RentAllCar';
 ?>
+
 <div class="site-index">
 
         <!-- Search Start -->
@@ -73,6 +77,7 @@ $this->title = 'RentAllCar';
         </div>
         <!-- Search End -->
 
+<div class="container">
     <!-- Carousel Start -->
     <div class="container-fluid p-0" style="margin-bottom: 90px;">
         <div id="header-carousel" class="carousel slide" data-ride="carousel">
@@ -122,13 +127,6 @@ $this->title = 'RentAllCar';
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
                     <img class="w-75 mb-4" src="img/about.png" alt="">
-                    <p>Justo et eos et ut takimata sed sadipscing dolore lorem, et elitr labore labore voluptua no rebum
-                        sed, stet voluptua amet sed elitr ea dolor dolores no clita. Dolores diam magna clita ea eos
-                        amet, amet rebum voluptua vero vero sed clita accusam takimata. Nonumy labore ipsum sea voluptua
-                        sea eos sit justo, no ipsum sanctus sanctus no et no ipsum amet, tempor labore est labore no.
-                        Eos diam eirmod lorem ut eirmod, ipsum diam sadipscing stet dolores elitr elitr eirmod dolore.
-                        Magna elitr accusam takimata labore, et at erat eirmod consetetur tempor eirmod invidunt est,
-                        ipsum nonumy at et.</p>
                 </div>
             </div>
             <div class="row mt-3">
@@ -181,8 +179,6 @@ $this->title = 'RentAllCar';
                             <h1 class="display-2 text-white mt-n2 m-0">01</h1>
                         </div>
                         <h4 class="text-uppercase mb-3">Car Financing</h4>
-                        <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo
-                            elitr dolor amet sit sea sed</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-2">
@@ -195,8 +191,6 @@ $this->title = 'RentAllCar';
                             <h1 class="display-2 text-white mt-n2 m-0">02</h1>
                         </div>
                         <h4 class="text-uppercase mb-3">Car Rental</h4>
-                        <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo
-                            elitr dolor amet sit sea sed</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-2">
@@ -209,8 +203,7 @@ $this->title = 'RentAllCar';
                             <h1 class="display-2 text-white mt-n2 m-0">03</h1>
                         </div>
                         <h4 class="text-uppercase mb-3">Car Inspection</h4>
-                        <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo
-                            elitr dolor amet sit sea sed</p>
+
                     </div>
                 </div>
             </div>
@@ -247,78 +240,10 @@ $this->title = 'RentAllCar';
     </div>
     <!-- Rent A Car End -->
 
-
-    <!-- Team Start -->
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <h1 class="display-1 text-primary text-center">04</h1>
-            <h1 class="display-4 text-uppercase text-center mb-5">Meet Our Team</h1>
-            <div class="owl-carousel team-carousel position-relative" style="padding: 0 30px;">
-                <div class="team-item">
-                    <img class="img-fluid w-100" src="img/team-1.jpg" alt="">
-                    <div class="position-relative py-4">
-                        <h4 class="text-uppercase">Full Name</h4>
-                        <p class="m-0">Designation</p>
-                        <div class="team-social position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i
-                                        class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i
-                                        class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="team-item">
-                    <img class="img-fluid w-100" src="img/team-2.jpg" alt="">
-                    <div class="position-relative py-4">
-                        <h4 class="text-uppercase">Full Name</h4>
-                        <p class="m-0">Designation</p>
-                        <div class="team-social position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i
-                                        class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i
-                                        class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="team-item">
-                    <img class="img-fluid w-100" src="img/team-3.jpg" alt="">
-                    <div class="position-relative py-4">
-                        <h4 class="text-uppercase">Full Name</h4>
-                        <p class="m-0">Designation</p>
-                        <div class="team-social position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i
-                                        class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i
-                                        class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="team-item">
-                    <img class="img-fluid w-100" src="img/team-4.jpg" alt="">
-                    <div class="position-relative py-4">
-                        <h4 class="text-uppercase">Full Name</h4>
-                        <p class="m-0">Designation</p>
-                        <div class="team-social position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i
-                                        class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i
-                                        class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Team End -->
-
     <!-- Testimonial Start -->
     <div class="container-fluid py-5">
         <div class="container py-5">
-            <h1 class="display-1 text-primary text-center">05</h1>
+            <h1 class="display-1 text-primary text-center">04</h1>
             <h1 class="display-4 text-uppercase text-center mb-5">Our Client's Say</h1>
             <div class="owl-carousel testimonial-carousel">
                 <?php
@@ -367,7 +292,7 @@ $this->title = 'RentAllCar';
     <!-- Contact Start -->
     <div class="container-fluid py-5">
         <div class="container pt-5 pb-3">
-            <h1 class="display-1 text-primary text-center">06</h1>
+            <h1 class="display-1 text-primary text-center">05</h1>
             <h1 class="display-4 text-uppercase text-center mb-5">Contact Us</h1>
             <div class="row">
                 <div class="col-lg-7 mb-2">
@@ -459,6 +384,7 @@ $this->title = 'RentAllCar';
             </div>
         </div>
     </div>
+</div>
     <!-- Vendor End -->
 
 </div>
