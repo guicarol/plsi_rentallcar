@@ -29,13 +29,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             'id_analise',
             'comentario',
             'classificacao',
             'data_analise',
-            'profile_id',
+            [
+                'label' => 'Utilizador',
+                'value' => function ($model) {
+                    return Yii::$app->user->identity->username;
+                }
+            ],
+
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Analise $model, $key, $index, $column) {
