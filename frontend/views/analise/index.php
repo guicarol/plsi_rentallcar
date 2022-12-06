@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'urlCreator' => function ($action, Analise $model, $key, $index, $column) {
 
                     return Url::toRoute([$action, 'id_analise' => $model->id_analise]);
-                 }
+                }
             ],
         ],
     ]); ?>
