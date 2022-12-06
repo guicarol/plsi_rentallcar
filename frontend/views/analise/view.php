@@ -31,22 +31,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id_analise',
             'comentario',
-            'classificacao',
             'data_analise',
             'profile_id',
 
         ]]) ?>
-    <?= \alfa6661\widgets\Raty::widget([
+    <?= \kartik\rating\StarRating::widget([
         'model' => $model,
         'attribute' => 'classificacao',
-        'options' => [
-            // the HTML attributes for the widget container
-        ],
         'pluginOptions' => [
-            // the options for the underlying jQuery Raty plugin
-            // see : https://github.com/wbotelhos/raty#options
-
-        ]
+            'readonly' => true,
+            'showClear' => false,
+            'showCaption' => false,
+        ],
     ]); ?>
 
 

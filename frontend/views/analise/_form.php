@@ -1,5 +1,6 @@
 <?php
 
+use kartik\rating\StarRating;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,17 +15,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'comentario')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'classificacao')->textInput(['type'=>'number'])?>
 
-    <?= $form->field($model, 'classificacao')->widget(\alfa6661\widgets\Raty::className(), [
-        'options' => [
-            // the HTML attributes for the widget container
-        ],
-        'pluginOptions' => [
-            // the options for the underlying jQuery Raty plugin
-            // see : https://github.com/wbotelhos/raty#options
-        ]
-    ]); ?>
+    <?= $form->field($model, 'classificacao')->widget(StarRating::classname(), [
+        'pluginOptions' => ['step' => 1,
+                    'showClear' => false,
+],
+
+
+    ]);?>
 
 
     <div class="form-group">

@@ -29,25 +29,26 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
             'id_analise',
             'comentario',
             'classificacao',
             'data_analise',
             [
-                'label' => 'Utilizador',
+                'label' => 'Profile',
                 'value' => function ($model) {
                     return $model->profile->nome;
                 }
             ],
-
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Analise $model, $key, $index, $column) {
 
                     return Url::toRoute([$action, 'id_analise' => $model->id_analise]);
-                 }
+                }
             ],
         ],
     ]); ?>
+
 </div>
