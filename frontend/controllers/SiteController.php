@@ -76,7 +76,13 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'main_index.php';
-        return $this->render('index');
+        $veiculos = \common\models\Veiculo::find()->orderBy('id_veiculo DESC')->limit(6)->all();
+        $analises = \common\models\Analise::find()->limit(6)->all();
+
+        return $this->render('index',[
+            'veiculos'=>$veiculos,
+            'analises'=>$analises,
+        ]);
     }
 
     /**

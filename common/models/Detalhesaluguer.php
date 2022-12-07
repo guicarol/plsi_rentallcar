@@ -34,6 +34,8 @@ class Detalhesaluguer extends \yii\db\ActiveRecord
         return 'detalhes_aluguer';
     }
 
+    public $extras;
+
     /**
      * {@inheritdoc}
      */

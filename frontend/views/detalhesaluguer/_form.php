@@ -6,7 +6,6 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-
 /** @var yii\web\View $this */
 /** @var common\models\Detalhesaluguer $model */
 /** @var yii\widgets\ActiveForm $form */
@@ -29,6 +28,7 @@ use yii\widgets\ActiveForm;
         ]
     ])
     ?>
+
     <?= $form->field($model, 'veiculo')->textInput(['value' => $model->veiculo->marca . " " . $model->veiculo->modelo, 'readonly' => true]); ?>
 
     <?= $form->field($model, 'profile')->textInput(['value' => Yii::$app->user->identity->username, 'readonly' => true]); ?>
@@ -38,6 +38,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'localizacao_levantamento_id')->dropDownList(ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'localizacao'), ['prompt' => '']) ?>
 
     <?= $form->field($model, 'localizacao_devolucao_id')->dropDownList(ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'localizacao'), ['prompt' => '']) ?>
+
+    <?= $form->field($model, 'extras')->checkboxList(ArrayHelper::map(\common\models\Extra::find()->all(), 'id_extra', 'descricao')) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -15,7 +15,6 @@ use common\models\Localizacao;
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
-
     <?= $form->field($model, 'marca')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'modelo')->textInput(['maxlength' => true]) ?>
@@ -28,17 +27,17 @@ use common\models\Localizacao;
 
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'estado')->dropDownList([ 'pronto' => 'Pronto', 'manutencao' => 'Manutencao', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'estado')->dropDownList(['pronto' => 'Pronto', 'manutencao' => 'Manutencao',], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'tipo_veiculo_id')->dropDownList(ArrayHelper::map(Tipoveiculo::find()->all(),'id_tipo_veiculo','categoria'), ['prompt'=>''])?>
+    <?= $form->field($model, 'tipo_veiculo_id')->dropDownList(ArrayHelper::map(Tipoveiculo::find()->all(), 'id_tipo_veiculo', 'categoria'), ['prompt' => '']) ?>
 
     <!-- <?= $form->field($model, 'tipo_veiculo_id')->textInput() ?> -->
 
-    <?= $form->field($model, 'localizacao_id')->dropDownList(ArrayHelper::map(Localizacao::find()->all(),'id_localizacao','localizacao'), ['prompt'=>''])?>
+    <?= $form->field($model, 'localizacao_id')->dropDownList(ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'localizacao'), ['prompt' => '']) ?>
 
     <!-- <?= $form->field($model, 'localizacao_id')->textInput() ?> -->
 
-    <?= $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
+    <?= $form->field($modelupload, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
 
 
     <div class="form-group">

@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models;
+namespace backend\models;
 
 use yii\base\Model;
 use yii\web\UploadedFile;
@@ -23,7 +23,9 @@ class UploadForm extends Model
     {
         if ($this->validate()) {
             foreach ($this->imageFiles as $file) {
-                $file->saveAs('uploads/' . $file->baseName . '.' . $file->extension);
+
+                $file->saveAs(\Yii::getAlias('@frontend') . '/web/uploads/' . $file->baseName . '.' . $file->extension);
+                //$file->saveAs(\Yii::getAlias('@backend') . '/web/uploads/' . $file->baseName . '.' . $file->extension);
             }
             return true;
         } else {

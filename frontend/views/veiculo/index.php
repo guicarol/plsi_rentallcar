@@ -29,11 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php
         foreach ($model as $veiculo) { ?>
-        
+
             <div class="col-lg-4 col-md-6 mb-2">
                 <div class="rent-item mb-4">
-                    <img class="img-fluid mb-4" src="img/car-rent-1.png" alt="">
-                    <h4 class="text-uppercase mb-4"><?= $veiculo->marca?> <?= $veiculo->modelo?></h4>
+                    
+                    <?php
+                    foreach ($veiculo->imagems as $imagem) { ?>
+                        <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid mb-4"]); ?>
+                    <?php } ?>
+                    <h4 class="text-uppercase mb-4"><?= $veiculo->marca ?> <?= $veiculo->modelo ?></h4>
                     <div class="d-flex justify-content-center mb-4">
                         <div class="px-2">
                             <i class="fa fa-car text-primary mr-1"></i>
@@ -48,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <span><?= $veiculo->preco ?></span>
                         </div>
                     </div>
-                    <a >    <?= Html::a('Ver informação', ['veiculo/view', 'id_veiculo' => $veiculo->id_veiculo], ['class' => 'btn btn-primary']);?>
+                    <a>    <?= Html::a('Ver informação', ['veiculo/view', 'id_veiculo' => $veiculo->id_veiculo], ['class' => 'btn btn-primary']); ?>
                 </div>
             </div>
             <?php

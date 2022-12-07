@@ -2,13 +2,14 @@
 
 namespace backend\controllers;
 
+use common\models\Imagem;
 use common\models\Veiculo;
 use common\models\VeiculoSearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use common\models\UploadForm;
+use backend\models\UploadForm;
 use yii\web\UploadedFile;
 
 /**
@@ -71,10 +72,27 @@ class VeiculoController extends Controller
     public function actionCreate()
     {
         $model = new Veiculo();
+        $modelupload = new UploadForm();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_veiculo' => $model->id_veiculo]);
+            if ($model->load($this->request->post()) && $modelupload->load($this->request->post())) {
+
+                if ($model->save()) {
+
+                    $modelupload->imageFiles = UploadedFile::getInstances($modelupload, 'imageFiles');
+                    $modelupload->upload();
+
+                    foreach ($modelupload->imageFiles as $image) {
+
+                        $modelimage = new Imagem();
+                        $modelimage->imagem = $image->baseName . '.' . $image->extension;
+                        $modelimage->veiculo_id = $model->id_veiculo;
+                        $modelimage->save();
+                    }
+
+
+                    return $this->redirect(['view', 'id_veiculo' => $model->id_veiculo]);
+                }
             }
         } else {
             $model->loadDefaultValues();
@@ -82,6 +100,7 @@ class VeiculoController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'modelupload' => $modelupload,
         ]);
     }
 
@@ -135,19 +154,4 @@ class VeiculoController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-
-    public function actionUpload()
-    {
-        $model = new UploadForm();
-
-        if (Yii::$app->request->isPost) {
-            $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
-            if ($model->upload()) {
-                $model->saveAs(\Yii::getAlias('@carImgPath') . '/' . $imgname);
-                return;
-            }
-        }
-
-        return $this->render('upload', ['model' => $model]);
-    }
 }

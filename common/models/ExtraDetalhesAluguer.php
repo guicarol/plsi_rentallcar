@@ -31,7 +31,7 @@ class ExtraDetalhesAluguer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['extra_id', 'detalhes_aluguer_id'], 'required'],
+            //            [['extra_id', 'detalhes_aluguer_id'], 'required'],
             [['extra_id', 'detalhes_aluguer_id'], 'integer'],
             [['extra_id'], 'exist', 'skipOnError' => true, 'targetClass' => Extra::class, 'targetAttribute' => ['extra_id' => 'id_extra']],
             [['detalhes_aluguer_id'], 'exist', 'skipOnError' => true, 'targetClass' => DetalhesAluguer::class, 'targetAttribute' => ['detalhes_aluguer_id' => 'id_detalhes_aluguer']],

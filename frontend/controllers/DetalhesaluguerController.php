@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Detalhesaluguer;
 use common\models\DetalhesaluguerSearch;
+use common\models\ExtraDetalhesAluguer;
 use common\models\Profile;
 use common\models\Veiculo;
 use Yii;
@@ -63,7 +64,7 @@ class DetalhesaluguerController extends Controller
      */
     public function actionView($id_detalhes_aluguer)
     {
-        $model=$this->findModel($id_detalhes_aluguer);
+        $model = $this->findModel($id_detalhes_aluguer);
         if (Yii::$app->user->id == $model->profile_id) {
             return $this->render('view', [
                 'model' => $this->findModel($id_detalhes_aluguer),
@@ -78,17 +79,26 @@ class DetalhesaluguerController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public
-    function actionCreate($id_veiculo)
+    public function actionCreate($id_veiculo)
     {
         $model = new Detalhesaluguer();
         $model->veiculo_id = $id_veiculo;
         $model->profile_id = Yii::$app->user->identity->getId();
 
         if ($this->request->isPost) {
+            $model->extras=$this->request->post()['Detalhesaluguer']['extras'];
+            if ($model->load($this->request->post())) {
+                if ($model->save()) {
 
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
+                    foreach ($model->extras as $extradetalhes) {
+                        $extradetalhesaluguer = new ExtraDetalhesAluguer();
+                        $extradetalhesaluguer->extra_id = $extradetalhes;
+                        $extradetalhesaluguer->detalhes_aluguer_id = $model->id_detalhes_aluguer;
+                        $extradetalhesaluguer->save();
+                    }
+
+                    return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
+                }
             }
         } else {
             $model->loadDefaultValues();
