@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="col-lg-4 col-md-6 mb-2">
                 <div class="rent-item mb-4">
-                    
+
                     <?php
                     foreach ($veiculo->imagems as $imagem) { ?>
                         <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid mb-4"]); ?>

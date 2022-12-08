@@ -114,13 +114,31 @@ class VeiculoController extends Controller
     public function actionUpdate($id_veiculo)
     {
         $model = $this->findModel($id_veiculo);
+        $modelupload = new UploadForm();
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_veiculo' => $model->id_veiculo]);
+        if ($model->load($this->request->post()) && $modelupload->load($this->request->post())) {
+
+            if ($model->save()) {
+
+                $modelupload->imageFiles = UploadedFile::getInstances($modelupload, 'imageFiles');
+                $modelupload->upload();
+
+                foreach ($modelupload->imageFiles as $image) {
+
+                    $modelimage = new Imagem();
+                    $modelimage->imagem = $image->baseName . '.' . $image->extension;
+                    $modelimage->veiculo_id = $model->id_veiculo;
+                    $modelimage->save();
+                }
+
+
+                return $this->redirect(['view', 'id_veiculo' => $model->id_veiculo]);
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelupload' => $modelupload,
         ]);
     }
 

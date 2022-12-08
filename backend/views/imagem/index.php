@@ -26,11 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             'id_imagem',
             'imagem',
-            'veiculo_id',
             [
                 'label' => 'Veiculo ',
                 'value' => function ($model) {

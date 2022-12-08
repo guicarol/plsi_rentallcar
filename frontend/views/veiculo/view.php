@@ -37,4 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <?= Html::a('Reservar', ['/detalhesaluguer/create','id_veiculo'=>$model->id_veiculo], ['class' => 'btn btn-primary']); ?>
+
+<br>
+    <?php
+    foreach ($model->imagems as $imagem) { ?>
+        <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid mb-4"]); ?>
+    <?php } ?>
 </div>
