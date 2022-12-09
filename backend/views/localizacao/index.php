@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var common\models\LocalizacaoSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Localizacaos';
+$this->title = 'Localizações';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="localizacao-index">

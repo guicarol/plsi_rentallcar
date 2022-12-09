@@ -33,7 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_analise',
             'comentario',
             'classificacao',
-            'data_analise',
+            [
+                'attribute' => 'data_analise',
+                'format' => ['date', 'php:Y-m-d']
+            ],
             [
                 'label' => 'Profile',
                 'value' => function ($model) {

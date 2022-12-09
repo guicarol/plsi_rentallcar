@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /** @var common\models\Analise $model */
 
 $this->title = 'Update Analise: ' . $model->id_analise;
-$this->params['breadcrumbs'][] = ['label' => 'Analises', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Analises', 'url' => ['/analise/index', 'id_user' => Yii::$app->user->getId()]];
 $this->params['breadcrumbs'][] = ['label' => $model->id_analise, 'url' => ['view', 'id_analise' => $model->id_analise]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

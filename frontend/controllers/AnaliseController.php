@@ -13,7 +13,6 @@ use yii\filters\VerbFilter;
 use Yii;
 
 
-
 /**
  * AnaliseController implements the CRUD actions for Analise model.
  */
@@ -46,14 +45,18 @@ class AnaliseController extends Controller
     {
         $profile = Profile::findOne($id_user);
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $profile->getAnalises(),
-        ]);
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'profile' => $profile
-        ]);
+        if (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "cliente" && Yii::$app->user->id == $id_user) {
+
+            $dataProvider = new ActiveDataProvider([
+                'query' => $profile->getAnalises(),
+            ]);
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+                'profile' => $profile
+            ]);
+        } else
+            $this->redirect('index');
 
     }
 
@@ -82,9 +85,7 @@ class AnaliseController extends Controller
         if ($this->request->isPost) {
             $model->data_analise = date("Y-m-d H:i:s");;
             $model->profile_id = Yii::$app->user->id;
-            if ($model->load($this->request->post())&& $model->save()) {
-
-
+            if ($model->load($this->request->post()) && $model->save()) {
 
 
                 return $this->redirect(['view', 'id_analise' => $model->id_analise]);
@@ -97,7 +98,7 @@ class AnaliseController extends Controller
             'model' => $model,
         ]);
     }
-    
+
 
     /**
      * Updates an existing Analise model.
@@ -106,7 +107,8 @@ class AnaliseController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id_analise){
+    public function actionUpdate($id_analise)
+    {
 
         $model = $this->findModel($id_analise);
 

@@ -13,8 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="extra-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Update', ['update', 'id_extra' => $model->id_extra], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id_extra' => $model->id_extra], [

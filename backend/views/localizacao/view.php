@@ -13,8 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="localizacao-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Update', ['update', 'id_localizacao' => $model->id_localizacao], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id_localizacao' => $model->id_localizacao], [

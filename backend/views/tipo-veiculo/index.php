@@ -1,6 +1,7 @@
 <?php
 
 use common\models\TipoVeiculo;
+use yii\bootstrap5\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;

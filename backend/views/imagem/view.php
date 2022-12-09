@@ -29,10 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id_imagem',
+
             [
                 'attribute' => 'imagem',
-                'value' => Yii::getAlias('@carImgUrl') . '/' . $model->imagem,
-                'format' => ['image', ['width' => '100', 'height' => '100']]
+                'value' => Html::img( Yii::getAlias('@frontend') . '/web/uploads/' . $model->imagem, ['class' => "img-fluid mb-4"]) ,
+                'format' => ['image', ['width' => '100', 'height' => '100']],
             ],
             'veiculo_id',
         ],
