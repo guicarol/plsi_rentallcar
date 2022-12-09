@@ -53,13 +53,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Extra',
                 'value' => function ($model) {
-
                     foreach ($model->extraDetalhesAluguers as $extraDetalhesAluguer)
+                        if ($extraDetalhesAluguer->extra != null) {
 
-                        $teste = array($extraDetalhesAluguer->extra['descricao']);
+                            $teste = array($extraDetalhesAluguer->extra['descricao']);
 
-                    $string = join(",", $teste);
-                    return $string;
+                            $string = join(",", $teste);
+                            return $string;
+
+                        }
+                    return 'Nenhum extra';
                 }
             ],
         ],

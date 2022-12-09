@@ -86,16 +86,16 @@ class DetalhesaluguerController extends Controller
         $model->profile_id = Yii::$app->user->identity->getId();
 
         if ($this->request->isPost) {
-            $model->extras=$this->request->post()['Detalhesaluguer']['extras'];
+            $model->extras = $this->request->post()['Detalhesaluguer']['extras'];
             if ($model->load($this->request->post())) {
                 if ($model->save()) {
-
-                    foreach ($model->extras as $extradetalhes) {
-                        $extradetalhesaluguer = new ExtraDetalhesAluguer();
-                        $extradetalhesaluguer->extra_id = $extradetalhes;
-                        $extradetalhesaluguer->detalhes_aluguer_id = $model->id_detalhes_aluguer;
-                        $extradetalhesaluguer->save();
-                    }
+                    if ($model->extras != null)
+                        foreach ($model->extras as $extradetalhes) {
+                            $extradetalhesaluguer = new ExtraDetalhesAluguer();
+                            $extradetalhesaluguer->extra_id = $extradetalhes;
+                            $extradetalhesaluguer->detalhes_aluguer_id = $model->id_detalhes_aluguer;
+                            $extradetalhesaluguer->save();
+                        }
 
                     return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
                 }
