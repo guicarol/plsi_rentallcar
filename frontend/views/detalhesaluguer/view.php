@@ -16,7 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
 
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -24,31 +23,43 @@ $this->params['breadcrumbs'][] = $this->title;
             'data_fim',
             [
                 'label' => 'Carro',
-                'value' => function($model) {
-                    return $model->veiculo->marca;
+                'value' => function ($model) {
+                    return $model->veiculo->marca . " " . $model->veiculo->modelo;
                 }
             ],
             [
                 'label' => 'Nome',
-                'value' => function($model) {
+                'value' => function ($model) {
                     return Yii::$app->user->identity->username;
                 }
-            ],            [
+            ], [
                 'label' => 'Tipo de seguro',
-                'value' => function($model) {
+                'value' => function ($model) {
                     return $model->seguro->cobertura;
                 }
             ],
             [
                 'label' => 'Localizacao de recolha',
-                'value' => function($model) {
+                'value' => function ($model) {
                     return $model->localizacaoLevantamento->morada;
                 }
             ],
             [
                 'label' => 'Localizacao de devolucao',
-                'value' => function($model) {
+                'value' => function ($model) {
                     return $model->localizacaoDevolucao->morada;
+                }
+            ],
+            [
+                'label' => 'Extra',
+                'value' => function ($model) {
+
+                    foreach ($model->extraDetalhesAluguers as $extraDetalhesAluguer)
+
+                        $teste = array($extraDetalhesAluguer->extra['descricao']);
+
+                    $string = join(",", $teste);
+                    return $string;
                 }
             ],
         ],

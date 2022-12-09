@@ -20,7 +20,8 @@ use yii\widgets\ActiveForm;
         'model' => $model,
         'attribute' => 'data_inicio',
         'attribute2' => 'data_fim',
-        'options' => ['placeholder' => 'teste'],
+        'options' => ['placeholder' => 'Data de inicio'],
+        'options2' => ['placeholder' => 'Data de fim'],
         'type' => DatePicker::TYPE_RANGE,
         'form' => $form,
         'pluginOptions' => [

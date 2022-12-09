@@ -32,25 +32,22 @@ $this->title = 'Contacto';
             <div class="row">
                 <div class="col-lg-7 mb-2">
                     <div class="contact-form bg-light mb-4" style="padding: 30px;">
-                        <form>
-                            <div class="row">
-                                <div class="col-6 form-group">
-                                    <input type="text" class="form-control p-4" placeholder="Nome completo" required="required">
-                                </div>
-                                <div class="col-6 form-group">
-                                    <input type="email" class="form-control p-4" placeholder="Email" required="required">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control p-4" placeholder="Assunto" required="required">
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control py-3 px-4" rows="5" placeholder="Messagem" required="required"></textarea>
-                            </div>
-                            <div>
-                                <button class="btn btn-primary py-3 px-5" type="submit">Enviar mensagem</button>
-                            </div>
-                        </form>
+                        <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+
+                        <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
+
+                        <?= $form->field($model, 'email') ?>
+
+                        <?= $form->field($model, 'subject') ?>
+
+                        <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
+
+
+                        <div class="form-group">
+                            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                        </div>
+
+                        <?php ActiveForm::end(); ?>
                     </div>
                 </div>
                 <div class="col-lg-5 mb-2">

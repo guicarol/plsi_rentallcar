@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var common\models\AnaliseSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Analises';
+$this->title = 'Avaliação';
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Analise', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar Avaliação', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             'id_analise',
             'comentario',

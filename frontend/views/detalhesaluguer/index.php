@@ -34,12 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->veiculo->marca ." ".$model->veiculo->modelo;
                 }
             ],
-            [
-                'label' => 'Tipo de seguro',
-                'value' => function ($model) {
-                    return $model->seguro->cobertura;
-                }
-            ],
+
             [
                 'label' => 'Localizacao de recolha',
                 'value' => function ($model) {
