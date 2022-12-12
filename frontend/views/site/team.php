@@ -14,7 +14,7 @@ $this->title = 'Equipa';
         <div class="d-inline-flex text-white">
             <h6 class="text-uppercase m-0"><a class="text-white" href="index.php">Home</a></h6>
             <h6 class="text-body m-0 px-3">/</h6>
-            <h6 class="text-uppercase text-body m-0">The Team</h6>
+            <h6 class="text-uppercase text-body m-0">Equipa</h6>
         </div>
     </div>
     <!-- Page Header Start -->
@@ -23,7 +23,7 @@ $this->title = 'Equipa';
     <!-- Team Start -->
     <div class="container-fluid py-5">
         <div class="container py-5">
-            <h1 class="display-4 text-uppercase text-center mb-5">Meet Our Team</h1>
+            <h1 class="display-4 text-uppercase text-center mb-5">A nossa Equipa</h1>
             <div class="owl-carousel team-carousel position-relative" style="padding: 0 30px;">
                 <div class="team-item">
                     <img class="img-fluid w-100" src="img/team-1.jpg" alt="">

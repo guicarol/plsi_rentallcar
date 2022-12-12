@@ -29,7 +29,7 @@ $this->title = 'Serviço';
     <!-- Services Start -->
     <div class="container-fluid py-5">
         <div class="container pt-5 pb-3">
-            <h1 class="display-4 text-uppercase text-center mb-5">Our Services</h1>
+            <h1 class="display-4 text-uppercase text-center mb-5">Servios</h1>
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-2">
                     <div class="service-item d-flex flex-column justify-content-center px-4 mb-4">
@@ -39,7 +39,7 @@ $this->title = 'Serviço';
                             </div>
                             <h1 class="display-2 text-white mt-n2 m-0">01</h1>
                         </div>
-                        <h4 class="text-uppercase mb-3">Car Rental</h4>
+                        <h4 class="text-uppercase mb-3">Aluguer de viaturas</h4>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-2">
@@ -61,7 +61,7 @@ $this->title = 'Serviço';
                             </div>
                             <h1 class="display-2 text-white mt-n2 m-0">03</h1>
                         </div>
-                        <h4 class="text-uppercase mb-3">Car Inspection</h4>
+                        <h4 class="text-uppercase mb-3">Inspeção de viaturas</h4>
                     </div>
                 </div>
             </div>
@@ -75,8 +75,8 @@ $this->title = 'Serviço';
         <div class="container py-5">
             <div class="bg-banner py-5 px-4 text-center">
                 <div class="py-5">
-                    <h1 class="display-1 text-uppercase text-primary mb-4">50% OFF</h1>
-                    <h1 class="text-uppercase text-light mb-4">Special Offer For New Members</h1>
+                    <h1 class="display-1 text-uppercase text-primary mb-4">50% Desconto</h1>
+                    <h1 class="text-uppercase text-light mb-4">Na sua primeira reserva</h1>
                 </div>
             </div>
         </div>

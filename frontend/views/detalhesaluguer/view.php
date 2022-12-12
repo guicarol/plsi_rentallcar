@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /** @var common\models\Detalhesaluguer $model */
 
 $this->title = $model->id_detalhes_aluguer;
-$this->params['breadcrumbs'][] = ['label' => 'Detalhesaluguers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Detalhesaluguers', 'url' => ['/detalhesaluguer/index', 'id_user' => Yii::$app->user->getId()]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -63,6 +63,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         }
                     return 'Nenhum extra';
+                }
+            ],
+            [
+                'label' => 'Preço total a pagar',
+                'value' => function ($model) {
+                    return $model->veiculo->preco;
+
                 }
             ],
         ],
