@@ -24,6 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
     <p>        <?= Html::a('Ver imagens', ['imagem/index', 'id_veiculo' => $model->id_veiculo], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Alterar Estado', ['veiculo/updateestado','id_veiculo' => $model->id_veiculo], ['class' => 'btn btn-success']) ?>
+
     </p>
 
     <?= DetailView::widget([
@@ -37,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'matricula',
             'descricao',
             'tipo_veiculo_id',
+            'estado',
         ],
     ]) ?>
 

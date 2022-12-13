@@ -49,6 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 }
             ],
+            'estado',
+
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Veiculo $model, $key, $index, $column) {

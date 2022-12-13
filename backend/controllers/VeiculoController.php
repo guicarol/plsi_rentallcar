@@ -144,7 +144,23 @@ class VeiculoController extends Controller
             'modelupload' => $modelupload,
         ]);
     }
+    public function actionUpdateestado($id_veiculo)
+    {
+        $model = $this->findModel($id_veiculo);
 
+        if ($model->estado=='manutencao') {
+
+            $model->estado='pronto';
+        } else{
+
+            $model->estado='manutencao';
+
+        }
+        $model->save();
+        return $this->render('view', [
+            'model' => $this->findModel($id_veiculo),
+        ]);
+    }
     /**
      * Deletes an existing Veiculo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
