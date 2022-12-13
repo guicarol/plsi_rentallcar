@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'matricula',
             'descricao',
             'tipo_veiculo_id',
+            'franquia',
         ],
     ]) ?>
 

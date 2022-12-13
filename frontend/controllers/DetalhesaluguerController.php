@@ -92,12 +92,22 @@ class DetalhesaluguerController extends Controller
     public function actionCreate($id_veiculo)
     {
         $model = new Detalhesaluguer();
+            //$dias = date_diff();
         $model->veiculo_id = $id_veiculo;
         $model->profile_id = Yii::$app->user->identity->getId();
 
         if ($this->request->isPost) {
+            
             $model->extras = $this->request->post()['Detalhesaluguer']['extras'];
             if ($model->load($this->request->post())) {
+                //calculo da diferenca entre a data de inicio e a data de fim
+                $dataIni = date_create($model->data_inicio);
+                $dataFim = date_create($model->data_fim);
+                $dataDiff = date_diff($dataIni, $dataFim);
+                //var_dump($dataDiff->format("%a"));die;
+
+                $model->preco_total = 30;
+
                 if ($model->save()) {
                     if ($model->extras != null)
                         foreach ($model->extras as $extradetalhes) {
