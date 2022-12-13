@@ -42,12 +42,15 @@ class VeiculoController extends Controller
      */
     public function actionIndex()
     {
+        $tipoVeiculos = \yii\helpers\ArrayHelper::map(\common\models\TipoVeiculo::find()->asArray()->all(), 'id_tipo_veiculo', 'categoria');
+
         $searchModel = new VeiculoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'tipoVeiculos'=>$tipoVeiculos,
         ]);
     }
 

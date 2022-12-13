@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 // \yii\helpers\ArrayHelper::map(\common\models\Genre::find()->asArray()->all(), 'id', 'name')
 
-$tipoVeiculos = \yii\helpers\ArrayHelper::map(\common\models\TipoVeiculo::find()->asArray()->all(), 'id_tipo_veiculo', 'categoria');
 
 ?>
 <div class="veiculo-index">

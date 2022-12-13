@@ -42,9 +42,7 @@ use yii\widgets\DetailView;
         <li class="nav-item d-none d-sm-inline-block">
             <?= Html::a('TiposVeiculos', ['/tipo-veiculo/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <?= Html::a('Imagens', ['/imagem/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
-        </li>
+
         <li class="nav-item d-none d-sm-inline-block">
             <?= Html::a('Seguros', ['/seguro/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
         </li>

@@ -38,10 +38,14 @@ class VeiculoController extends Controller
      */
     public function actionIndex()
     {
-       $model= Veiculo::find()->all();
+        $tipoVeiculos = \yii\helpers\ArrayHelper::map(\common\models\TipoVeiculo::find()->asArray()->all(), 'id_tipo_veiculo', 'categoria');
+
+        $model= Veiculo::find()->all();
 
         return $this->render('index', [
-            'model'=>$model
+            'model'=>$model,
+            'tipoveiculos'=>$tipoVeiculos
+
         ]);
     }
 

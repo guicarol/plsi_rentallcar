@@ -17,23 +17,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <p>
-        <?= Html::a('Create Imagem', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Imagem', ['imagem/create', 'id_veiculo' => $veiculo->id_veiculo],['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
 
             'id_imagem',
             'imagem',
             [
                 'label' => 'Veiculo ',
+                'format'=>'raw',
                 'value' => function ($model) {
                     {
-                        return "{$model->veiculo->marca} {$model->veiculo->modelo}";
+                        return Html::img('@web/uploads/' . $model->imagem,['width' => '400', 'height' => '300']);
 
                     }
                 }
@@ -42,10 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Imagem $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id_imagem' => $model->id_imagem]);
-                 }
+                }
             ],
         ],
     ]); ?>
+
 
 
 </div>

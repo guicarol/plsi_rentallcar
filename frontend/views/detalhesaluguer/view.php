@@ -66,6 +66,29 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
+                'label' => 'Extra',
+                'value' => function ($model) {
+
+                    foreach ($model->extraDetalhesAluguers as $extraDetalhesAl)
+                        print_r($extraDetalhesAl->extra->descricao);
+
+                    if ($extraDetalhesAl->extra != null) {
+                        $testeArray = '';
+                        if (count($model->extraDetalhesAluguers) > 1) {
+                            $testeArray = $extraDetalhesAl->extra->descricao;
+                        } else {
+                            $testeArray = $extraDetalhesAl->extra->descricao;
+                        }
+
+                        //var_dump($testeArray);
+                        $teste = array([$extraDetalhesAl->extra->id_extra]);
+                        return $testeArray;
+
+                    }
+                    return 'Nenhum extra';
+                }
+            ],
+            [
                 'label' => 'Preço total a pagar',
                 'value' => function ($model) {
                     return $model->veiculo->preco;

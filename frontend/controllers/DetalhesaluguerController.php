@@ -70,10 +70,14 @@ class DetalhesaluguerController extends Controller
      */
     public function actionView($id_detalhes_aluguer)
     {
+
+        $extra = \common\models\ExtraDetalhesAluguer::find()->where(['detalhes_aluguer_id'=>$id_detalhes_aluguer])->all();
+
         $model = $this->findModel($id_detalhes_aluguer);
         if (Yii::$app->user->id == $model->profile_id) {
             return $this->render('view', [
                 'model' => $this->findModel($id_detalhes_aluguer),
+                'extra'=>$extra,
             ]);
         } else
             $this->redirect('index');
