@@ -22,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Emitir fatura', ['fatura/create', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -68,7 +69,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             $string = join(",", $teste);
                             return $string;
-
                         }
                     return 'Nenhum extra';
                 }
