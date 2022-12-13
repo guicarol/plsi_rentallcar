@@ -24,7 +24,7 @@ create table veiculo (
     preco double(5,2) not null,
     matricula varchar(9) not null unique,
     descricao varchar(255) not null,
-    estado enum("pronto", "manutencao", "reservado") not null,
+    estado enum("pronto", "manutencao") not null,
     tipo_veiculo_id int not null,
     localizacao_id int not null,
     franquia int not null,
