@@ -94,7 +94,6 @@ class SignupForm extends Model
         $profile->nr_carta_conducao = $this->cartaConducao;
         $profile->save();
 
-
         return true;
     }
 

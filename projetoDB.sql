@@ -2,7 +2,7 @@ create database projetoDB;
 
 use projetoDB;
 
-drop table assistencia, linha_fatura, fatura, extra_detalhes_aluguer, detalhes_aluguer, analise, seguro, extra, imagem, veiculo, localizacao, tipo_veiculo;
+drop table assistencia, extra_detalhes_aluguer, detalhes_aluguer, analise, seguro, extra, imagem, veiculo, localizacao, tipo_veiculo;
 
 create table tipo_veiculo (
     id_tipo_veiculo INT NOT NULL PRIMARY KEY auto_increment,
@@ -24,9 +24,10 @@ create table veiculo (
     preco double(5,2) not null,
     matricula varchar(9) not null unique,
     descricao varchar(255) not null,
-    estado enum("pronto", "manutencao") not null,
+    estado enum("pronto", "manutencao", "reservado") not null,
     tipo_veiculo_id int not null,
     localizacao_id int not null,
+    franquia int not null,
     foreign key (localizacao_id) references localizacao(id_localizacao),
     FOREIGN KEY (tipo_veiculo_id) REFERENCES tipo_veiculo(id_tipo_veiculo)
 )engine=InnoDB;
@@ -79,6 +80,9 @@ create table detalhes_aluguer (
     seguro_id int not null,
     localizacao_levantamento_id int not null,
     localizacao_devolucao_id int not null,
+    estado enum("reservado", "pago") not null default "reservado",
+    preco_total double (5,2) not null,
+    data_fatura datetime,
     foreign key(veiculo_id) references veiculo(id_veiculo),
     foreign key(profile_id) references profile(id_profile),
     foreign key(seguro_id) references seguro(id_seguro),
@@ -92,24 +96,6 @@ create table extra_detalhes_aluguer(
     detalhes_aluguer_id int not null,
     foreign key(extra_id) references extra(id_extra),
     foreign key(detalhes_aluguer_id) references detalhes_aluguer(id_detalhes_aluguer)
-)engine=InnoDB;
-
-create table fatura (
-	id_fatura int not null primary key auto_increment,
-    data_inicio_aluguer datetime not null,
-    data_fim_aluguer datetime not null,
-    data_fatura datetime not null,
-    preco_total double (5,2) not null,
-    detalhes_aluguer_fatura_id int not null,
-    foreign key(detalhes_aluguer_fatura_id) references detalhes_aluguer(id_detalhes_aluguer)
-)engine=InnoDB;
-
-create table linha_fatura(
-	id_linha_fatura int not null auto_increment primary key,
-    fatura_id int not null,
-    extra_detalhes_aluguer_id int not null,
-    foreign key (extra_detalhes_aluguer_id) references extra_detalhes_aluguer(id_extra_detalhes_aluguer),
-    foreign key(fatura_id) references fatura(id_fatura)
 )engine=InnoDB;
 
 create table assistencia(
@@ -140,8 +126,9 @@ insert into localizacao values
 (default, "Leiria - Batalha", "Rua dos teste Batalha", "2440-041");
 
 insert into veiculo values
-(default, "VW", "Golf", "Diesel", 29.99, "AA-11-AA", "Longa descrição do veiculo", "Pronto", 8, 1),
-(default, "BMW", "X1", "Diesel", 59.99, "BB-22-BB", "Longa descrição do veiculo", "Pronto", 7, 2);
+(default, "VW", "Golf", "Diesel", 29.99, "AA-11-AA", "Longa descrição do veiculo", "pronto", 8, 1, 1250),
+(default, "Seat", "Ibiza", "Gasolina", 17.99, "CC-33-CC", "Longa descrição do veiculo", "reservado", 3, 1, 1100),
+(default, "BMW", "X1", "Diesel", 59.99, "BB-22-BB", "Longa descrição do veiculo", "pronto", 7, 2, 3100);
 
 insert into extra values
 (default, "Via-Verde", 6.99),

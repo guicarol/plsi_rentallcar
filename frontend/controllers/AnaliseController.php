@@ -45,7 +45,6 @@ class AnaliseController extends Controller
     {
         $profile = Profile::findOne($id_user);
 
-
         if (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "cliente" && Yii::$app->user->id == $id_user) {
 
             $dataProvider = new ActiveDataProvider([
