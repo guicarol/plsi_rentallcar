@@ -38,24 +38,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'preco',
             'matricula',
             'descricao',
-            'tipo_veiculo_id',
-            'estado',
+            [
+                'label' => 'Tipo Veiculo',
+                'attribute' => 'tipoVeiculos',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    {
+                        return $model->tipoVeiculo->categoria;
+                    }
+                }
+            ],            'estado',
             'franquia',
         ],
     ]) ?>
 
-    <!-- <table>
-        <?php
-        echo '<tr><td><strong> ID </strong></td><td>' . $model->id_veiculo . '</td></tr>';
-        echo '<tr><td><strong> Marca </strong></td><td>' . $model->marca . '</td></tr>';
-        echo '<tr><td><strong> Modelo </strong></td><td>' . $model->modelo . '</td></tr>';
-        echo '<tr><td><strong> Combustivel </strong></td><td>' . $model->combustivel . '</td></tr>';
-        echo '<tr><td><strong> Preço </strong></td><td>' . $model->preco . '</td></tr>';
-        echo '<tr><td><strong> Matricula </strong></td><td>' . $model->matricula . '</td></tr>';
-        echo '<tr><td><strong> Descricao </strong></td><td>' . $model->descricao . '</td></tr>';
-        //echo '<tr><td><strong> Tipo de veiculo </strong></td><td>' . $model->id_tipo_veiculo0->categoria . '</td></tr>';
-        echo '<tr><td><strong> Tipo de veiculo </strong></td><td>' . $model->tipoVeiculo->categoria . '</td></tr>';
-        echo '</table>';
-        ?>-->
 
 </div>
