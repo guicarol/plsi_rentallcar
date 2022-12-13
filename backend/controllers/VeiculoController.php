@@ -144,6 +144,9 @@ class VeiculoController extends Controller
             'modelupload' => $modelupload,
         ]);
     }
+    public function actionUpdateestado($id_veiculo)
+    {
+        $model = $this->findModel($id_veiculo);
 
         if ($model->estado=='manutencao') {
 

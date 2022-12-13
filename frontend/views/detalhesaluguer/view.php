@@ -53,8 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Extra',
                 'value' => function ($model) {
-                    foreach ($model->extraDetalhesAluguers as $extraDetalhesAluguer)
-                        if ($extraDetalhesAluguer->extra != null) {
+                    $testeArray = '';
 
                     foreach ($model->extraDetalhesAluguers as $extraDetalhesAl) {
 

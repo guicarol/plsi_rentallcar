@@ -79,7 +79,7 @@ class SiteController extends Controller
         $veiculos = \common\models\Veiculo::find()->orderBy('id_veiculo DESC')->limit(6)->all();
         $analises = \common\models\Analise::find()->limit(6)->all();
 
-        return $this->render('index',[
+        return $this->render('index', [
             'veiculos' => $veiculos,
             'analises' => $analises,
         ]);

@@ -50,6 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 }
             ],
+            'estado',
 
             [
                 'class' => ActionColumn::className(),

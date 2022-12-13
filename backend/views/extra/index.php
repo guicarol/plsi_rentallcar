@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'id_extra',
             'descricao',
-            'preco',
+            [
                 'label' => 'Preço',
                 'value' => function ($model) {
                     return $model->preco.' €';
