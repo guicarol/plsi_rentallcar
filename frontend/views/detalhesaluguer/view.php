@@ -19,8 +19,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'data_inicio',
-            'data_fim',
+            [
+                'attribute' => 'data_inicio',
+                'format' => ['date', 'php:d-m-Y']
+            ],
+            [
+                'attribute' => 'data_fim',
+                'format' => ['date', 'php:d-m-Y']
+            ],
             [
                 'label' => 'Carro',
                 'value' => function ($model) {

@@ -30,11 +30,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'id_veiculo',
             'marca',
             'modelo',
             'combustivel',
-            'preco',
+            [
+                'label' => 'Preço',
+                'value' => function ($model) {
+                    return $model->preco.'€';
+                }
+            ],
             'matricula',
             'descricao',
             //'id_tipo_veiculo',
@@ -49,7 +53,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 }
             ],
-            'estado',
+            [
+                'label' => 'Estado',
+                'attribute' => 'estado',
+                'format' => 'raw',
+                //'filter' => $model,
+                'value' => function ($model) {
+                    {
+                        return $model->estado ;
+                    }
+                }
+            ],
 
             [
                 'class' => ActionColumn::className(),
