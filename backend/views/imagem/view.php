@@ -29,14 +29,26 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id_imagem',
-
             [
-                'attribute' => 'imagem',
-                'value' => Html::img( Yii::getAlias('@frontend') . '/web/uploads/' . $model->imagem, ['class' => "img-fluid mb-4"]) ,
-                'format' => ['image', ['width' => '100', 'height' => '100']],
+                'attribute' => 'Imagem',
+                'format' => ['raw'],
+                'value' => function ($model) {
+                    {
+                        return Html::img('@web/uploads/' . $model->imagem,['width' => '400', 'height' => '300']);
+                    }
+                }
             ],
-            'veiculo_id',
-        ],
+            [
+                'label' => 'Veiculo id',
+                'attribute' => 'Imagem',
+                'value' => function ($model) {
+                    {
+                        return $model->veiculo->marca ." ". $model->veiculo->modelo ;
+                    }
+                }
+            ],        ],
     ]) ?>
+
+
 
 </div>

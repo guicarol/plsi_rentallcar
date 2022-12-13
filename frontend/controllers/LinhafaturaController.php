@@ -2,16 +2,16 @@
 
 namespace frontend\controllers;
 
-use common\models\Veiculo;
-use common\models\VeiculoSearch;
+use common\models\Linhafatura;
+use common\models\LinhafaturaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * VeiculoController implements the CRUD actions for Veiculo model.
+ * LinhafaturaController implements the CRUD actions for Linhafatura model.
  */
-class VeiculoController extends Controller
+class LinhafaturaController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,48 +32,46 @@ class VeiculoController extends Controller
     }
 
     /**
-     * Lists all Veiculo models.
+     * Lists all Linhafatura models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $tipoVeiculos = \yii\helpers\ArrayHelper::map(\common\models\TipoVeiculo::find()->asArray()->all(), 'id_tipo_veiculo', 'categoria');
-
-        $model= Veiculo::find()->all();
+        $searchModel = new LinhafaturaSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
-            'model'=>$model,
-            'tipoveiculos'=>$tipoVeiculos
-
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Veiculo model.
-     * @param int $id_veiculo Id Veiculo
+     * Displays a single Linhafatura model.
+     * @param int $id_linha_fatura Id Linha Fatura
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id_veiculo)
+    public function actionView($id_linha_fatura)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id_veiculo),
+            'model' => $this->findModel($id_linha_fatura),
         ]);
     }
 
     /**
-     * Creates a new Veiculo model.
+     * Creates a new Linhafatura model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Veiculo();
+        $model = new Linhafatura();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_veiculo' => $model->id_veiculo]);
+                return $this->redirect(['view', 'id_linha_fatura' => $model->id_linha_fatura]);
             }
         } else {
             $model->loadDefaultValues();
@@ -85,18 +83,18 @@ class VeiculoController extends Controller
     }
 
     /**
-     * Updates an existing Veiculo model.
+     * Updates an existing Linhafatura model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id_veiculo Id Veiculo
+     * @param int $id_linha_fatura Id Linha Fatura
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id_veiculo)
+    public function actionUpdate($id_linha_fatura)
     {
-        $model = $this->findModel($id_veiculo);
+        $model = $this->findModel($id_linha_fatura);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_veiculo' => $model->id_veiculo]);
+            return $this->redirect(['view', 'id_linha_fatura' => $model->id_linha_fatura]);
         }
 
         return $this->render('update', [
@@ -105,29 +103,29 @@ class VeiculoController extends Controller
     }
 
     /**
-     * Deletes an existing Veiculo model.
+     * Deletes an existing Linhafatura model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id_veiculo Id Veiculo
+     * @param int $id_linha_fatura Id Linha Fatura
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id_veiculo)
+    public function actionDelete($id_linha_fatura)
     {
-        $this->findModel($id_veiculo)->delete();
+        $this->findModel($id_linha_fatura)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Veiculo model based on its primary key value.
+     * Finds the Linhafatura model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id_veiculo Id Veiculo
-     * @return Veiculo the loaded model
+     * @param int $id_linha_fatura Id Linha Fatura
+     * @return Linhafatura the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id_veiculo)
+    protected function findModel($id_linha_fatura)
     {
-        if (($model = Veiculo::findOne(['id_veiculo' => $id_veiculo])) !== null) {
+        if (($model = Linhafatura::findOne(['id_linha_fatura' => $id_linha_fatura])) !== null) {
             return $model;
         }
 

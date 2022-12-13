@@ -2,8 +2,12 @@
 
 namespace backend\controllers;
 
+use backend\models\UploadForm;
 use common\models\Imagem;
 use common\models\ImagemSearch;
+use common\models\Veiculo;
+use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -37,14 +41,18 @@ class ImagemController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($id_veiculo)
     {
-        $searchModel = new ImagemSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
+        $model = Imagem::find()->all();
+        $veiculo = Veiculo::findOne($id_veiculo);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $veiculo->getImagems(),
+        ]);
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'model' => $model,
             'dataProvider' => $dataProvider,
+            'veiculo' => $veiculo,
+
         ]);
     }
 
@@ -66,27 +74,28 @@ class ImagemController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($id_veiculo)
     {
-        $model = new Imagem();
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                $model->save();
-                $imageId = $model->id_imagem;
-                $image = UploadedFile::getInstance($model, 'imagem');
-                $imgname = 'img_' . $imageId . '.' . $image->getExtension();
-                $image->saveAs(\Yii::getAlias('@carImgPath') . '/' . $imgname);
-                $model->imagem = $imgname;
-                $model->save();
 
-                return $this->redirect(['view', 'id_imagem' => $model->id_imagem]);
+        $model = new Imagem();
+        $modelupload = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $modelupload->imageFiles = UploadedFile::getInstances($modelupload, 'imageFiles');
+            $modelupload->upload();
+
+            foreach ($modelupload->imageFiles as $image) {
+
+                $modelimage = new Imagem();
+                $modelimage->imagem = $image->baseName . '.' . $image->extension;
+                $modelimage->veiculo_id = $id_veiculo;
+                $modelimage->save();
             }
-        }else {
-            $model->loadDefaultValues();
+            return $this->redirect(['index', 'id_veiculo' => $id_veiculo]);
+
         }
 
-        return $this->render('create', [
-            'model' => $model,
+        return $this->render('update', ['model' => $model, 'modelupload' => $modelupload,
         ]);
     }
 
@@ -100,22 +109,26 @@ class ImagemController extends Controller
     public function actionUpdate($id_imagem)
     {
         $model = $this->findModel($id_imagem);
+        $modelupload = new UploadForm();
 
-        if ($model->load($this->request->post())) {
-            $model->save();
-            $image = UploadedFile::getInstance($model, 'imagem');
-            $imgname = 'img_' . $model->id_imagem . '.' . $image->getExtension();
-            $image->saveAs(\Yii::getAlias('@carImgPath') . '/' . $imgname);
-            $model->imagem = $imgname;
-            $model->save();
+        if (Yii::$app->request->isPost) {
+            $modelupload->imageFiles = UploadedFile::getInstances($modelupload, 'imageFiles');
+            $modelupload->upload();
 
-            return $this->redirect(['view', 'id_imagem' => $model->id_imagem]);
+            foreach ($modelupload->imageFiles as $image) {
+
+                $modelimage = new Imagem();
+                $modelimage->imagem = $image->baseName . '.' . $image->extension;
+                $modelimage->veiculo_id = $model->veiculo_id;
+                $modelimage->save();
+            }
+            return $this->redirect(['index', 'id_veiculo' => $model->veiculo_id]);
 
         }
 
-        return $this->render('update', [
-            'model' => $model,
+        return $this->render('update', ['model' => $model, 'modelupload' => $modelupload,
         ]);
+
     }
 
     /**
@@ -127,9 +140,11 @@ class ImagemController extends Controller
      */
     public function actionDelete($id_imagem)
     {
+        $model = $this->findModel($id_imagem);
+
         $this->findModel($id_imagem)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'id_veiculo' => $model->veiculo_id]);
     }
 
     /**
@@ -145,6 +160,6 @@ class ImagemController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('The requested page does not exist . ');
     }
 }

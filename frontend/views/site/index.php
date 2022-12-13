@@ -62,7 +62,7 @@ $this->title = 'RentAllCar';
     <div class="container-fluid py-5">
         <div class="container pt-5 pb-3">
             <h1 class="display-1 text-primary text-center">01</h1>
-            <h1 class="display-4 text-uppercase text-center mb-5">Welcome To <span
+            <h1 class="display-4 text-uppercase text-center mb-5">Bem-vindo ao <span
                         class="text-primary">RentAllCar</span></h1>
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
@@ -76,7 +76,7 @@ $this->title = 'RentAllCar';
                              style="width: 100px; height: 100px;">
                             <i class="fa fa-2x fa-headset text-secondary"></i>
                         </div>
-                        <h4 class="text-uppercase m-0">24/7 Car Rental Support</h4>
+                        <h4 class="text-uppercase m-0"> Serviço de Assistência 24/7 </h4>
                     </div>
                 </div>
                 <div class="col-lg-4 mb-2">
@@ -85,7 +85,7 @@ $this->title = 'RentAllCar';
                              style="width: 100px; height: 100px;">
                             <i class="fa fa-2x fa-car text-secondary"></i>
                         </div>
-                        <h4 class="text-light text-uppercase m-0">Car Reservation Anytime</h4>
+                        <h4 class="text-light text-uppercase m-1">Faz a tua reserva A QUALQUER MOMENTO</h4>
                     </div>
                 </div>
                 <div class="col-lg-4 mb-2">
@@ -94,7 +94,7 @@ $this->title = 'RentAllCar';
                              style="width: 100px; height: 100px;">
                             <i class="fa fa-2x fa-map-marker-alt text-secondary"></i>
                         </div>
-                        <h4 class="text-uppercase m-0">Lots Of Pickup Locations</h4>
+                        <h4 class="text-uppercase m-0">Diversos pontos de Recolha</h4>
                     </div>
                 </div>
             </div>
@@ -107,7 +107,7 @@ $this->title = 'RentAllCar';
     <div class="container-fluid py-5">
         <div class="container pt-5 pb-3">
             <h1 class="display-1 text-primary text-center">02</h1>
-            <h1 class="display-4 text-uppercase text-center mb-5">Our Services</h1>
+            <h1 class="display-4 text-uppercase text-center mb-5">Nossos Serviços</h1>
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-2">
                     <div class="service-item d-flex flex-column justify-content-center px-4 mb-4">
@@ -118,7 +118,7 @@ $this->title = 'RentAllCar';
                             </div>
                             <h1 class="display-2 text-white mt-n2 m-0">01</h1>
                         </div>
-                        <h4 class="text-uppercase mb-3">Car Financing</h4>
+                        <h4 class="text-uppercase mb-3">Financiamento </h4>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-2">
@@ -130,7 +130,7 @@ $this->title = 'RentAllCar';
                             </div>
                             <h1 class="display-2 text-white mt-n2 m-0">02</h1>
                         </div>
-                        <h4 class="text-uppercase mb-3">Car Rental</h4>
+                        <h4 class="text-uppercase mb-3">Aluguer de viaturas</h4>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-2">
@@ -142,7 +142,7 @@ $this->title = 'RentAllCar';
                             </div>
                             <h1 class="display-2 text-white mt-n2 m-0">03</h1>
                         </div>
-                        <h4 class="text-uppercase mb-3">Car Inspection</h4>
+                        <h4 class="text-uppercase mb-3">Inspeção de viaturas</h4>
 
                     </div>
                 </div>
@@ -183,7 +183,7 @@ $this->title = 'RentAllCar';
     <div class="container-fluid py-5">
         <div class="container py-5">
             <h1 class="display-1 text-primary text-center">04</h1>
-            <h1 class="display-4 text-uppercase text-center mb-5">Our Client's Say</h1>
+            <h1 class="display-4 text-uppercase text-center mb-5">Comentários</h1>
             <div class="owl-carousel testimonial-carousel">
                 <?php
                 foreach ($analises as $value) { ?>
@@ -211,7 +211,7 @@ $this->title = 'RentAllCar';
     <div class="container-fluid py-5">
         <div class="container pt-5 pb-3">
             <h1 class="display-1 text-primary text-center">05</h1>
-            <h1 class="display-4 text-uppercase text-center mb-5">Contact Us</h1>
+            <h1 class="display-4 text-uppercase text-center mb-5">ENTRA EM CONTACTO</h1>
             <div class="row">
                 <div class="col-lg-7 mb-2">
                     <div class="contact-form bg-light mb-4" style="padding: 30px;">

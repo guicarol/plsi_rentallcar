@@ -21,11 +21,12 @@ class UploadForm extends Model
 
     public function upload()
     {
+
         if ($this->validate()) {
             foreach ($this->imageFiles as $file) {
 
-                $file->saveAs(\Yii::getAlias('@frontend') . '/web/uploads/' . $file->baseName . '.' . $file->extension);
-                //$file->saveAs(\Yii::getAlias('@backend') . '/web/uploads/' . $file->baseName . '.' . $file->extension);
+                $file->saveAs(\Yii::getAlias('@frontend') . '/web/uploads/' . $file->baseName . '.' . $file->extension,false);
+                $file->saveAs(\Yii::getAlias('@backend') . '/web/uploads/' . $file->baseName . '.' . $file->extension,false);
             }
             return true;
         } else {

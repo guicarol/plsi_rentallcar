@@ -23,6 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <p>        <?= Html::a('Ver imagens', ['imagem/index', 'id_veiculo' => $model->id_veiculo], ['class' => 'btn btn-primary']) ?>
+    </p>
 
     <?= DetailView::widget([
         'model' => $model,

@@ -18,6 +18,36 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <div class="container">
+        <h2 align="center">How to Make Dynamic Bootstrap Carousel with PHP</h2>
+        <br/>
+        <div id="dynamic_slide_show" class="carousel slide" data-ride="carousel">
+
+            <div class="carousel-inner"> <?php
+                foreach ($model as $veiculo) { ?>
+
+                <?php
+                foreach ($veiculo->imagems as $imagem) { ?>
+                    <div class="carousel-item">
+
+                        <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid mb-4"]); ?>
+                    </div>
+                <?php } ?>
+                <?php } ?>
+            </div>
+            <a class="left carousel-control" href="#dynamic_slide_show" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+
+            <a class="right carousel-control" href="#dynamic_slide_show" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+        </div>
+    </div>
+
     <?php
     /*ListView::widget([
         'dataProvider' => $dataProvider,
@@ -32,7 +62,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="col-lg-4 col-md-6 mb-2">
                 <div class="rent-item mb-4">
+                    <div class="container">
+                        <div class="carousel slide" data-ride="carousel">
+                            <?php
+                            foreach ($veiculo->imagems as $imagem) { ?>
+                                <div class="carousel-item">
 
+                                    <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid mb-4"]); ?>
+                                </div>
+                            <?php } ?>
+
+                        </div>
+                    </div>
                     <?php
                     foreach ($veiculo->imagems as $imagem) { ?>
                         <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid mb-4"]); ?>
