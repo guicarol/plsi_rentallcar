@@ -127,7 +127,7 @@ insert into localizacao values
 
 insert into veiculo values
 (default, "VW", "Golf", "Diesel", 29.99, "AA-11-AA", "Longa descrição do veiculo", "pronto", 8, 1, 1250),
-(default, "Seat", "Ibiza", "Gasolina", 17.99, "CC-33-CC", "Longa descrição do veiculo", "reservado", 3, 1, 1100),
+(default, "Seat", "Ibiza", "Gasolina", 17.99, "CC-33-CC", "Longa descrição do veiculo", "manutencao", 3, 1, 1100),
 (default, "BMW", "X1", "Diesel", 59.99, "BB-22-BB", "Longa descrição do veiculo", "pronto", 7, 2, 3100);
 
 insert into extra values

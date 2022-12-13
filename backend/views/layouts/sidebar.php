@@ -26,7 +26,7 @@ use yii\widgets\DetailView;
         </div>
         <?php if(array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "admin") {?>
             <!-- CENAS DO ADMIN -->
-            <li class="nav-item d-none d-sm-inline-block,">
+            <li class="nav-item d-none d-sm-inline-block">
                 <?= Html::a('Users', ['/user/index'], ['data-method' => 'post', 'class' => 'nav-link'])?>
             </li>
         <?php } ?>
