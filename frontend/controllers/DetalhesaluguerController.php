@@ -76,8 +76,8 @@ class DetalhesaluguerController extends Controller
         $model = $this->findModel($id_detalhes_aluguer);
         if (Yii::$app->user->id == $model->profile_id) {
             return $this->render('view', [
-                'model' => $this->findModel($id_detalhes_aluguer),
-                'extra'=>$extra,
+                'model' => $model,
+                'extras'=>$model->extraDetalhesAluguers,
             ]);
         } else
             $this->redirect('index');

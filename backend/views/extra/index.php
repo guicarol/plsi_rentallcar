@@ -29,6 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_extra',
             'descricao',
             'preco',
+                'label' => 'Preço',
+                'value' => function ($model) {
+                    return $model->preco.' €';
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Extra $model, $key, $index, $column) {

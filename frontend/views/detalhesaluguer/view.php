@@ -56,43 +56,32 @@ $this->params['breadcrumbs'][] = $this->title;
                     foreach ($model->extraDetalhesAluguers as $extraDetalhesAluguer)
                         if ($extraDetalhesAluguer->extra != null) {
 
-                            $teste = array($extraDetalhesAluguer->extra['descricao']);
+                    foreach ($model->extraDetalhesAluguers as $extraDetalhesAl) {
 
-                            $string = join(",", $teste);
-                            return $string;
-
-                        }
-                    return 'Nenhum extra';
-                }
-            ],
-            [
-                'label' => 'Extra',
-                'value' => function ($model) {
-
-                    foreach ($model->extraDetalhesAluguers as $extraDetalhesAl)
-                        print_r($extraDetalhesAl->extra->descricao);
-
-                    if ($extraDetalhesAl->extra != null) {
-                        $testeArray = '';
                         if (count($model->extraDetalhesAluguers) > 1) {
-                            $testeArray = $extraDetalhesAl->extra->descricao;
+                            $testeArray = $testeArray . $extraDetalhesAl->extra->descricao . ', ';
                         } else {
                             $testeArray = $extraDetalhesAl->extra->descricao;
                         }
-
-                        //var_dump($testeArray);
-                        $teste = array([$extraDetalhesAl->extra->id_extra]);
-                        return $testeArray;
-
                     }
-                    return 'Nenhum extra';
+                    return $testeArray;
                 }
             ],
             [
                 'label' => 'Preço total a pagar',
                 'value' => function ($model) {
-                    return $model->veiculo->preco;
 
+                    $testeArray = 0;
+
+                    foreach ($model->extraDetalhesAluguers as $extraDetalhesAl) {
+
+                        if (count($model->extraDetalhesAluguers) > 1) {
+                            $testeArray +=$extraDetalhesAl->extra->preco ;
+                        } else {
+                            $testeArray = $extraDetalhesAl->extra->preco;
+                        }
+                    }
+                    return $model->veiculo->preco+$testeArray;
                 }
             ],
         ],
