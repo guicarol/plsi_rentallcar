@@ -15,9 +15,11 @@ use Yii;
  * @property int $seguro_id
  * @property int $localizacao_levantamento_id
  * @property int $localizacao_devolucao_id
+ * @property string $estado
+ * @property float $preco_total
+ * @property string|null $data_fatura
  *
  * @property ExtraDetalhesAluguer[] $extraDetalhesAluguers
- * @property Fatura[] $faturas
  * @property Localizacao $localizacaoDevolucao
  * @property Localizacao $localizacaoLevantamento
  * @property Profile $profile
@@ -42,9 +44,11 @@ class Detalhesaluguer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['data_inicio', 'data_fim'], 'safe'],
-            [['veiculo_id', 'profile_id', 'seguro_id', 'localizacao_levantamento_id', 'localizacao_devolucao_id'], 'required'],
+            [['data_inicio', 'data_fim', 'data_fatura'], 'safe'],
+            [['veiculo_id', 'profile_id', 'seguro_id', 'localizacao_levantamento_id', 'localizacao_devolucao_id', 'preco_total'], 'required'],
             [['veiculo_id', 'profile_id', 'seguro_id', 'localizacao_levantamento_id', 'localizacao_devolucao_id'], 'integer'],
+            [['estado'], 'string'],
+            [['preco_total'], 'number'],
             [['veiculo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Veiculo::class, 'targetAttribute' => ['veiculo_id' => 'id_veiculo']],
             [['profile_id'], 'exist', 'skipOnError' => true, 'targetClass' => Profile::class, 'targetAttribute' => ['profile_id' => 'id_profile']],
             [['seguro_id'], 'exist', 'skipOnError' => true, 'targetClass' => Seguro::class, 'targetAttribute' => ['seguro_id' => 'id_seguro']],
@@ -62,11 +66,14 @@ class Detalhesaluguer extends \yii\db\ActiveRecord
             'id_detalhes_aluguer' => 'Id Detalhes Aluguer',
             'data_inicio' => 'Data Inicio',
             'data_fim' => 'Data Fim',
-            'veiculo_id' => 'Veiculo',
-            'profile_id' => 'Profile',
-            'seguro_id' => 'Seguro',
-            'localizacao_levantamento_id' => 'Localizacao Levantamento',
-            'localizacao_devolucao_id' => 'Localizacao Devolucao',
+            'veiculo_id' => 'Veiculo ID',
+            'profile_id' => 'Profile ID',
+            'seguro_id' => 'Seguro ID',
+            'localizacao_levantamento_id' => 'Localizacao Levantamento ID',
+            'localizacao_devolucao_id' => 'Localizacao Devolucao ID',
+            'estado' => 'Estado',
+            'preco_total' => 'Preco Total',
+            'data_fatura' => 'Data Fatura',
         ];
     }
 
@@ -78,16 +85,6 @@ class Detalhesaluguer extends \yii\db\ActiveRecord
     public function getExtraDetalhesAluguers()
     {
         return $this->hasMany(ExtraDetalhesAluguer::class, ['detalhes_aluguer_id' => 'id_detalhes_aluguer']);
-    }
-
-    /**
-     * Gets query for [[Faturas]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFaturas()
-    {
-        return $this->hasMany(Fatura::class, ['detalhes_aluguer_fatura_id' => 'id_detalhes_aluguer']);
     }
 
     /**

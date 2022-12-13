@@ -37,6 +37,8 @@ use common\models\Localizacao;
 
     <!-- <?= $form->field($model, 'localizacao_id')->textInput() ?> -->
 
+    <?= $form->field($model, 'franquia')->textInput(['type' => 'number']) ?>
+
     <?= $form->field($modelupload, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
 
 

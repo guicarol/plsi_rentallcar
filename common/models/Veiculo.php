@@ -21,6 +21,7 @@ use yii\web\UploadedFile;
  * @property string $estado
  * @property int $tipo_veiculo_id
  * @property int $localizacao_id
+ * @property int $franquia 
  *
  * @property Assistencia[] $assistencias
  * @property DetalhesAluguer[] $detalhesAluguers
@@ -47,10 +48,10 @@ class Veiculo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['marca', 'modelo', 'combustivel', 'preco', 'matricula', 'descricao', 'estado', 'tipo_veiculo_id', 'localizacao_id'], 'required'],
+            [['marca', 'modelo', 'combustivel', 'preco', 'matricula', 'descricao', 'estado', 'tipo_veiculo_id', 'localizacao_id', 'franquia'], 'required'],
             [['preco'], 'number'],
             [['estado'], 'string'],
-            [['tipo_veiculo_id', 'localizacao_id'], 'integer'],
+            [['tipo_veiculo_id', 'localizacao_id', 'franquia'], 'integer'],
             [['marca'], 'string', 'max' => 21],
             [['modelo'], 'string', 'max' => 31],
             [['combustivel', 'matricula'], 'string', 'max' => 9],
@@ -77,6 +78,7 @@ class Veiculo extends \yii\db\ActiveRecord
             'estado' => 'Estado',
             'tipo_veiculo_id' => 'Categoria',
             'localizacao_id' => 'Localizacao carro',
+            'franquia' => 'Franquia',
         ];
     }
 

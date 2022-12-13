@@ -13,7 +13,6 @@ use Yii;
  *
  * @property DetalhesAluguer $detalhesAluguer
  * @property Extra $extra
- * @property LinhaFatura[] $linhaFaturas
  */
 class ExtraDetalhesAluguer extends \yii\db\ActiveRecord
 {
@@ -31,7 +30,7 @@ class ExtraDetalhesAluguer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            //            [['extra_id', 'detalhes_aluguer_id'], 'required'],
+            [['extra_id', 'detalhes_aluguer_id'], 'required'],
             [['extra_id', 'detalhes_aluguer_id'], 'integer'],
             [['extra_id'], 'exist', 'skipOnError' => true, 'targetClass' => Extra::class, 'targetAttribute' => ['extra_id' => 'id_extra']],
             [['detalhes_aluguer_id'], 'exist', 'skipOnError' => true, 'targetClass' => DetalhesAluguer::class, 'targetAttribute' => ['detalhes_aluguer_id' => 'id_detalhes_aluguer']],
@@ -68,15 +67,5 @@ class ExtraDetalhesAluguer extends \yii\db\ActiveRecord
     public function getExtra()
     {
         return $this->hasOne(Extra::class, ['id_extra' => 'extra_id']);
-    }
-
-    /**
-     * Gets query for [[LinhaFaturas]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getLinhaFaturas()
-    {
-        return $this->hasMany(LinhaFatura::class, ['extra_detalhes_aluguer_id' => 'id_extra_detalhes_aluguer']);
     }
 }
