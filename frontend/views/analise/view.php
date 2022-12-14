@@ -13,6 +13,25 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="analise-view">
 
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            color: black;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -26,24 +45,23 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id_analise',
-            'comentario',
-            'data_analise',
-            'profile_id',
+    <table>
+        <?php
+        echo '<tr><td><strong> ID </strong></td><td>' . $model->id_analise . '</td></tr>';
+        echo '<tr><td><strong> Comentário </strong></td><td>' . $model->comentario . '</td></tr>';
+        echo '<tr><td><strong> Data </strong></td><td>' . $model->data_analise . '</td></tr>';
+        echo '<tr><td><strong> Classificação </strong></td><td>' . \kartik\rating\StarRating::widget([
+                'model' => $model,
+                'attribute' => 'classificacao',
+                'pluginOptions' => [
+                    'readonly' => true,
+                    'showClear' => false,
+                    'showCaption' => false,
+                ],
+            ]) . '</td></tr>';
 
-        ]]) ?>
-    <?= \kartik\rating\StarRating::widget([
-        'model' => $model,
-        'attribute' => 'classificacao',
-        'pluginOptions' => [
-            'readonly' => true,
-            'showClear' => false,
-            'showCaption' => false,
-        ],
-    ]); ?>
 
+        echo '</table>';
+        ?>
 
 </div>

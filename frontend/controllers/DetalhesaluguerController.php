@@ -78,6 +78,7 @@ class DetalhesaluguerController extends Controller
         $dias=(int)$dataDiff->format("%a");
         $model->dias=$dias;
        //var_dump( $dias);die;
+
         if (Yii::$app->user->id == $model->profile_id) {
             return $this->render('view', [
                 'model' => $model,
@@ -100,7 +101,7 @@ class DetalhesaluguerController extends Controller
         $model->profile_id = Yii::$app->user->identity->getId();
 
         if ($this->request->isPost) {
-            
+
             $model->extras = $this->request->post()['Detalhesaluguer']['extras'];
             if ($model->load($this->request->post())) {
                 //calculo da diferenca entre a data de inicio e a data de fim
@@ -146,6 +147,7 @@ class DetalhesaluguerController extends Controller
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
+
         }
 
         return $this->render('update', [

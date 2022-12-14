@@ -38,14 +38,23 @@ class VeiculoController extends Controller
      */
     public function actionIndex()
     {
-        $tipoVeiculos = \yii\helpers\ArrayHelper::map(\common\models\TipoVeiculo::find()->asArray()->all(), 'id_tipo_veiculo', 'categoria');
+//ler as inputs do array post
 
-        $model= Veiculo::find()->all();
+        if ($this->request->isPost) {
+
+            $localizacao = $this->request->post()['Veiculo']['localizacao'];
+            $dataInicio = $this->request->post()['Veiculo']['dataInicio'];
+            $dataFim = $this->request->post()['Veiculo']['dataFim'];
+            $tipoVeiculo = $this->request->post()['Veiculo']['tipoVeiculo'];
+
+//vardump para descobrir o q colocar no 1 parenteses rectos
+            $model = Veiculo::find()->where()->andWhere()->all();
+        } else {
+            $model = Veiculo::find()->all();
+        }
 
         return $this->render('index', [
-            'model'=>$model,
-            'tipoveiculos'=>$tipoVeiculos
-
+            'model' => $model,
         ]);
     }
 

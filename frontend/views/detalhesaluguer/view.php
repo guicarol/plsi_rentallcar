@@ -38,7 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return Yii::$app->user->identity->username;
                 }
-            ], [
+            ],
+            [
                 'label' => 'Tipo de seguro',
                 'value' => function ($model) {
                     return $model->seguro->cobertura;
@@ -81,12 +82,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     foreach ($model->extraDetalhesAluguers as $extraDetalhesAl) {
 
                         if (count($model->extraDetalhesAluguers) > 1) {
-                            $testeArray +=$extraDetalhesAl->extra->preco ;
+                            $testeArray += $extraDetalhesAl->extra->preco;
                         } else {
                             $testeArray = $extraDetalhesAl->extra->preco;
                         }
                     }
-                    return ($model->veiculo->preco+$testeArray)*$model->dias;
+                    return ($model->veiculo->preco + $testeArray) * $model->dias;
                 }
             ],
         ],

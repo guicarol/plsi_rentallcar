@@ -109,8 +109,7 @@ AppAsset::register($this);
                 $menuItems[] = ['label' => 'Veiculos', 'url' => ['/veiculo/index']];
 
 
-
-                $veiculos = \common\models\Detalhesaluguer::find()->where(['profile_id' =>  Yii::$app->user->getId()])->one();
+                $veiculos = \common\models\Detalhesaluguer::find()->where(['profile_id' => Yii::$app->user->getId()])->one();
                 $analises = \common\models\Analise::find()->limit(6)->all();
 
                 if ($veiculos != null) {
@@ -161,13 +160,13 @@ AppAsset::register($this);
         <!-- Search Start -->
         <div class="container-fluid bg-white pt-3 px-lg-5">
             <div class="row mx-n2">
-                <form class="row">
+                <form class="row" action=" <?= \yii\helpers\Url::toRoute(['veiculo/index']) ?> " method="post">
                     <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                         <h1>RentAllCar</h1>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                        <select class="custom-select px-4 mb-3" style="height: 50px;">
-                            <option selected="selected">Selecione</option>
+                        <select class="custom-select px-4 mb-3" style="height: 50px;" name="localizacao">
+                            <option selected="selected">Selecione a localização</option>
                             <?php
                             // A sample product array
                             $products = ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'morada');
@@ -178,27 +177,25 @@ AppAsset::register($this);
                             }
                             ?>
                         </select>
-                        <!-- <?= Html::dropDownList('null', 'null', ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'morada'),
-                            ['prompt' => 'Selecione']) ?> -->
                     </div>
 
                     <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                         <div class="date mb-3" id="date" data-target-input="nearest">
-                            <input type="text" class="form-control p-4 datetimepicker-input"
-                                   placeholder="Data de Recolha"
+                            <input type="date" class="form-control p-4 datetimepicker-input"
+                                   placeholder="Data de Recolha" name="dataInicio"
                                    data-target="#date" data-toggle="datetimepicker"/>
                         </div>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                         <div class="date" id="time" data-target-input="nearest">
-                            <input type="text" class="form-control p-4 datetimepicker-input"
-                                   placeholder="Data de Entrega"
+                            <input type="date" class="form-control p-4 datetimepicker-input"
+                                   placeholder="Data de Entrega" name="dataFim"
                                    data-target="#time" data-toggle="datetimepicker"/>
                         </div>
                     </div>
                     <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                        <select class="custom-select px-4 mb-3" style="height: 50px;">
-                            <option selected="selected">Selecione</option>
+                        <select class="custom-select px-4 mb-3" style="height: 50px;" name="tipoVeiculo">
+                            <option selected="selected">Selecione o tipo</option>
                             <?php
                             // A sample product array
                             $products = ArrayHelper::map(Tipoveiculo::find()->all(), 'id_tipo_veiculo', 'categoria');
