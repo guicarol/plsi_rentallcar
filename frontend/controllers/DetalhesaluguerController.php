@@ -70,15 +70,17 @@ class DetalhesaluguerController extends Controller
      */
     public function actionView($id_detalhes_aluguer)
     {
-
-        $extra = \common\models\ExtraDetalhesAluguer::find()->where(['detalhes_aluguer_id'=>$id_detalhes_aluguer])->all();
         $model = $this->findModel($id_detalhes_aluguer);
-
-        $model = $this->findModel($id_detalhes_aluguer);
+        //calculo da diferenca entre a data de inicio e a data de fim
+        $dataIni = date_create($model->data_inicio);
+        $dataFim = date_create($model->data_fim);
+        $dataDiff = date_diff($dataIni, $dataFim);
+        $dias=(int)$dataDiff->format("%a");
+        $model->dias=$dias;
+       //var_dump( $dias);die;
         if (Yii::$app->user->id == $model->profile_id) {
             return $this->render('view', [
                 'model' => $model,
-                'extras'=>$model->extraDetalhesAluguers,
             ]);
         } else
             $this->redirect('index');
@@ -105,7 +107,7 @@ class DetalhesaluguerController extends Controller
                 $dataIni = date_create($model->data_inicio);
                 $dataFim = date_create($model->data_fim);
                 $dataDiff = date_diff($dataIni, $dataFim);
-                //var_dump($dataDiff->format("%a"));die;
+                var_dump($dataDiff->format("%a"));die;
 
                 $model->preco_total = 30;
 

@@ -51,13 +51,13 @@ class SignupForm extends Model
             ['apelido', 'string', 'min' => 3, 'max' => 30],
 
             ['telemovel', 'required'],
-            ['telemovel', 'integer'],// 'min' => 8, 'max' => 10],
+            ['telemovel', 'integer', 'min' => 8, 'max' => 9],
 
             ['nif', 'required'],
-            ['nif', 'integer'],
+            ['nif', 'integer','min' => 8, 'max' => 9],
 
             ['cartaConducao', 'required'],
-            ['cartaConducao', 'string'], //'min' => 11, 'max' => 13],
+            ['cartaConducao', 'string', 'min' => 11, 'max' => 13],
         ];
     }
 

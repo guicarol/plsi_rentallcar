@@ -38,6 +38,8 @@ class Detalhesaluguer extends \yii\db\ActiveRecord
 
     public $extras;
 
+    public $dias;
+
     /**
      * {@inheritdoc}
      */
