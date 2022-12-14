@@ -80,9 +80,6 @@ create table detalhes_aluguer (
     seguro_id int not null,
     localizacao_levantamento_id int not null,
     localizacao_devolucao_id int not null,
-    estado enum("reservado", "pago") not null default "reservado",
-    preco_total double (5,2) not null,
-    data_fatura datetime,
     foreign key(veiculo_id) references veiculo(id_veiculo),
     foreign key(profile_id) references profile(id_profile),
     foreign key(seguro_id) references seguro(id_seguro),
@@ -110,6 +107,21 @@ create table assistencia(
     foreign key(veiculo_id) references veiculo(id_veiculo)
 )engine=InnoDB;
 
+create table fatura(
+	id_fatura int not null auto_increment primary key,
+    data_fatura datetime not null,
+    preco_total double (5,2) not null,
+    detalhes_aluguer_fatura_id int not null,
+    foreign key(detalhes_aluguer_fatura_id) references detalhes_aluguer(id_detalhes_aluguer)
+)engine=InnoDB;
+
+create table linha_fatura(
+	id_linha_fatura int not null auto_increment primary key,
+    descricao varchar(255) not null,
+    preco double (5,2) not null,
+    fatura_id int not null,
+    foreign key(fatura_id) references fatura(id_fatura)
+)engine=InnoDB;
 
 insert into tipo_veiculo values 
 (default, "Cabrio"),
