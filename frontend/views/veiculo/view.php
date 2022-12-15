@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var common\models\Veiculo $model */
 
-$this->title = $model->marca . " " . $model->modelo; ;
+$this->title = $model->marca . " " . $model->modelo;;
 $this->params['breadcrumbs'][] = ['label' => 'Veiculos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -20,25 +20,39 @@ $this->params['breadcrumbs'][] = $this->title;
             'marca',
             'modelo',
             'combustivel',
-            'preco',
             'matricula',
             'descricao',
             [
                 'label' => 'Tipo Veiculo',
                 'attribute' => 'tipoVeiculos',
-                'format' => 'raw',
                 'value' => function ($model) {
                     {
                         return $model->tipoVeiculo->categoria;
                     }
                 }
             ],
+            [
+                'label' => 'Preço diário',
+                'value' => function ($model) {
+                    {
+                        return $model->preco .'€';
+                    }
+                }
+            ],
+            [
+                'label' => 'Franquia',
+                'value' => function ($model) {
+                    {
+                        return $model->franquia . '€';
+                    }
+                }
+            ],
         ],
     ]) ?>
 
-    <?= Html::a('Reservar', ['/detalhesaluguer/create','id_veiculo'=>$model->id_veiculo], ['class' => 'btn btn-primary']); ?>
+    <?= Html::a('Reservar', ['/detalhesaluguer/create', 'id_veiculo' => $model->id_veiculo], ['class' => 'btn btn-primary']); ?>
 
-<br>
+    <br>
     <?php
     foreach ($model->imagems as $imagem) { ?>
         <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid mb-4"]); ?>

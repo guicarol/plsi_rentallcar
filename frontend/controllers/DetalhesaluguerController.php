@@ -8,8 +8,11 @@ use common\models\ExtraDetalhesAluguer;
 use common\models\Fatura;
 use common\models\Profile;
 use common\models\Veiculo;
+use http\Exception\BadMessageException;
 use Yii;
+use yii\base\ErrorException;
 use yii\data\ActiveDataProvider;
+use yii\db\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -110,6 +113,10 @@ class DetalhesaluguerController extends Controller
                 //calculo da diferenca entre a data de inicio e a data de fim
                 $dataIni = date_create($model->data_inicio);
                 $dataFim = date_create($model->data_fim);
+                if($dataIni || $dataFim < date("yyyy-mm-dd")){
+                    throw new ('The requested page does not exist.');
+
+                }
                 $dataDiff = date_diff($dataIni, $dataFim);
                 //var_dump($dataDiff->format("%a"));
 
