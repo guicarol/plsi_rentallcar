@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Fatura;
 use common\models\FaturaSearch;
+use common\models\LinhaFatura;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,13 +66,41 @@ class FaturaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($id_detalhes_aluguer)
     {
         $model = new Fatura();
+        $model->detalhes_aluguer_fatura_id = $id_detalhes_aluguer;
+
+        $dataIni = date_create($model->detalhesAluguerFatura->data_inicio);
+        $dataFim = date_create($model->detalhesAluguerFatura->data_fim);
+        $dataDiff = date_diff($dataIni, $dataFim);
+        $dias = (int)$dataDiff->format("%a");
+        $testeArray = 0;
+
+        foreach ($model->detalhesAluguerFatura->extraDetalhesAluguers as $extraDetalhesAl) {
+
+            if (count($model->detalhesAluguerFatura->extraDetalhesAluguers) > 1) {
+                $testeArray += $extraDetalhesAl->extra->preco;
+            } else {
+                $testeArray = $extraDetalhesAl->extra->preco;
+            }
+        }
+        $model->preco_total = ($model->detalhesAluguerFatura->veiculo->preco + $testeArray) * $dias;
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_fatura' => $model->id_fatura]);
+
+            if ($model->load($this->request->post())) {
+                if ($model->save()) {
+                    if ($model->detalhesAluguerFatura!=null)
+                        foreach ($model->detalhesAluguerFatura as $linhafat) {
+                            $linhaFatura = new LinhaFatura();
+                            //////INSERIR FORMULA FINAll
+                            $linhaFatura->fatura_id = $model->id_fatura;
+                            $linhaFatura->save();
+                        }
+
+                    return $this->redirect(['view', 'id_fatura' => $model->id_fatura]);
+                }
             }
         } else {
             $model->loadDefaultValues();

@@ -15,24 +15,61 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id_fatura' => $model->id_fatura], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id_fatura' => $model->id_fatura], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_fatura',
-            'data_fatura',
-            'preco_total',
+            [
+                'attribute' => 'data_fatura',
+                'format' => ['date', 'php:d-m-Y']
+            ],
             'detalhes_aluguer_fatura_id',
+            [
+                'label' => 'Veiculo',
+                'value' => function ($model) {
+                    return $model->detalhesAluguerFatura->veiculo->marca;
+                }
+            ],
+            [
+                'label' => 'Seguro',
+                'value' => function ($model) {
+                    return $model->detalhesAluguerFatura->seguro->cobertura;
+                }
+            ],
+            [
+                'label' => 'Localizacao de recolha',
+                'value' => function ($model) {
+                    return $model->detalhesAluguerFatura->localizacaoDevolucao->morada;
+                }
+            ],
+            [
+                'label' => 'Localizacao de devolucao',
+                'value' => function ($model) {
+                    return $model->detalhesAluguerFatura->localizacaoDevolucao->morada;
+                }
+            ],
+            [
+                'label' => 'Extra',
+                'value' => function ($model) {
+                    $testeArray = '';
+
+                    foreach ($model->detalhesAluguerFatura->extraDetalhesAluguers as $extraDetalhesAl) {
+
+                        if (count($model->detalhesAluguerFatura->extraDetalhesAluguers) > 1) {
+                            $testeArray = $testeArray . $extraDetalhesAl->extra->descricao . ', ';
+                        } else {
+                            $testeArray = $extraDetalhesAl->extra->descricao;
+                        }
+                    }
+                    return $testeArray;
+                }
+            ],
+            [
+                'label' => 'Preço total',
+                'value' => function ($model) {
+
+                    return $model->preco_total.'€';
+                }
+            ],
         ],
     ]) ?>
 

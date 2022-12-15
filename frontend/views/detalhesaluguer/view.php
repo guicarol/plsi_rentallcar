@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Fatura;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -13,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="detalhesaluguer-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title)?></h1>
 
 
     <?= DetailView::widget([
@@ -91,6 +92,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
         ],
-    ]) ?>
+    ]);
+
+    ?>
+
+    <?php
+    if ($fatura != null){?>
+       <?= Html::a('Ver fatura', ['fatura/view', 'detalhes_aluguer_fatura_id' => $model->id_detalhes_aluguer], ['class' => 'btn btn-primary']);
+    }
+    ?>
+
 
 </div>

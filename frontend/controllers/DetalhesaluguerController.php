@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Detalhesaluguer;
 use common\models\DetalhesaluguerSearch;
 use common\models\ExtraDetalhesAluguer;
+use common\models\Fatura;
 use common\models\Profile;
 use common\models\Veiculo;
 use Yii;
@@ -47,16 +48,16 @@ class DetalhesaluguerController extends Controller
         if (array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "cliente" && Yii::$app->user->id == $id_user) {
 
             $searchModel = new DetalhesaluguerSearch();
-        $profile = Profile::findOne($id_user);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $profile->getDetalhesAluguers(),
-        ]);
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'profile' => $profile
+            $profile = Profile::findOne($id_user);
+            $dataProvider = new ActiveDataProvider([
+                'query' => $profile->getDetalhesAluguers(),
+            ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'profile' => $profile
 
-        ]);
+            ]);
         } else
             $this->redirect('index');
 
@@ -71,17 +72,19 @@ class DetalhesaluguerController extends Controller
     public function actionView($id_detalhes_aluguer)
     {
         $model = $this->findModel($id_detalhes_aluguer);
+        $fatura= Fatura::findOne(['detalhes_aluguer_fatura_id'=>$model->id_detalhes_aluguer]);
         //calculo da diferenca entre a data de inicio e a data de fim
         $dataIni = date_create($model->data_inicio);
         $dataFim = date_create($model->data_fim);
         $dataDiff = date_diff($dataIni, $dataFim);
-        $dias=(int)$dataDiff->format("%a");
-        $model->dias=$dias;
-       //var_dump( $dias);die;
+        $dias = (int)$dataDiff->format("%a");
+        $model->dias = $dias;
+        //var_dump( $dias);die;
 
         if (Yii::$app->user->id == $model->profile_id) {
             return $this->render('view', [
                 'model' => $model,
+                'fatura'=>$fatura,
             ]);
         } else
             $this->redirect('index');
@@ -96,21 +99,22 @@ class DetalhesaluguerController extends Controller
     public function actionCreate($id_veiculo)
     {
         $model = new Detalhesaluguer();
-            //$dias = date_diff();
+        //$dias = date_diff();
         $model->veiculo_id = $id_veiculo;
         $model->profile_id = Yii::$app->user->identity->getId();
 
         if ($this->request->isPost) {
 
-            $model->extras = $this->request->post()['Detalhesaluguer']['extras'];
+            $model->extras = $this->request->post()['DetalhesAluguer']['extras'];
             if ($model->load($this->request->post())) {
                 //calculo da diferenca entre a data de inicio e a data de fim
                 $dataIni = date_create($model->data_inicio);
                 $dataFim = date_create($model->data_fim);
                 $dataDiff = date_diff($dataIni, $dataFim);
-                var_dump($dataDiff->format("%a"));die;
+                //var_dump($dataDiff->format("%a"));
 
-                $model->preco_total = 30;
+
+                //$model->preco_total = 30;
 
                 if ($model->save()) {
                     if ($model->extras != null)

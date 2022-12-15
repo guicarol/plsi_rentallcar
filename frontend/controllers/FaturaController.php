@@ -53,10 +53,13 @@ class FaturaController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id_fatura)
+    public function actionView($detalhes_aluguer_fatura_id)
     {
+
+        $id_fatura=Fatura::findOne(['detalhes_aluguer_fatura_id'=>$detalhes_aluguer_fatura_id]);
+
         return $this->render('view', [
-            'model' => $this->findModel($id_fatura),
+            'model' => $this->findModel($id_fatura->id_fatura),
         ]);
     }
 
