@@ -98,7 +98,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
     if ($fatura != null){?>
-       <?= Html::a('Ver fatura', ['fatura/view', 'detalhes_aluguer_fatura_id' => $model->id_detalhes_aluguer], ['class' => 'btn btn-primary']);
+       <?= Html::a('Ver fatura', ['fatura/view', 'detalhes_aluguer_fatura_id' => $model->id_detalhes_aluguer], ['class' => 'btn btn-primary']);?>
+    <?= Html::a('Ver fatura', ['fatura/imprimir', 'detalhes_aluguer_fatura_id' => $model->id_detalhes_aluguer], ['class' => 'btn btn-primary']);
+
     }
     ?>
 
