@@ -88,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             $testeArray = $extraDetalhesAl->extra->preco;
                         }
                     }
-                    return ($model->veiculo->preco + $testeArray) * $model->dias;
+                    return ($model->veiculo->preco + $testeArray) * $model->dias.' €';
                 }
             ],
         ],

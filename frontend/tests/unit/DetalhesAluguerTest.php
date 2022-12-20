@@ -37,8 +37,8 @@ class DetalhesAluguerTest extends \Codeception\Test\Unit
         $detalhesaluguer->localizacao_devolucao_id = 'sad12wq';
         $this->assertFalse($detalhesaluguer->validate(['localizacao_devolucao_id']));
 
-        $detalhesaluguer->data_inicio = 2022-12-05;
-        $detalhesaluguer->data_fim = 2022-12-07;
+        //$detalhesaluguer->data_inicio = 2022-12-05;
+        //$detalhesaluguer->data_fim = 2022-12-07;
         $detalhesaluguer->veiculo_id = 1 ;
         $detalhesaluguer->profile_id = 7;
         $detalhesaluguer->seguro_id = 2;
@@ -59,8 +59,8 @@ class DetalhesAluguerTest extends \Codeception\Test\Unit
     {
         $detalhesaluguer = new Detalhesaluguer();
 
-        $detalhesaluguer->data_inicio = 2022-12-05;
-        $detalhesaluguer->data_fim = 2022-12-07;
+       // $detalhesaluguer->data_inicio = 2022-12-05;
+       // $detalhesaluguer->data_fim = 2022-12-07;
         $detalhesaluguer->veiculo_id = 1;
         $detalhesaluguer->profile_id = 10 ;
         $detalhesaluguer->seguro_id = 1 ;
@@ -68,15 +68,15 @@ class DetalhesAluguerTest extends \Codeception\Test\Unit
         $detalhesaluguer->localizacao_devolucao_id = 2;
 
         $detalhesaluguer->save();
-        $this->tester->seeRecord('common\models\Detalhesaluguer', ['modelo' => 'cayenne']);
+        $this->tester->seeRecord('common\models\Detalhesaluguer', ['seguro_id' => 1]);
 
-        $novo = $this->tester->grabRecord('common\models\Detalhesaluguer', ['modelo' => 'cayenne']);
-        $novo->modelo = 'boxster';
+        $novo = $this->tester->grabRecord('common\models\Detalhesaluguer', ['seguro_id' => 1]);
+        $novo->seguro_id = 2;
         $novo->save();
-        $this->tester->seeRecord('common\models\Detalhesaluguer', ['modelo' => 'boxster']);
-        $this->tester->dontSeeRecord('common\models\Detalhesaluguer', ['modelo' => 'cayenne']);
+        $this->tester->seeRecord('common\models\Detalhesaluguer', ['seguro_id' => 2]);
+        $this->tester->dontSeeRecord('common\models\Detalhesaluguer', ['seguro_id' => 1]);
         $novo->delete();
-        $this->tester->dontSeeRecord('common\models\Detalhesaluguer', ['modelo' => 'boxster']);
+        $this->tester->dontSeeRecord('common\models\Detalhesaluguer', ['seguro_id' => 2]);
 
     }
 }

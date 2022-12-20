@@ -19,7 +19,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <div class="container">
-        <h2 align="center">How to Make Dynamic Bootstrap Carousel with PHP</h2>
         <br/>
         <div id="dynamic_slide_show" class="carousel slide" data-ride="carousel">
 
@@ -90,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="px-2">
                             <i class="fa fa-road text-primary mr-1"></i>
-                            <span><?= $veiculo->preco ?></span>
+                            <span><?= $veiculo->preco. '€' ?></span>
                         </div>
                     </div>
                     <a>    <?= Html::a('Ver informação', ['veiculo/view', 'id_veiculo' => $veiculo->id_veiculo], ['class' => 'btn btn-primary']); ?>
