@@ -30,8 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_seguro',
             'marca',
             'cobertura',
-            'preco',
             [
+                'label' => 'Preço',
+                'value' => function ($model) {
+                    return $model->preco.'€';
+                }
+            ],            [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Seguro $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id_seguro' => $model->id_seguro]);
