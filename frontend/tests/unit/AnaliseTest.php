@@ -21,15 +21,15 @@ class AnaliseTest extends \Codeception\Test\Unit
         $analise->classificacao = 'wqesda';
         $this->assertFalse($analise->validate(['classificacao']));
 
-        $analise->data_analise = 1231231232;
-        //$this->assertFalse($analise->validate(['data_analise']));
+        $analise->data_analise = '1231231232';
+        $this->assertFalse($analise->validate(['data_analise']));
 
         $analise->profile_id = '21sd';
         $this->assertFalse($analise->validate(['profile_id']));
 
         $analise->comentario = 'TESTE';
         $analise->classificacao = 4;
-        //$analise->data_analise = 2022-12-16;
+        $analise->data_analise = '2022-12-16';
         $analise->profile_id = 7;
 
 
@@ -48,7 +48,7 @@ class AnaliseTest extends \Codeception\Test\Unit
         $analise = new Analise();
         $analise->comentario = 'TESTE Analise';
         $analise->classificacao = 5;
-        //$analise->data_analise = 2022-12-17;
+        $analise->data_analise = '2022-12-17';
         $analise->profile_id = 7;
         $analise->save();
         $this->tester->seeRecord('common\models\Analise', ['comentario' => 'TESTE']);
