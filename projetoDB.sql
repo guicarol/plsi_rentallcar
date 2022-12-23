@@ -66,15 +66,15 @@ create table analise (
 	id_analise int not null primary key auto_increment,
     comentario varchar(255) not null,
     classificacao int not null,
-    data_analise datetime,
+    data_analise datetime not null,
     profile_id int not null,
     foreign key(profile_id) references profile(id_profile)
 )engine=InnoDB;
 
 create table detalhes_aluguer (
 	id_detalhes_aluguer int not null primary key auto_increment,
-    data_inicio datetime,
-    data_fim datetime,
+    data_inicio datetime not null,
+    data_fim datetime not null,
     veiculo_id int not null,
     profile_id int not null,
     seguro_id int not null,
