@@ -3,7 +3,7 @@
 
 namespace frontend\tests\Unit;
 
-use frontend\models\Veiculo;
+use common\models\Veiculo;
 use frontend\tests\UnitTester;
 
 class VeiculoTest extends \Codeception\Test\Unit
@@ -46,6 +46,9 @@ class VeiculoTest extends \Codeception\Test\Unit
         $veiculo->localizacao_id = 'asdasd';
         $this->assertFalse($veiculo->validate(['localizacao_id']));
 
+        $veiculo->franquia = 'asdasd';
+        $this->assertFalse($veiculo->validate(['franquia']));
+
 
         $veiculo->marca = 'porsche';
         $veiculo->modelo = 'cayenne';
@@ -56,6 +59,7 @@ class VeiculoTest extends \Codeception\Test\Unit
         $veiculo->estado = 'pronto';
         $veiculo->tipo_veiculo_id = 1;
         $veiculo->localizacao_id = 1 ;
+        $veiculo->franquia=222;
 
         $this->assertTrue($veiculo->validate([$veiculo->marca]));
         $this->assertTrue($veiculo->validate([$veiculo->modelo]));
@@ -66,6 +70,8 @@ class VeiculoTest extends \Codeception\Test\Unit
         $this->assertTrue($veiculo->validate([$veiculo->estado]));
         $this->assertTrue($veiculo->validate([$veiculo->tipo_veiculo_id]));
         $this->assertTrue($veiculo->validate([$veiculo->localizacao_id]));
+        $this->assertTrue($veiculo->validate([$veiculo->franquia]));
+
 
     }
 
@@ -75,22 +81,23 @@ class VeiculoTest extends \Codeception\Test\Unit
         $veiculo->marca = 'porsche';
         $veiculo->modelo = 'cayenne';
         $veiculo->combustivel = 'diesel';
-        $veiculo->preco = 20 ;
+        $veiculo->preco = 20;
         $veiculo->matricula = '23-ld-23' ;
         $veiculo->descricao = 'teste';
         $veiculo->estado = 'pronto';
         $veiculo->tipo_veiculo_id = 1;
         $veiculo->localizacao_id = 1 ;
+        $veiculo-> franquia =1000;
         $veiculo->save();
-        $this->tester->seeRecord('frontend\models\Veiculo', ['modelo' => 'cayenne']);
+        $this->tester->seeRecord('common\models\Veiculo', ['modelo' => 'cayenne']);
 
-        $novo = $this->tester->grabRecord('frontend\models\Veiculo', ['modelo' => 'cayenne']);
+        $novo = $this->tester->grabRecord('common\models\Veiculo', ['modelo' => 'cayenne']);
         $novo->modelo = 'boxster';
         $novo->save();
-        $this->tester->seeRecord('frontend\models\Veiculo', ['modelo' => 'boxster']);
-        $this->tester->dontSeeRecord('frontend\models\Veiculo', ['modelo' => 'cayenne']);
+        $this->tester->seeRecord('common\models\Veiculo', ['modelo' => 'boxster']);
+        $this->tester->dontSeeRecord('common\models\Veiculo', ['modelo' => 'cayenne']);
         $novo->delete();
-        $this->tester->dontSeeRecord('frontend\models\Veiculo', ['modelo' => 'boxster']);
+        $this->tester->dontSeeRecord('common\models\Veiculo', ['modelo' => 'boxster']);
 
     }
 }

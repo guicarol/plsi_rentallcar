@@ -169,6 +169,7 @@ AppAsset::register($this);
                             <option selected="selected">Selecione a localização</option>
                             <?php
                             // A sample product array
+
                             $products = ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'morada');
 
                             // Iterating through the product array

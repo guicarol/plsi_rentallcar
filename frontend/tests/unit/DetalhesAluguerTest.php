@@ -17,10 +17,11 @@ class DetalhesAluguerTest extends \Codeception\Test\Unit
         $detalhesaluguer = new Detalhesaluguer();
 
         $detalhesaluguer->data_inicio = null;
-        //$this->assertTrue($detalhesaluguer->validate(['data_inicio']));
+        //$this->assertFalse($detalhesaluguer->validate(['data_inicio']));
+
 
         $detalhesaluguer->data_fim = null;
-       // $this->assertTrue($detalhesaluguer->validate(['data_fim']));
+        //$this->assertFalse($detalhesaluguer->validate(['data_fim']));
 
         $detalhesaluguer->veiculo_id = 'sda213';
         $this->assertFalse($detalhesaluguer->validate(['veiculo_id']));
@@ -66,15 +67,15 @@ class DetalhesAluguerTest extends \Codeception\Test\Unit
         $detalhesaluguer->seguro_id = 1 ;
         $detalhesaluguer->localizacao_levantamento_id = 2;
         $detalhesaluguer->localizacao_devolucao_id = 2;
-
         $detalhesaluguer->save();
         $this->tester->seeRecord('common\models\Detalhesaluguer', ['seguro_id' => 1]);
 
-        $novo = $this->tester->grabRecord('common\models\Detalhesaluguer', ['seguro_id' => 1]);
+        $novo = $this->tester->grabRecord('common\models\Detalhesaluguer', ['seguro_id' => 1,'veiculo_id'=>1,'profile_id'=>10]);
         $novo->seguro_id = 2;
         $novo->save();
-        $this->tester->seeRecord('common\models\Detalhesaluguer', ['seguro_id' => 2]);
-        $this->tester->dontSeeRecord('common\models\Detalhesaluguer', ['seguro_id' => 1]);
+        $this->assertEquals(2,$novo->seguro_id);
+        $this->tester->seeRecord('common\models\Detalhesaluguer', ['seguro_id' => 2,'veiculo_id'=>1,'profile_id'=>10]);
+        $this->tester->dontSeeRecord('common\models\Detalhesaluguer', ['seguro_id' => 1,'veiculo_id'=>1,'profile_id'=>10]);
 
     }
 }

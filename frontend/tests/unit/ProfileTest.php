@@ -4,6 +4,7 @@
 namespace frontend\tests\Unit;
 
 use common\models\Profile;
+use common\models\User;
 use frontend\tests\UnitTester;
 
 class ProfileTest extends \Codeception\Test\Unit
@@ -17,6 +18,7 @@ class ProfileTest extends \Codeception\Test\Unit
 
     public function testValidacao()
     {
+
         $profile = new Profile();
 
         $profile->nome = null;
@@ -39,7 +41,7 @@ class ProfileTest extends \Codeception\Test\Unit
         $profile->apelido = 'novo';
         $profile->telemovel = 912312312;
         $profile->nif = 21312313;
-        $profile->nr_carta_conducao = 231231256 ;
+        $profile->nr_carta_conducao = '231231256';
 
         $this->assertTrue($profile->validate([$profile->nome]));
         $this->assertTrue($profile->validate([$profile->apelido]));
@@ -51,12 +53,21 @@ class ProfileTest extends \Codeception\Test\Unit
 
     public function testSavingUser()
     {
+        $user= new User();
+        $user->username="testenovo";
+        $user->email="testenovo@gmail.com";
+        $user->status=10;
+        $user->auth_key='sadsadsadsadsadsa';
+        $user->password_hash='$2y$13$sdasadadasd';
+        $user ->save();
+
         $profile = new Profile();
+        $profile->id_profile=$user->id;
         $profile->nome = 'teste';
         $profile->apelido = 'novo';
         $profile->telemovel = 912312312;
-        $profile->nif = 21312313;
-        $profile->nr_carta_conducao = '231231256' ;
+        $profile->nif = 213123013;
+        $profile->nr_carta_conducao = '231231256000' ;
         $profile->save();
         $this->tester->seeRecord('common\models\Profile', ['nome' => 'teste']);
 

@@ -43,7 +43,8 @@ class Profile extends \yii\db\ActiveRecord
             [['nr_carta_conducao'], 'unique'],
             [['id_profile'], 'unique'],
             [['id_profile'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_profile' => 'id']],
-        ];
+
+            ];
     }
 
     /**
