@@ -22,6 +22,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'data_fatura',
                 'format' => ['date', 'php:d-m-Y']
             ],
+            [
+                'label' => 'Duração',
+                'value' => function ($model) {
+                    return $model->detalhesAluguerFatura->data_inicio . ' a ' . $model->detalhesAluguerFatura->data_fim;
+                }
+            ],
             'detalhes_aluguer_fatura_id',
             [
                 'label' => 'Veiculo',
@@ -64,10 +70,32 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
+                'label' => 'Preço diário veiculo',
+                'value' => function ($model) {
+                    return $model->detalhesAluguerFatura->veiculo->preco . '€';
+                }
+            ],
+            [
+                'label' => 'Preço diário extras',
+                'value' => function ($model) {
+                    $testeArray = 0;
+
+                    foreach ($model->detalhesAluguerFatura->extraDetalhesAluguers as $extraDetalhesAl) {
+
+                        if (count($model->detalhesAluguerFatura->extraDetalhesAluguers) > 1) {
+                            $testeArray = $testeArray + $extraDetalhesAl->extra->preco ;
+                        } else {
+                            $testeArray = $extraDetalhesAl->extra->preco . '€';
+                        }
+                    }
+                    return $testeArray;
+                }
+            ],
+            [
                 'label' => 'Preço total',
                 'value' => function ($model) {
 
-                    return $model->preco_total.'€';
+                    return $model->preco_total . '€';
                 }
             ],
         ],
