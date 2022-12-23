@@ -38,17 +38,49 @@ class VeiculoController extends Controller
      */
     public function actionIndex()
     {
-//ler as inputs do array post
-
+        //ler as inputs do array post
+        
         if ($this->request->isPost) {
 
-            $localizacao = $this->request->post()['Veiculo']['localizacao'];
-            $dataInicio = $this->request->post()['Veiculo']['dataInicio'];
-            $dataFim = $this->request->post()['Veiculo']['dataFim'];
-            $tipoVeiculo = $this->request->post()['Veiculo']['tipoVeiculo'];
 
-//vardump para descobrir o q colocar no 1 parenteses rectos
+            //verificar que campos estao preenchidos, caso nao estejam preenchidos o valor passa a null
+            $condicoes = 0; //conta o nr de condicoes que o utilizador pesquisou
+
+            if(\str_starts_with($this->request->post()['localizacao'], 'Selecione')){
+                $localizacao = null;
+            }else{
+                $localizacao = $this->request->post()['localizacao'];
+                
+                //'localizacao_id' => $localizacao
+            }
+
+            if(\str_starts_with($this->request->post()['tipoVeiculo'], 'Selecione')){
+                $tipoVeiculo = null;
+            }else{
+                $tipoVeiculo = $this->request->post()['tipoVeiculo'];
+            }
+            
+            if($this->request->post()['dataInicio'] == ''){
+                $dataInicio = null;
+            }else{
+                $dataInicio = $this->request->post()['dataInicio'];
+            }
+
+            if($this->request->post()['dataFim'] == ''){
+                $dataFim = null;
+            }else{
+                $dataFim = $this->request->post()['dataFim'];
+            }
+                
+                
+            /*var_dump($localizacao);
+            var_dump($tipoVeiculo);
+            var_dump($dataInicio);
+            var_dump($dataFim);
+            var_dump($this->request->post());die;*/
+
             $model = Veiculo::find()->where()->andWhere()->all();
+            //$veiculos = \common\models\Detalhesaluguer::find()->where(['profile_id' => Yii::$app->user->getId()])->one();
         } else {
             $model = Veiculo::find()->all();
         }

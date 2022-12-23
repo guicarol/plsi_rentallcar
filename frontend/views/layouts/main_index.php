@@ -47,8 +47,6 @@ AppAsset::register($this);
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
-
-
     </head>
     <body class="d-flex flex-column h-100">
     <?php $this->beginBody() ?>
@@ -161,6 +159,7 @@ AppAsset::register($this);
         <div class="container-fluid bg-white pt-3 px-lg-5">
             <div class="row mx-n2">
                 <form class="row" action=" <?= \yii\helpers\Url::toRoute(['veiculo/index']) ?> " method="post">
+                    <input type="hidden" name="_csrf-frontend" value="<?=Yii::$app->request->getCsrfToken();?>">
                     <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                         <h1>RentAllCar</h1>
                     </div>
@@ -170,10 +169,10 @@ AppAsset::register($this);
                             <?php
                             // A sample product array
                             $products = ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'morada');
-
+                            
                             // Iterating through the product array
                             foreach ($products as $item) {
-                                echo "<option value='strtolower($item)'>$item</option>";
+                                echo "<option value='$item'>$item</option>";
                             }
                             ?>
                         </select>
@@ -199,10 +198,10 @@ AppAsset::register($this);
                             <?php
                             // A sample product array
                             $products = ArrayHelper::map(Tipoveiculo::find()->all(), 'id_tipo_veiculo', 'categoria');
-
+                            
                             // Iterating through the product array
                             foreach ($products as $item) {
-                                echo "<option value='strtolower($item)'>$item</option>";
+                                echo "<option value='$item'>$item</option>";
                             }
                             //}
                             ?>
