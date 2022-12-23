@@ -66,7 +66,7 @@ create table analise (
 	id_analise int not null primary key auto_increment,
     comentario varchar(255) not null,
     classificacao int not null,
-    data_analise datetime,
+    data_analise datetime not null,
     profile_id int not null,
     foreign key(profile_id) references profile(id_profile)
 )engine=InnoDB;
