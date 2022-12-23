@@ -73,8 +73,8 @@ create table analise (
 
 create table detalhes_aluguer (
 	id_detalhes_aluguer int not null primary key auto_increment,
-    data_inicio datetime,
-    data_fim datetime,
+    data_inicio datetime not null,
+    data_fim datetime not null,
     veiculo_id int not null,
     profile_id int not null,
     seguro_id int not null,
