@@ -36,14 +36,7 @@ $this->title = $model->id_profile;
 
     <p>
         <?= Html::a('Update', ['update', 'id_profile' => $model->id_profile], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id_profile' => $model->id_profile], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+            </p>
 
     <table>
         <?php

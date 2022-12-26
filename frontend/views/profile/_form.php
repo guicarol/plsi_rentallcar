@@ -14,13 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_profile')->textInput(['readonly' => true]) ?>
 
-    <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nome')->textInput(['readonly' => true]) ?>
 
-    <?= $form->field($model, 'apelido')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'apelido')->textInput(['readonly' => true]) ?>
 
     <?= $form->field($model, 'telemovel')->textInput() ?>
 
-    <?= $form->field($model, 'nif')->textInput() ?>
+    <?= $form->field($model, 'nif')->textInput(['readonly' => true]) ?>
 
     <?= $form->field($model, 'nr_carta_conducao')->textInput(['maxlength' => true]) ?>
 

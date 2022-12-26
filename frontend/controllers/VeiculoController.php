@@ -89,6 +89,7 @@ class VeiculoController extends Controller
                 ->joinWith(['localizacao'])
                 ->joinWith(['detalhesAluguers'])
                     ->where(['like', 'tipo_veiculo.categoria', $tipoVeiculo])
+                    ->andWhere(['not like','veiculo.estado','manutencao'])
                     ->andWhere(['like', 'localizacao.morada', $localizacao])
                     ->andWhere(new BetweenColumnsCondition($dataInicio, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
                     ->andWhere(new BetweenColumnsCondition($dataFim, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
@@ -114,7 +115,9 @@ class VeiculoController extends Controller
             //$model = Veiculo::find()->all();
             
         } else {
-            $model = Veiculo::find()->all();
+            $model = Veiculo::find()
+                ->andWhere(['not like','veiculo.estado','manutencao'])
+                ->all();
         }
 
         return $this->render('index', [
