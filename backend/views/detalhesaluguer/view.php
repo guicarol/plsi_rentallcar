@@ -23,7 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Emitir fatura', ['fatura/create', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer], ['class' => 'btn btn-success']) ?>
+        <?php if($fatura==null) {
+            echo Html::a('Emitir fatura', ['fatura/create', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer], ['class' => 'btn btn-success']);
+       } else{
+            echo Html::a('Ver fatura', ['fatura/view', 'detalhes_aluguer_fatura_id' => $model->id_detalhes_aluguer], ['class' => 'btn btn-success']);}
+        ?>
     </p>
 
     <?= DetailView::widget([

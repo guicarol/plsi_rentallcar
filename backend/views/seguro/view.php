@@ -31,7 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_seguro',
             'marca',
             'cobertura',
-            'preco',
+            [
+                'label' => 'Preço diário',
+                'value' => function ($model) {
+                    {
+                        return $model->preco . '€';
+                    }
+                }
+            ],
         ],
     ]) ?>
 

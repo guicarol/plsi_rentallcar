@@ -115,7 +115,9 @@ class VeiculoController extends Controller
             //$model = Veiculo::find()->all();
             
         } else {
-            $model = Veiculo::find()->all();
+            $model = Veiculo::find()
+                ->andWhere(['not like','veiculo.estado','manutencao'])
+                ->all();
         }
 
         return $this->render('index', [
