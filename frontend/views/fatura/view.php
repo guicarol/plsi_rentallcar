@@ -1,104 +1,42 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
-/** @var yii\web\View $this */
-/** @var common\models\Fatura $model */
+/**
+ * Set the Dompdf options
+ */
+$options = new Options;
+$options->setChroot(__DIR__);
+$options->setIsRemoteEnabled(true);
 
-$this->title = $model->id_fatura;
-$this->params['breadcrumbs'][] = ['label' => 'Faturas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
-?>
-<div class="fatura-view">
+$dompdf = new Dompdf($options);
 
-    <h1><?= Html::encode($this->title) ?></h1>
+/**
+ * Set the paper size and orientation
+ */
+$dompdf->setPaper("A4", "portrait");
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            [
-                'attribute' => 'data_fatura',
-                'format' => ['date', 'php:d-m-Y']
-            ],
-            [
-                'label' => 'Duração',
-                'value' => function ($model) {
-                    return $model->detalhesAluguerFatura->data_inicio . ' a ' . $model->detalhesAluguerFatura->data_fim;
-                }
-            ],
-            'detalhes_aluguer_fatura_id',
-            [
-                'label' => 'Veiculo',
-                'value' => function ($model) {
-                    return $model->detalhesAluguerFatura->veiculo->marca;
-                }
-            ],
-            [
-                'label' => 'Seguro',
-                'value' => function ($model) {
-                    return $model->detalhesAluguerFatura->seguro->cobertura;
-                }
-            ],
-            [
-                'label' => 'Localizacao de recolha',
-                'value' => function ($model) {
-                    return $model->detalhesAluguerFatura->localizacaoDevolucao->morada;
-                }
-            ],
-            [
-                'label' => 'Localizacao de devolucao',
-                'value' => function ($model) {
-                    return $model->detalhesAluguerFatura->localizacaoDevolucao->morada;
-                }
-            ],
-            [
-                'label' => 'Extra',
-                'value' => function ($model) {
-                    $testeArray = '';
+/**
+ * Load the HTML and replace placeholders with values from the form
+ */
+ob_start();
+require_once('template.php');
+$html = ob_get_contents();
+ob_end_clean();
 
-                    foreach ($model->detalhesAluguerFatura->extraDetalhesAluguers as $extraDetalhesAl) {
+$dompdf->loadHtml($html);
 
-                        if (count($model->detalhesAluguerFatura->extraDetalhesAluguers) > 1) {
-                            $testeArray = $testeArray . $extraDetalhesAl->extra->descricao . ', ';
-                        } else {
-                            $testeArray = $extraDetalhesAl->extra->descricao;
-                        }
-                    }
-                    return $testeArray;
-                }
-            ],
-            [
-                'label' => 'Preço diário veiculo',
-                'value' => function ($model) {
-                    return $model->detalhesAluguerFatura->veiculo->preco . '€';
-                }
-            ],
-            [
-                'label' => 'Preço diário extras',
-                'value' => function ($model) {
-                    $testeArray = 0;
+/**
+ * Create the PDF and set attributes
+ */
+$dompdf->render(); 
 
-                    foreach ($model->detalhesAluguerFatura->extraDetalhesAluguers as $extraDetalhesAl) {
+$dompdf->addInfo("Title", "Fatura RentAllCar"); // "add_info" in earlier versions of Dompdf
 
-                        if (count($model->detalhesAluguerFatura->extraDetalhesAluguers) > 1) {
-                            $testeArray = $testeArray + $extraDetalhesAl->extra->preco ;
-                        } else {
-                            $testeArray = $extraDetalhesAl->extra->preco . '€';
-                        }
-                    }
-                    return $testeArray;
-                }
-            ],
-            [
-                'label' => 'Preço total',
-                'value' => function ($model) {
+/**
+ * Send the PDF to the browser
+ */
+$dompdf->stream("fatura_RentAllCar.pdf", ["Attachment" => 0]); 
 
-                    return $model->preco_total . '€';
-                }
-            ],
-        ],
-    ]) ?>
-
-</div>
+die;

@@ -4,9 +4,12 @@ namespace frontend\controllers;
 
 use common\models\Veiculo;
 use common\models\VeiculoSearch;
+use common\models\Detalhesaluguer;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
+use yii\db\conditions\BetweenColumnsCondition;
 
 /**
  * VeiculoController implements the CRUD actions for Veiculo model.
@@ -38,49 +41,78 @@ class VeiculoController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'main_index.php';
+
         //ler as inputs do array post
         
         if ($this->request->isPost) {
 
-
-            //verificar que campos estao preenchidos, caso nao estejam preenchidos o valor passa a null
-            $condicoes = 0; //conta o nr de condicoes que o utilizador pesquisou
-
             if(\str_starts_with($this->request->post()['localizacao'], 'Selecione')){
-                $localizacao = null;
+                $localizacao = '';
             }else{
                 $localizacao = $this->request->post()['localizacao'];
-                
-                //'localizacao_id' => $localizacao
             }
 
             if(\str_starts_with($this->request->post()['tipoVeiculo'], 'Selecione')){
-                $tipoVeiculo = null;
+                $tipoVeiculo = '';
             }else{
                 $tipoVeiculo = $this->request->post()['tipoVeiculo'];
             }
             
             if($this->request->post()['dataInicio'] == ''){
-                $dataInicio = null;
+                $dataInicio = '';
             }else{
                 $dataInicio = $this->request->post()['dataInicio'];
             }
 
             if($this->request->post()['dataFim'] == ''){
-                $dataFim = null;
+                $dataFim = '';
             }else{
                 $dataFim = $this->request->post()['dataFim'];
             }
-                
-                
-            /*var_dump($localizacao);
-            var_dump($tipoVeiculo);
-            var_dump($dataInicio);
-            var_dump($dataFim);
-            var_dump($this->request->post());die;*/
+            
+            $subquery = Detalhesaluguer::find()
+                ->select(['veiculo_id'])
+                    ->where(new BetweenColumnsCondition($dataInicio, 'between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
+                    ->orWhere(new BetweenColumnsCondition($dataFim, 'between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
+                    ->orWhere(['between', 'detalhes_aluguer.data_inicio', $dataInicio, $dataFim])
+                    ->orWhere(['between', 'detalhes_aluguer.data_fim', $dataInicio, $dataFim])
+                    ->all();
 
-            $model = Veiculo::find()->where()->andWhere()->all();
+            $carro = array();
+            foreach($subquery as $item){
+                $carro[] = $item->veiculo_id;
+            }
+
+            $model = Veiculo::find()
+                ->innerJoinWith(['tipoVeiculo'])
+                ->joinWith(['localizacao'])
+                ->joinWith(['detalhesAluguers'])
+                    ->where(['like', 'tipo_veiculo.categoria', $tipoVeiculo])
+                    ->andWhere(['like', 'localizacao.morada', $localizacao])
+                    ->andWhere(new BetweenColumnsCondition($dataInicio, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
+                    ->andWhere(new BetweenColumnsCondition($dataFim, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
+                    ->andWhere(['not in', 'detalhes_aluguer.veiculo_id', $carro])
+                    ->all();
+            
+            //var_dump($subquery->createCommand()->getRawSql());
+            //var_dump($model->createCommand()->getRawSql());
+            
+
+            /*
+            var_dump($carro);
+            var_dump($subquery);
+            var_dump($model);
+            
+            die;*/
+                
+            /*
+
+            $model = Veiculo::find()->where()->andWhere()->all(); */
             //$veiculos = \common\models\Detalhesaluguer::find()->where(['profile_id' => Yii::$app->user->getId()])->one();
+
+            //$model = Veiculo::find()->all();
+            
         } else {
             $model = Veiculo::find()->all();
         }

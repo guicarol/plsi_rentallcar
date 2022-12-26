@@ -1,5 +1,7 @@
 <?php
 $this->title = 'Página inicial';
+
+use yii\helpers\Url;
 ?>
 
 <div class="container-fluid">
@@ -14,29 +16,40 @@ $this->title = 'Página inicial';
     $total2 = \common\models\Profile::find()->where([])->count(); ?>
     <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-            <?= \hail812\adminlte\widgets\SmallBox::widget([
-                'title' => $total,
-                'text' => 'Novos pedidos',
-                'icon' => 'fas fa-shopping-cart',
-            ]) ?>
+            <div class="small-box bg-gradient-warning">
+                <div class="inner">
+                    <h3><?= $total ?></h3>
+                    <p>Novos pedidos</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <a href="<?= Url::toRoute('/detalhesaluguer/index') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-            <?php $smallBox = \hail812\adminlte\widgets\SmallBox::begin([
-                'title' => $total1,
-                'text' => 'Veiculos totais',
-                'icon' => 'fas fa-shopping-cart',
-                'theme' => 'success'
-            ]) ?>
-
-            <?php \hail812\adminlte\widgets\SmallBox::end() ?>
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3><?= $total1 ?></h3>
+                    <p>Veiculos totais</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <a href="<?= Url::toRoute('/veiculo/index') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-            <?= \hail812\adminlte\widgets\SmallBox::widget([
-                'title' => $total2,
-                'text' => 'Utilizadores registados',
-                'icon' => 'fas fa-user-plus',
-                'theme' => 'gradient-success',
-            ]) ?>
+            <div class="small-box bg-gradient-success">
+                <div class="inner">
+                    <h3><?= $total2 ?></h3>
+                    <p>Utilizadores registados</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <a href="<?= Url::toRoute('/user/index') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
         </div>
     </div>
 </div>

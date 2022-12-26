@@ -22,7 +22,8 @@
         "alfa6661/yii2-raty": "*",
         "kartik-v/yii2-widget-rating": "^1.0",
         "kartik-v/yii2-widget-datepicker": "^1.4",
-        "kartik-v/yii2-field-range": "*"
+        "kartik-v/yii2-field-range": "*",
+        "dompdf/dompdf": "^2.0"
 
     },
     "require-dev": {
@@ -37,7 +38,8 @@
         "codeception/module-filesystem": "^3.0 || ^1.1",
         "codeception/verify": "^2.2",
         "symfony/browser-kit": "^6.0 || >=2.7 <=4.2.4",
-        "codeception/module-db": "^3.1"
+        "codeception/module-db": "^3.1",
+        "codeception/module-webdriver": "^3.2"
     },
     "config": {
         "allow-plugins": {

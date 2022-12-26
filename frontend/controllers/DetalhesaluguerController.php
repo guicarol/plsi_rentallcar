@@ -81,6 +81,7 @@ class DetalhesaluguerController extends Controller
         $dataFim = date_create($model->data_fim);
         $dataDiff = date_diff($dataIni, $dataFim);
         $dias = (int)$dataDiff->format("%a");
+        $dias++;
         $model->dias = $dias;
         //var_dump( $dias);die;
 

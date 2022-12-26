@@ -39,24 +39,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->veiculo->marca ." ".$model->veiculo->modelo;
                 }
             ],
-
             [
                 'label' => 'Localizacao de recolha',
-                'value' => function ($model) {
-                    return $model->localizacaoLevantamento->morada;
-                }
+                'value' => 'localizacaoLevantamento.morada',
             ],
             [
                 'label' => 'Localizacao de devolucao',
-                'value' => function ($model) {
-                    return $model->localizacaoDevolucao->morada;
-                }
+                'value' => 'localizacaoDevolucao.morada'
             ],
 
             [
                 'label' => 'Profile',
                 'value' => function ($model) {
-                    return $model->profile->nome;
+                    return $model->profile->nome . " " . $model->profile->apelido;
                 }
             ],
             //'seguro_id',

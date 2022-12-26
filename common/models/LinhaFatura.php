@@ -30,7 +30,7 @@ class LinhaFatura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao', 'preco', 'fatura_id'], 'required'],
+            [['descricao', 'fatura_id'], 'required'],
             [['preco'], 'number'],
             [['fatura_id'], 'integer'],
             [['descricao'], 'string', 'max' => 255],

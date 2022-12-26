@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Detalhesaluguer;
 use common\models\DetalhesaluguerSearch;
+use common\models\Fatura;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -55,8 +56,11 @@ class DetalhesaluguerController extends Controller
      */
     public function actionView($id_detalhes_aluguer)
     {
+        $model = $this->findModel($id_detalhes_aluguer);
+        $fatura = Fatura::find()->where(['detalhes_aluguer_fatura_id' => $id_detalhes_aluguer])->all();
         return $this->render('view', [
-            'model' => $this->findModel($id_detalhes_aluguer),
+            'model' => $model,
+            'fatura' => $fatura,
         ]);
     }
 

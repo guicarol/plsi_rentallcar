@@ -1,39 +1,42 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
-/** @var yii\web\View $this */
-/** @var common\models\Fatura $model */
+/**
+ * Set the Dompdf options
+ */
+$options = new Options;
+$options->setChroot(__DIR__);
+$options->setIsRemoteEnabled(true);
 
-$this->title = $model->id_fatura;
-$this->params['breadcrumbs'][] = ['label' => 'Faturas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
-?>
-<div class="fatura-view">
+$dompdf = new Dompdf($options);
 
-    <h1><?= Html::encode($this->title) ?></h1>
+/**
+ * Set the paper size and orientation
+ */
+$dompdf->setPaper("A4", "portrait");
 
-    <p>
-        <?= Html::a('Update', ['update', 'id_fatura' => $model->id_fatura], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id_fatura' => $model->id_fatura], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+/**
+ * Load the HTML and replace placeholders with values from the form
+ */
+ob_start();
+require_once('template.php');
+$html = ob_get_contents();
+ob_end_clean();
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id_fatura',
-            'data_fatura',
-            'preco_total',
-            'detalhes_aluguer_fatura_id',
-        ],
-    ]) ?>
+$dompdf->loadHtml($html);
 
-</div>
+/**
+ * Create the PDF and set attributes
+ */
+$dompdf->render(); 
+
+$dompdf->addInfo("Title", "Fatura RentAllCar"); // "add_info" in earlier versions of Dompdf
+
+/**
+ * Send the PDF to the browser
+ */
+$dompdf->stream("fatura_RentAllCar.pdf", ["Attachment" => 0]); 
+
+die;

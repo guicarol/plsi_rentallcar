@@ -10,6 +10,7 @@ $this->title = $model->id_detalhes_aluguer;
 $this->params['breadcrumbs'][] = ['label' => 'Detalhesaluguers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
 ?>
 <div class="detalhesaluguer-view">
 
@@ -45,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Nome',
                 'value' => function ($model) {
-                    return Yii::$app->user->identity->username;
+                    return $model->profile->nome . " " . $model->profile->apelido;
                 }
             ], [
                 'label' => 'Tipo de seguro',
@@ -68,15 +69,25 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Extra',
                 'value' => function ($model) {
-                    foreach ($model->extraDetalhesAluguers as $extraDetalhesAluguer)
-                        if ($extraDetalhesAluguer->extra != null) {
+                    $stringExtras = '';
+                    $nrExtras = count($model->extraDetalhesAluguers);
 
-                            $teste = array($extraDetalhesAluguer->extra['descricao']);
+                    if($nrExtras == 0){
+                        $stringExtras = 'Sem extras';
+                    }else{
+                        foreach ($model->extraDetalhesAluguers as $extraDetalhesAl) {
 
-                            $string = join(",", $teste);
-                            return $string;
+                            //adicionar a $stringExtras o extra
+                            $stringExtras = $stringExtras . $extraDetalhesAl->extra->descricao;
+    
+                            //caso haja + do que 1 extra é adicionada uma virgula no fim da $stringExtras
+                            if ($nrExtras > 1){
+                                $stringExtras = $stringExtras . ', ';
+                                $nrExtras--;
+                            }
                         }
-                    return 'Nenhum extra';
+                    }
+                    return $stringExtras;
                 }
             ],
         ],

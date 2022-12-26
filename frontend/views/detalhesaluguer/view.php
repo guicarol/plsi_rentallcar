@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Nome',
                 'value' => function ($model) {
-                    return Yii::$app->user->identity->username;
+                    return $model->profile->nome . " " . $model->profile->apelido;
                 }
             ],
             [
@@ -61,34 +61,37 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Extra',
                 'value' => function ($model) {
-                    $testeArray = '';
+                    $stringExtras = '';
+                    $nrExtras = count($model->extraDetalhesAluguers);
 
-                    foreach ($model->extraDetalhesAluguers as $extraDetalhesAl) {
+                    if($nrExtras == 0){
+                        $stringExtras = 'Sem extras';
+                    }else{
+                        foreach ($model->extraDetalhesAluguers as $extraDetalhesAl) {
 
-                        if (count($model->extraDetalhesAluguers) > 1) {
-                            $testeArray = $testeArray . $extraDetalhesAl->extra->descricao . ', ';
-                        } else {
-                            $testeArray = $extraDetalhesAl->extra->descricao;
+                            //adicionar a $stringExtras o extra
+                            $stringExtras = $stringExtras . $extraDetalhesAl->extra->descricao;
+    
+                            //caso haja + do que 1 extra é adicionada uma virgula no fim da $stringExtras
+                            if ($nrExtras > 1){
+                                $stringExtras = $stringExtras . ', ';
+                                $nrExtras--;
+                            }
                         }
                     }
-                    return $testeArray;
+                    return $stringExtras;
                 }
             ],
             [
                 'label' => 'Preço total a pagar',
                 'value' => function ($model) {
 
-                    $testeArray = 0;
+                    $precoExtras = 0;
 
                     foreach ($model->extraDetalhesAluguers as $extraDetalhesAl) {
-
-                        if (count($model->extraDetalhesAluguers) > 1) {
-                            $testeArray += $extraDetalhesAl->extra->preco;
-                        } else {
-                            $testeArray = $extraDetalhesAl->extra->preco;
-                        }
+                        $precoExtras += $extraDetalhesAl->extra->preco;
                     }
-                    return ($model->veiculo->preco + $testeArray) * $model->dias.' €';
+                    return ($model->veiculo->preco + $precoExtras + $model->seguro->preco) * $model->dias.' €';
                 }
             ],
         ],
@@ -97,10 +100,8 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
     <?php
-    if ($fatura != null){?>
-       <?= Html::a('Ver fatura', ['fatura/view', 'detalhes_aluguer_fatura_id' => $model->id_detalhes_aluguer], ['class' => 'btn btn-primary']);?>
-    <?= Html::a('Ver fatura', ['fatura/imprimir', 'detalhes_aluguer_fatura_id' => $model->id_detalhes_aluguer], ['class' => 'btn btn-primary']);
-
+    if ($fatura != null){
+        echo Html::a('Ver fatura', ['fatura/view', 'detalhes_aluguer_fatura_id' => $model->id_detalhes_aluguer], ['class' => 'btn btn-primary']);
     }
     ?>
 

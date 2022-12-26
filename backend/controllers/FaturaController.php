@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Fatura;
+use common\models\Detalhesaluguer;
 use common\models\FaturaSearch;
 use common\models\LinhaFatura;
 use yii\web\Controller;
@@ -69,46 +70,74 @@ class FaturaController extends Controller
     public function actionCreate($id_detalhes_aluguer)
     {
         $model = new Fatura();
+
+        $model->data_fatura = date("Y-m-d H:i:s");
         $model->detalhes_aluguer_fatura_id = $id_detalhes_aluguer;
 
-        $dataIni = date_create($model->detalhesAluguerFatura->data_inicio);
-        $dataFim = date_create($model->detalhesAluguerFatura->data_fim);
+        //obter o registo detalhesAluguer
+        $detalhesAluguer = $model->detalhesAluguerFatura;
+
+        $precoTotal = 0;
+        $nrDias = 0;
+
+        //calculo do nr de dias do aluguer
+        $dataIni = date_create($detalhesAluguer->data_inicio);
+        $dataFim = date_create($detalhesAluguer->data_fim);
         $dataDiff = date_diff($dataIni, $dataFim);
-        $dias = (int)$dataDiff->format("%a");
-        $testeArray = 0;
+        $nrDias = (int)$dataDiff->format("%a");
+        $nrDias++;
 
-        foreach ($model->detalhesAluguerFatura->extraDetalhesAluguers as $extraDetalhesAl) {
-
-            if (count($model->detalhesAluguerFatura->extraDetalhesAluguers) > 1) {
-                $testeArray += $extraDetalhesAl->extra->preco;
-            } else {
-                $testeArray = $extraDetalhesAl->extra->preco;
-            }
+        //calculo do preco total
+        foreach ($detalhesAluguer->extraDetalhesAluguers as $extraDetalhesAl) {
+            $precoTotal += $extraDetalhesAl->extra->preco;
         }
-        $model->preco_total = ($model->detalhesAluguerFatura->veiculo->preco + $testeArray) * $dias;
+        $precoTotal = ($detalhesAluguer->veiculo->preco + $precoTotal + $detalhesAluguer->seguro->preco) * $nrDias;
 
-        if ($this->request->isPost) {
+        $model->preco_total = $precoTotal;
 
-            if ($model->load($this->request->post())) {
-                if ($model->save()) {
-                    if ($model->detalhesAluguerFatura!=null)
-                        foreach ($model->detalhesAluguerFatura as $linhafat) {
-                            $linhaFatura = new LinhaFatura();
-                            //////INSERIR FORMULA FINAll
-                            $linhaFatura->fatura_id = $model->id_fatura;
-                            $linhaFatura->save();
-                        }
+        //fazer save da tabela fatura
+        $model->save();
 
-                    return $this->redirect(['view', 'id_fatura' => $model->id_fatura]);
-                }
-            }
-        } else {
-            $model->loadDefaultValues();
+        //cada item do detalhesAluguer = nova linha fatura
+        /*
+            linhaFatura 
+            id 1: VW Golf, preco
+            id 2: Seguro, preco
+            id 3: localizacao recolha
+            id 4: localizacao entrega
+            id 5: extra 1, preco
+            id 6: extra 2, preco
+        */
+
+        $itemFatura = array(
+            array($detalhesAluguer->veiculo->marca . ' ' . $detalhesAluguer->veiculo->modelo, $detalhesAluguer->veiculo->preco),
+            array($detalhesAluguer->seguro->marca . ' ' . $detalhesAluguer->seguro->cobertura, $detalhesAluguer->seguro->preco),
+            array($detalhesAluguer->localizacaoLevantamento->localizacao, null),
+            array($detalhesAluguer->localizacaoDevolucao->localizacao, null),
+        );
+        
+        foreach($detalhesAluguer->extraDetalhesAluguers as $extra){
+            $itemFatura[] = array($extra->extra->descricao, $extra->extra->preco);
         }
 
-        return $this->render('create', [
+        //correr o array e criar uma nova linhaFatura para cada item do array
+        foreach($itemFatura as $item){
+            $linhaFatura = new LinhaFatura();
+            $linhaFatura->descricao = $item[0];        
+            $linhaFatura->preco = $item[1];        
+            $linhaFatura->fatura_id = $model->id_fatura;
+            $linhaFatura->save();
+        }
+
+        //var_dump($itemFatura);
+        //var_dump(count($detalhesAluguer->extraDetalhesAluguers));die;
+
+        /*return $this->render('create', [
             'model' => $model,
-        ]);
+        ]);*/
+
+        //return $this->redirect(['detalhesaluguer/view', 'id_detalhes_aluguer' => $id_detalhes_aluguer]);
+        return $this->redirect(['detalhesaluguer/index']);
     }
 
     /**

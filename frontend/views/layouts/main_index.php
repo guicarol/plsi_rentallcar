@@ -168,9 +168,7 @@ AppAsset::register($this);
                             <option selected="selected">Selecione a localização</option>
                             <?php
                             // A sample product array
-
                             $products = ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'morada');
-                            
                             // Iterating through the product array
                             foreach ($products as $item) {
                                 echo "<option value='$item'>$item</option>";
@@ -218,7 +216,7 @@ AppAsset::register($this);
         <!-- Search End -->
 
         <main role="main" class="flex-shrink-0">
-            <div class="container-fluid">
+            <div class="container">
                 <?= Breadcrumbs::widget([
                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                 ]) ?>

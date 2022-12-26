@@ -42,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'matricula',
             'descricao',
             'franquia',
+            //'tipoVeiculo.categoria',
             //'id_tipo_veiculo',
             [
                 'label' => 'Tipo Veiculo',

@@ -118,7 +118,7 @@ create table fatura(
 create table linha_fatura(
 	id_linha_fatura int not null auto_increment primary key,
     descricao varchar(255) not null,
-    preco double (5,2) not null,
+    preco double (5,2),
     fatura_id int not null,
     foreign key(fatura_id) references fatura(id_fatura)
 )engine=InnoDB;

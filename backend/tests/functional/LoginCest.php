@@ -35,7 +35,7 @@ class LoginCest
         $I->amOnPage('rentallcar/backend/web/index');
         $I->see('Sign in');
         $I->fillField('LoginForm[username]', 'admin');
-        $I->fillField('LoginForm[password]', '12345678');
+        $I->fillField('LoginForm[password]', 'admin12345');
         $I->click('LoginForm[button]');
 
         $I->see('Users');

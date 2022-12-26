@@ -135,16 +135,4 @@ class FaturaController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
-    public function imprimir($detalhes_aluguer_fatura_id)
-    {
-
-        $id_fatura = Fatura::findOne(['detalhes_aluguer_fatura_id' => $detalhes_aluguer_fatura_id]);
-        //$linhasfatura = LinhaFatura::findAll([$id_fatura]);
-
-        //mostrar a vista index passando os dados por parâmetro
-        return $this->render('view', [
-            'model' => $this->findModel($id_fatura->id_fatura),
-        ]);
-    }
 }
