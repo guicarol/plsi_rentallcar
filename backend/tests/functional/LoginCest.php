@@ -32,14 +32,18 @@ class LoginCest
      */
     public function loginUser(FunctionalTester $I)
     {
-        $I->amOnPage('rentallcar/backend/web/index');
+        //$I->amOnPage('/login');
+        $I->amOnRoute('site/login');
         $I->see('Sign in');
         $I->fillField('LoginForm[username]', 'admin');
         $I->fillField('LoginForm[password]', 'admin12345');
         $I->click('LoginForm[button]');
 
+
+        //$I->amOnRoute('/index');
+
         $I->see('Users');
-        $I->dontSeeLink('Login');
-        $I->dontSeeLink('Signup');
+        /*$I->dontSeeLink('Login');
+        $I->dontSeeLink('Signup');*/
     }
 }
