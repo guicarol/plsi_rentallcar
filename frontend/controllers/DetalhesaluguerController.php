@@ -75,7 +75,7 @@ class DetalhesaluguerController extends Controller
     public function actionView($id_detalhes_aluguer)
     {
         $model = $this->findModel($id_detalhes_aluguer);
-        $fatura= Fatura::findOne(['detalhes_aluguer_fatura_id'=>$model->id_detalhes_aluguer]);
+        $fatura = Fatura::findOne(['detalhes_aluguer_fatura_id' => $model->id_detalhes_aluguer]);
         //calculo da diferenca entre a data de inicio e a data de fim
         $dataIni = date_create($model->data_inicio);
         $dataFim = date_create($model->data_fim);
@@ -88,7 +88,7 @@ class DetalhesaluguerController extends Controller
         if (Yii::$app->user->id == $model->profile_id) {
             return $this->render('view', [
                 'model' => $model,
-                'fatura'=>$fatura,
+                'fatura' => $fatura,
             ]);
         } else
             $this->redirect('index');
@@ -104,10 +104,19 @@ class DetalhesaluguerController extends Controller
     {
         $model = new Detalhesaluguer();
         //$dias = date_diff();
+        $dias = DetalhesAluguer::find()->where(['veiculo_id' => $id_veiculo])->all();
         $model->veiculo_id = $id_veiculo;
+
         $model->profile_id = Yii::$app->user->identity->getId();
 
         if ($this->request->isPost) {
+            /*if($dias!=null){
+                foreach ($dias as $dia){
+                    if($model->data_fim>$dia->data_inicio && $model->data_inicio>$dia->data_fim  )
+                        echo'teste';
+                }
+            }*/
+
 
             $model->extras = $this->request->post()['DetalhesAluguer']['extras'];
             if ($model->load($this->request->post())) {
@@ -118,7 +127,6 @@ class DetalhesaluguerController extends Controller
 
                 $dataDiff = date_diff($dataIni, $dataFim);
                 //var_dump($dataDiff->format("%a"));
-
                 //$model->preco_total = 30;
 
                 if ($model->save()) {
@@ -139,6 +147,7 @@ class DetalhesaluguerController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'dias' => $dias,
         ]);
     }
 

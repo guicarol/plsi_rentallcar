@@ -2,6 +2,7 @@
 
 use common\models\Localizacao;
 use kartik\date\DatePicker;
+use kartik\daterange\DateRangePicker;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -15,37 +16,49 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?=
-    DatePicker::widget([
-        'model' => $model,
-        'attribute' => 'data_inicio',
-        'attribute2' => 'data_fim',
-        'options' => ['placeholder' => 'Data de inicio'],
-        'options2' => ['placeholder' => 'Data de fim'],
-        'type' => DatePicker::TYPE_RANGE,
-        'form' => $form,
-        'pluginOptions' => [
-            'format' => 'yyyy-mm-dd',
-        ]
-    ])
-    ?>
+    <?php if ($dias != null)
+        echo 'Já existem datas reservadas, por favor selecione fora dos seguintes intervalos: ';
+    foreach ($dias
 
-    <?= $form->field($model, 'veiculo')->textInput(['value' => $model->veiculo->marca . " " . $model->veiculo->modelo, 'readonly' => true]); ?>
+    as $dia) { ?>
+    <table>
+        <?php
+        echo ' <td>' . $dia->data_inicio . ' a ' . $dia->data_fim;
+        echo '</table>';
+        } ?>
 
-    <?= $form->field($model, 'profile')->textInput(['value' => Yii::$app->user->identity->username, 'readonly' => true]); ?>
 
-    <?= $form->field($model, 'seguro_id')->dropDownList(ArrayHelper::map(\common\models\Seguro::find()->all(), 'id_seguro', 'cobertura'), ['prompt' => '']) ?>
+        <?=
+        DatePicker::widget([
+            'model' => $model,
+            'attribute' => 'data_inicio',
+            'attribute2' => 'data_fim',
+            'options' => ['placeholder' => 'Data de inicio'],
+            'options2' => ['placeholder' => 'Data de fim'],
+            'type' => DatePicker::TYPE_RANGE,
+            'form' => $form,
+            'pluginOptions' => [
+                'format' => 'yyyy-mm-dd',
+            ]
+        ])
+        ?>
 
-    <?= $form->field($model, 'localizacao_levantamento_id')->dropDownList(ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'localizacao'), ['prompt' => '']) ?>
+        <?= $form->field($model, 'veiculo')->textInput(['value' => $model->veiculo->marca . " " . $model->veiculo->modelo, 'readonly' => true]); ?>
 
-    <?= $form->field($model, 'localizacao_devolucao_id')->dropDownList(ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'localizacao'), ['prompt' => '']) ?>
+        <?= $form->field($model, 'profile')->textInput(['value' => Yii::$app->user->identity->username, 'readonly' => true]); ?>
 
-    <?= $form->field($model, 'extras')->checkboxList(ArrayHelper::map(\common\models\Extra::find()->all(), 'id_extra', 'descricao')) ?>
+        <?= $form->field($model, 'seguro_id')->dropDownList(ArrayHelper::map(\common\models\Seguro::find()->all(), 'id_seguro', 'cobertura'), ['prompt' => '']) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
+        <?= $form->field($model, 'localizacao_levantamento_id')->dropDownList(ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'localizacao'), ['prompt' => '']) ?>
 
-    <?php ActiveForm::end(); ?>
+        <?= $form->field($model, 'localizacao_devolucao_id')->dropDownList(ArrayHelper::map(Localizacao::find()->all(), 'id_localizacao', 'localizacao'), ['prompt' => '']) ?>
+
+        <?= $form->field($model, 'extras')->checkboxList(ArrayHelper::map(\common\models\Extra::find()->all(), 'id_extra', 'descricao')) ?>
+
+        <div class="form-group">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
 
 </div>
