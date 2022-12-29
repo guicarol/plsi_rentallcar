@@ -18,34 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="container">
-        <br/>
-        <div id="dynamic_slide_show" class="carousel slide" data-ride="carousel">
-
-            <div class="carousel-inner"> <?php
-                foreach ($model as $veiculo) { ?>
-                    <?php
-                    foreach ($veiculo->imagems as $imagem) { ?>
-                        <div class="carousel-item">
-
-                            <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid mb-4"]); ?>
-                        </div>
-                    <?php } ?>
-                <?php } ?>
-            </div>
-            <a class="left carousel-control" href="#dynamic_slide_show" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-
-            <a class="right carousel-control" href="#dynamic_slide_show" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-                <span class="sr-only">Next</span>
-            </a>
-
-        </div>
-    </div>
-
     <?php
     /*ListView::widget([
         'dataProvider' => $dataProvider,
@@ -56,29 +28,27 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
 
         <?php
-        if($model == false){
+        if ($model == false) {
             echo '<h2>Não existem veiculos disponiveis com a sua pesquisa!</h2>';
-        }else{
+        } else {
             foreach ($model as $veiculo) { ?>
 
                 <div class="col-lg-4 col-md-6 mb-2">
                     <div class="rent-item mb-4">
-                        <div class="container">
-                            <div class="carousel slide" data-ride="carousel">
-                                <?php
-                                foreach ($veiculo->imagems as $imagem) { ?>
-                                    <div class="carousel-item">
-    
-                                        <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid mb-4"]); ?>
+                        <div class="owl-carousel testimonial-carousel">
+                            <?php
+                            foreach ($veiculo->imagems as $imagem) { ?>
+                                <div class="card-img-top">
+                                    <div class="d-flex align-items-center justify-content-between mb-3">
+                                        <?= Html::img('@web/uploads/' . $imagem->imagem); ?>
+
                                     </div>
-                                <?php } ?>
-    
-                            </div>
+                                </div>
+                                <?php
+                            }
+                            ?>
                         </div>
-                        <?php
-                        foreach ($veiculo->imagems as $imagem) { ?>
-                            <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid mb-4"]); ?>
-                        <?php } ?>
+
                         <h4 class="text-uppercase mb-4"><?= $veiculo->marca ?> <?= $veiculo->modelo ?></h4>
                         <div class="d-flex justify-content-center mb-4">
                             <div class="px-2">
@@ -91,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                             <div class="px-2">
                                 <i class="fa fa-road text-primary mr-1"></i>
-                                <span><?= $veiculo->preco. '€' ?></span>
+                                <span><?= $veiculo->preco . '€' ?></span>
                             </div>
                         </div>
                         <a>    <?= Html::a('Ver informação', ['veiculo/view', 'id_veiculo' => $veiculo->id_veiculo], ['class' => 'btn btn-primary']); ?>
@@ -99,6 +69,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <?php
             }
-        }?>
+        } ?>
     </div>
 </div>
