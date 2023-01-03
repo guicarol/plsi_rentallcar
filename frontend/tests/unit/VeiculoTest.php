@@ -19,6 +19,8 @@ class VeiculoTest extends \Codeception\Test\Unit
     {
         $veiculo = new Veiculo();
 
+        //testar com dados null
+
         $veiculo->marca = null;
         $this->assertFalse($veiculo->validate(['marca']));
 
@@ -28,14 +30,38 @@ class VeiculoTest extends \Codeception\Test\Unit
         $veiculo->combustivel = null;
         $this->assertFalse($veiculo->validate(['combustivel']));
 
+        $veiculo->franquia = null;
+        $this->assertFalse($veiculo->validate(['franquia']));
+
+        $veiculo->preco = null;
+        $this->assertFalse($veiculo->validate(['preco']));
+
+        $veiculo->matricula = null;
+        $this->assertFalse($veiculo->validate(['matricula']));
+
+        $veiculo->descricao = null;
+        $this->assertFalse($veiculo->validate(['descricao']));
+
+        $veiculo->estado = null;
+        $this->assertFalse($veiculo->validate(['estado']));
+
+        $veiculo->tipo_veiculo_id = null;
+        $this->assertFalse($veiculo->validate(['tipo_veiculo_id']));
+
+        $veiculo->localizacao_id = null;
+        $this->assertFalse($veiculo->validate(['localizacao_id']));
+
+
+        //testar com dados de tipo errados
+
         $veiculo->preco = 'fffff';
         $this->assertFalse($veiculo->validate(['preco']));
 
-        $veiculo->matricula = '9d3dj9dj91jd9j9';
-        $this->assertFalse($veiculo->validate(['matricula']));
-
         $veiculo->descricao = 123;
         $this->assertFalse($veiculo->validate(['descricao']));
+
+        //$veiculo->estado = 'estado';
+        //$this->assertFalse($veiculo->validate(['estado']));
 
         $veiculo->estado = 23;
         $this->assertFalse($veiculo->validate(['estado']));
@@ -49,6 +75,21 @@ class VeiculoTest extends \Codeception\Test\Unit
         $veiculo->franquia = 'asdasd';
         $this->assertFalse($veiculo->validate(['franquia']));
 
+        //testar com dados demasiado longos
+        
+        //$veiculo->preco = 123456.234;
+        //$this->assertFalse($veiculo->validate(['preco']));
+
+        $veiculo->matricula = '9d3dj9dj91jd9j9';
+        $this->assertFalse($veiculo->validate(['matricula']));
+
+        $veiculo->combustivel = '9d3dj9dj91jd9j9';
+        $this->assertFalse($veiculo->validate(['combustivel']));
+
+        $veiculo->marca = '1234567890123456789012';
+        $this->assertFalse($veiculo->validate(['marca']));
+
+        //testar dados corretos
 
         $veiculo->marca = 'porsche';
         $veiculo->modelo = 'cayenne';

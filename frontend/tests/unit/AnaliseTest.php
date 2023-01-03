@@ -15,32 +15,47 @@ class AnaliseTest extends \Codeception\Test\Unit
     {
         $analise = new Analise();
 
+        //testar com os dados null
+
         $analise->comentario = null;
         $this->assertFalse($analise->validate(['comentario']));
 
-        $analise->classificacao = 'wqesda';
+        $analise->classificacao = null;
         $this->assertFalse($analise->validate(['classificacao']));
 
-        $analise->data_analise =  'teste';
-        //$this->assertFalse($analise->validate(['data_analise']));
+        $analise->data_analise = null;
+        $this->assertFalse($analise->validate(['data_analise']));
 
-        $analise->profile_id = '21sd';
+        $analise->profile_id = null;
         $this->assertFalse($analise->validate(['profile_id']));
+
+        //testar com os dados de tipo errado
+
+        $analise->comentario = 123;
+        $this->assertFalse($analise->validate(['comentario']));
+
+        $analise->classificacao = 'null';
+        $this->assertFalse($analise->validate(['classificacao']));
+
+        $analise->profile_id = 'null';
+        $this->assertFalse($analise->validate(['profile_id']));
+
+        //testar com dados que nao existem
+
+        $analise->profile_id = 1000;
+        $this->assertFalse($analise->validate(['profile_id']));
+
+        //testar com dados corretos
 
         $analise->comentario = 'TESTE';
         $analise->classificacao = 4;
         $analise->data_analise = '2022-12-16';
         $analise->profile_id = 7;
 
-
-
         $this->assertTrue($analise->validate([$analise->comentario]));
         $this->assertTrue($analise->validate([$analise->classificacao]));
         $this->assertTrue($analise->validate([$analise->data_analise]));
         $this->assertTrue($analise->validate([$analise->profile_id]));
-
-
-
     }
 
     public function testSavingÃnalise()
@@ -49,7 +64,7 @@ class AnaliseTest extends \Codeception\Test\Unit
         $analise->comentario = 'TESTE';
         $analise->classificacao = 5;
         $analise->data_analise = '2022-12-17';
-        $analise->profile_id = 7;
+        $analise->profile_id = 3;
         $analise->save();
         $this->tester->seeRecord('common\models\Analise', ['comentario' => 'TESTE']);
 

@@ -10,7 +10,7 @@ use Yii;
  * @property int $id_analise
  * @property string $comentario
  * @property int $classificacao
- * @property string|null $data_analise
+ * @property string $data_analise
  * @property int $profile_id
  *
  * @property Profile $profile
@@ -31,7 +31,7 @@ class Analise extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['comentario', 'classificacao', 'profile_id'], 'required'],
+            [['comentario', 'classificacao', 'profile_id', 'data_analise'], 'required'],
             [['classificacao', 'profile_id'], 'integer'],
             [['data_analise'], 'safe'],
             [['comentario'], 'string', 'max' => 255],
