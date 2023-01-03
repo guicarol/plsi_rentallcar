@@ -35,15 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="col-lg-4 col-md-6 mb-2">
                     <div class="rent-item mb-4">
-                        <div class="owl-carousel testimonial-carousel">
+                        <div class="owl-carousel testimonial-carousel position-relative">
                             <?php
                             foreach ($veiculo->imagems as $imagem) { ?>
-                                <div class="card-img-top">
-                                    <div class="d-flex align-items-center justify-content-between mb-3">
-                                        <?= Html::img('@web/uploads/' . $imagem->imagem); ?>
-
-                                    </div>
-                                </div>
+                                        <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid w-100"]); ?>
                                 <?php
                             }
                             ?>
