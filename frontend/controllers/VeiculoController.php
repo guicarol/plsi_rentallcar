@@ -85,27 +85,40 @@ class VeiculoController extends Controller
             }
 
             $model = Veiculo::find()
-                ->innerJoinWith(['tipoVeiculo'])
-                ->joinWith(['localizacao'])
+                //->innerJoinWith(['tipoVeiculo'])
+                //->joinWith(['localizacao'])
                 ->joinWith(['detalhesAluguers'])
                     ->where(['like', 'tipo_veiculo.categoria', $tipoVeiculo])
-                    ->andWhere(['not like', 'veiculo.estado', 'manutencao'])
-                    ->andWhere(['like', 'localizacao.morada', $localizacao])
+                    //->andWhere(['not like', 'veiculo.estado', 'manutencao'])
+                    //->andWhere(['like', 'localizacao.morada', $localizacao])
+
+                    /*->andWhere(['or', 
+                        [new BetweenColumnsCondition($dataInicio, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim')], 
+                        ['is', 'detalhes_aluguer.data_fim', null]
+                    ])*/
+
+                   /* ->andWhere([ 
+                        ['is', 'detalhes_aluguer.data_fim', null],'or',
+                        [new BetweenColumnsCondition($dataInicio, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim')]
+                    ])*/
                     ->andWhere(new BetweenColumnsCondition($dataInicio, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
-                    ->andWhere(new BetweenColumnsCondition($dataFim, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
-                    ->andWhere(['not in', 'detalhes_aluguer.veiculo_id', $carro])
+                    ->orWhere(['is', 'detalhes_aluguer.data_fim', null])
+
+                    //->andWhere(new BetweenColumnsCondition($dataInicio, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
+                    //->andWhere(new BetweenColumnsCondition($dataFim, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
+                    //->andWhere(['not in', 'detalhes_aluguer.veiculo_id', $carro])
                     ->all();
             
             //var_dump($subquery->createCommand()->getRawSql());
             //var_dump($model->createCommand()->getRawSql());
             
 
-            /*
-            var_dump($carro);
-            var_dump($subquery);
+            
+            //var_dump($carro);
+            //var_dump($subquery);
             var_dump($model);
             
-            die;*/
+            die;
                 
             /*
 

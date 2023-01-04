@@ -21,21 +21,69 @@ class ProfileTest extends \Codeception\Test\Unit
 
         $profile = new Profile();
 
+        //testar com dados null
+
+        $profile->id_profile = null;
+        $this->assertFalse($profile->validate(['id_profile']));
+
         $profile->nome = null;
         $this->assertFalse($profile->validate(['nome']));
 
         $profile->apelido = null;
         $this->assertFalse($profile->validate(['apelido']));
 
-        $profile->telemovel = 'asdasd';
+        $profile->telemovel = null;
         $this->assertFalse($profile->validate(['telemovel']));
 
-        $profile->nif = 'fffff';
+        $profile->nif =  null;
         $this->assertFalse($profile->validate(['nif']));
 
-        $profile->nr_carta_conducao = '9d3dj9dj91jd9j9';
+        $profile->nr_carta_conducao = null;
         $this->assertFalse($profile->validate(['nr_carta_conducao']));
 
+        //testar com dados demasiado longos
+
+        $profile->nome = '1234567890123456789012';
+        $this->assertFalse($profile->validate(['nome']));
+
+        $profile->apelido = '1234567890123456789012';
+        $this->assertFalse($profile->validate(['apelido']));
+
+        $profile->nr_carta_conducao = '1234567890123';
+        $this->assertFalse($profile->validate(['nr_carta_conducao']));
+
+        //testar com dados nao unicos
+        
+        $profile->telemovel = 111222333;
+        $this->assertFalse($profile->validate(['telemovel']));
+
+        $profile->nif =  111222333;
+        $this->assertFalse($profile->validate(['nif']));
+
+        $profile->nr_carta_conducao = '111222333';
+        $this->assertFalse($profile->validate(['nr_carta_conducao']));
+
+        //testar com dados de tipo incorreto
+
+        $profile->id_profile = 'null';
+        $this->assertFalse($profile->validate(['id_profile']));
+
+        $profile->telemovel = '111222333';
+        $this->assertFalse($profile->validate(['telemovel']));
+
+        $profile->nif =  '111222333';
+        $this->assertFalse($profile->validate(['nif']));
+
+        $profile->nome = 11;
+        $this->assertFalse($profile->validate(['nome']));
+
+        $profile->apelido = 22;
+        $this->assertFalse($profile->validate(['apelido']));
+
+        $profile->nr_carta_conducao = 111222399;
+        $this->assertFalse($profile->validate(['nr_carta_conducao']));
+
+        //testar com dados corretos
 
         $profile->nome = 'teste';
         $profile->apelido = 'novo';

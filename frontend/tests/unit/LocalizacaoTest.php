@@ -19,14 +19,40 @@ class LocalizacaoTest extends \Codeception\Test\Unit
     {
         $localizacao = new Localizacao();
 
+        //testar com dados null
+
         $localizacao->localizacao = null;
         $this->assertFalse($localizacao->validate(['localizacao']));
 
         $localizacao->morada = null;
         $this->assertFalse($localizacao->validate(['morada']));
 
-        $localizacao->cod_postal = 1231231232;
+        $localizacao->cod_postal = null;
         $this->assertFalse($localizacao->validate(['cod_postal']));
+
+        //testar com dados de tipo errados
+
+        $localizacao->localizacao = 11;
+        $this->assertFalse($localizacao->validate(['localizacao']));
+
+        $localizacao->morada = 22;
+        $this->assertFalse($localizacao->validate(['morada']));
+
+        $localizacao->cod_postal = 33;
+        $this->assertFalse($localizacao->validate(['cod_postal']));
+
+        //testar com dados demasiado longos
+
+        $localizacao->localizacao = '1234567890123456789012345678901234567890123456789012';
+        $this->assertFalse($localizacao->validate(['localizacao']));
+
+        $localizacao->morada = '123456789012345678901234567890123456789012345678901234567890123456789012';
+        $this->assertFalse($localizacao->validate(['morada']));
+
+        $localizacao->cod_postal = '1234567890';
+        $this->assertFalse($localizacao->validate(['cod_postal']));
+
+        //testar com dados corretos
 
         $localizacao->localizacao = 'TESTE';
         $localizacao->morada = 'Rua de testesssss';
@@ -36,8 +62,6 @@ class LocalizacaoTest extends \Codeception\Test\Unit
         $this->assertTrue($localizacao->validate([$localizacao->localizacao]));
         $this->assertTrue($localizacao->validate([$localizacao->morada]));
         $this->assertTrue($localizacao->validate([$localizacao->cod_postal]));
-
-
     }
 
     public function testSavingLocalizacao()

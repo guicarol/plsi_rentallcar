@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "detalhes_aluguer".
  *
  * @property int $id_detalhes_aluguer
- * @property string|null $data_inicio
- * @property string|null $data_fim
+ * @property string $data_inicio
+ * @property string $data_fim
  * @property int $veiculo_id
  * @property int $profile_id
  * @property int $seguro_id
@@ -45,7 +45,7 @@ class DetalhesAluguer extends \yii\db\ActiveRecord
     {
         return [
             [['data_inicio', 'data_fim'], 'safe'],
-            [['veiculo_id', 'profile_id', 'seguro_id', 'localizacao_levantamento_id', 'localizacao_devolucao_id'], 'required'],
+            [['veiculo_id', 'profile_id', 'seguro_id', 'localizacao_levantamento_id', 'localizacao_devolucao_id','data_inicio', 'data_fim'], 'required'],
             [['veiculo_id', 'profile_id', 'seguro_id', 'localizacao_levantamento_id', 'localizacao_devolucao_id'], 'integer'],
             [['veiculo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Veiculo::class, 'targetAttribute' => ['veiculo_id' => 'id_veiculo']],
             [['profile_id'], 'exist', 'skipOnError' => true, 'targetClass' => Profile::class, 'targetAttribute' => ['profile_id' => 'id_profile']],

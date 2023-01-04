@@ -159,11 +159,18 @@ $this->title = 'RentAllCar';
             <h1 class="display-4 text-uppercase text-center mb-5">Encontre o seu veiculo</h1>
             <div class="row">
                 <?php
+
                 foreach ($veiculos as $value) { ?>
-                    <div class="col-4" style="margin-bottom: 10vh">
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="img/car-rent-1.png" alt="Card image cap">
-                            <div class="card-body">
+                    <div class="col-lg-4 col-md-6 mb-2" >
+                        <div class="rent-item mb-3">
+                            <div class="owl-carousel testimonial-carousel position-relative">
+                                <?php
+                                foreach ($value->imagems as $imagem) { ?>
+                                    <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid w-100"]); ?>
+                                    <?php
+                                }
+                                ?>
+                            </div>                          <div class="card-body">
                                 <h5 class="card-title"><?= $value->marca ?> <?= $value->modelo ?></h5>
                                 <p class="card-text"><?= $value->descricao ?></p>
                                 <a>    <?= Html::a('Ver informação', ['veiculo/view', 'id_veiculo' => $value->id_veiculo], ['class' => 'btn btn-primary']); ?>

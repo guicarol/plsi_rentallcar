@@ -18,6 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+
+
     <?php
     /*ListView::widget([
         'dataProvider' => $dataProvider,
@@ -35,13 +37,32 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="col-lg-4 col-md-6 mb-2">
                     <div class="rent-item mb-4">
-                        <div class="owl-carousel testimonial-carousel position-relative">
+                        <div class="carousel-inner">
+
                             <?php
                             foreach ($veiculo->imagems as $imagem) { ?>
-                                        <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid w-100"]); ?>
+                                    <?php $i=0;
+                                    if($i==0) {?>
+                                        <div class="carousel-item active">
+                                            <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "d-block w-100"]); ?>
+                                        </div>
+                                    <?php }else {?>
+                                        <div class="carousel-item">
+                                            <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "d-block w-100"]); ?>
+                                        </div>   <?php
+                                    }
+                                ?>
                                 <?php
                             }
                             ?>
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
                         </div>
 
                         <h4 class="text-uppercase mb-4"><?= $veiculo->marca ?> <?= $veiculo->modelo ?></h4>
