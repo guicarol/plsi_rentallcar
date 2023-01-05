@@ -53,8 +53,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::a('Reservar', ['/detalhesaluguer/create', 'id_veiculo' => $model->id_veiculo], ['class' => 'btn btn-primary', 'name' => 'btnReservar']); ?>
 
     <br>
-    <?php
-    foreach ($model->imagems as $imagem) { ?>
-        <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid mb-4"]); ?>
-    <?php } ?>
-</div>
+    <br>
+    <div class="owl-carousel testimonial-carousel">
+        <?php
+        foreach ($model->imagems as $imagem) { ?>
+        <div class="testimonial-item d-flex flex-column justify-content-center px-4">
+                    <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "h-100 w-100"]) ?>
+            </div>
+
+            <?php
+        }
+        ?>
+    </div>
+
+

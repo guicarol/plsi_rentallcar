@@ -17,7 +17,7 @@ class LoginCest
      * @see \Codeception\Module\Yii2::loadFixtures()
      * @return array
      */
-    
+
     
     /**
      * @param FunctionalTester $I
@@ -34,7 +34,7 @@ class LoginCest
 
         //$I->amOnRoute('/index');
 
-        //$I->see('Users');
+        $I->see('Página inicial');
         /*$I->dontSeeLink('Login');
         $I->dontSeeLink('Signup');*/
     }

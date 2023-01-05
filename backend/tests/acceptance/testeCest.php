@@ -18,7 +18,16 @@ class testeCest
         $I->amOnPage('rentallcar/frontend/web/index');
         $I->wait(3);
 
-        /*$I->click('Registo');
+        /*
+        Login backend
+        $I->amOnPage('rentallcar/backend/web/index');
+        $I->fillField('LoginForm[username]', 'admin');
+        $I->fillField('LoginForm[password]', 'admin12345');
+        $I->wait(5);
+        $I->click('LoginForm[button]');
+        $I->wait(5);
+        
+        $I->click('Registo');
         $I->wait(1);
         $I->fillField('SignupForm[nome]', 'user');
         $I->fillField('SignupForm[apelido]', 'teste');

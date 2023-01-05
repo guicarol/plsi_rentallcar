@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Veiculo;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -76,8 +77,10 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'main_index.php';
-        $veiculos = \common\models\Veiculo::find()->orderBy('id_veiculo DESC')->limit(6)->all();
+        $veiculos = \common\models\Veiculo::find()->andWhere(['not like','veiculo.estado','manutencao'])
+            ->orderBy('id_veiculo DESC')->limit(3)->all();
         $analises = \common\models\Analise::find()->limit(6)->all();
+
 
         return $this->render('index', [
             'veiculos' => $veiculos,
