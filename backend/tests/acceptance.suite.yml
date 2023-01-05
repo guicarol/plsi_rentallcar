@@ -4,7 +4,7 @@ modules:
         - WebDriver:
             url: http://localhost:80
             browser: chrome
-            window_size: 1920x1080
+            window_size: maximize
         - Yii2:
             configFile: 'config/test.php'
             part: orm
