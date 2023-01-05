@@ -11,7 +11,12 @@ use common\models\Tipoveiculo;
 
 
 $this->title = 'RentAllCar';
+
+
 ?>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <div class="site-index">
 
@@ -158,23 +163,34 @@ $this->title = 'RentAllCar';
             <h1 class="display-1 text-primary text-center">03</h1>
             <h1 class="display-4 text-uppercase text-center mb-5">Encontre o seu veiculo</h1>
             <div class="row">
-                <?php
 
+                <?php
                 foreach ($veiculos as $value) { ?>
                     <div class="col-lg-4 col-md-6 mb-2" >
                         <div class="rent-item mb-3">
-                            <div class="owl-carousel testimonial-carousel position-relative">
-                                <?php
-                                foreach ($value->imagems as $imagem) { ?>
-                                    <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid w-100"]); ?>
-                                    <?php
-                                }
-                                ?>
-                            </div>                          <div class="card-body">
-                                <h5 class="card-title"><?= $value->marca ?> <?= $value->modelo ?></h5>
-                                <p class="card-text"><?= $value->descricao ?></p>
-                                <a>    <?= Html::a('Ver informação', ['veiculo/view', 'id_veiculo' => $value->id_veiculo], ['class' => 'btn btn-primary']); ?>
-                                </a>
+                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <?php 
+                                        $i = 0;
+                                        foreach ($value->imagems as $imagem) {
+                                            if($i==0){ ?>
+                                                <div class="item active">
+                                                    <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid w-100"]); ?>
+                                                </div>
+                                            <?php }else{ ?>
+                                                <div class="item">
+                                                    <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid w-100"]); ?>
+                                                </div>
+                                            <?php }
+                                            $i++;
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                            <h5 class="card-title"><?= $value->marca ?> <?= $value->modelo ?></h5>
+                            <p class="card-text"><?= $value->descricao ?></p>
+                            <a><?= Html::a('Ver informação', ['veiculo/view', 'id_veiculo' => $value->id_veiculo], ['class' => 'btn btn-primary']); ?></a>
                             </div>
                         </div>
                     </div>
