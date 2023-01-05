@@ -18,7 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <?php
     /*ListView::widget([
@@ -37,32 +38,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="col-lg-4 col-md-6 mb-2">
                     <div class="rent-item mb-4">
-                        <div class="carousel-inner">
-
-                            <?php
-                            foreach ($veiculo->imagems as $imagem) { ?>
-                                    <?php $i=0;
-                                    if($i==0) {?>
-                                        <div class="carousel-item active">
-                                            <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "d-block w-100"]); ?>
-                                        </div>
-                                    <?php }else {?>
-                                        <div class="carousel-item">
-                                            <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "d-block w-100"]); ?>
-                                        </div>   <?php
-                                    }
-                                ?>
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
                                 <?php
-                            }
-                            ?>
-                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
+                                $i = 0;
+                                foreach ($veiculo->imagems as $imagem) {
+                                    if($i==0){ ?>
+                                        <div class="item active">
+                                            <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid w-100"]); ?>
+                                        </div>
+                                    <?php }else{ ?>
+                                        <div class="item">
+                                            <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "img-fluid w-100"]); ?>
+                                        </div>
+                                    <?php }
+                                    $i++;
+                                }
+                                ?>
+                            </div>
                         </div>
 
                         <h4 class="text-uppercase mb-4"><?= $veiculo->marca ?> <?= $veiculo->modelo ?></h4>

@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="owl-carousel testimonial-carousel">
         <?php
         foreach ($model->imagems as $imagem) { ?>
-        <div class="testimonial-item d-flex flex-column justify-content-center px-4">
+        <div class="testimonial-item d-flex flex-column justify-content-center ">
                     <?= Html::img('@web/uploads/' . $imagem->imagem, ['class' => "h-100 w-100"]) ?>
             </div>
 

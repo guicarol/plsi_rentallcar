@@ -25,7 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <p>       
         <?= Html::a('Ver imagens', ['imagem/index', 'id_veiculo' => $model->id_veiculo], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Alterar Estado', ['veiculo/updateestado','id_veiculo' => $model->id_veiculo], ['class' => 'btn btn-success']) ?>
+
+        <?php if(array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()))[0] == "gestor") {?>
+        <!-- CENAS DO ADMIN -->
+    <li class="nav-item d-none d-sm-inline-block">
+        <?= Html::a('Alterar Estado', ['veiculo/updateestado','id_veiculo' => $model->id_veiculo], ['class' => 'btn btn-success'])?>
+    </li>
+    <?php } ?>
+
+       
     </p>
 
     <?= DetailView::widget([
