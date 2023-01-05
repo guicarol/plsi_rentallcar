@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-    <?= Html::a('Reservar', ['/detalhesaluguer/create', 'id_veiculo' => $model->id_veiculo], ['class' => 'btn btn-primary']); ?>
+    <?= Html::a('Reservar', ['/detalhesaluguer/create', 'id_veiculo' => $model->id_veiculo], ['class' => 'btn btn-primary', 'name' => 'btnReservar']); ?>
 
     <br>
     <?php

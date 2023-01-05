@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <span><?= $veiculo->preco . '€' ?></span>
                             </div>
                         </div>
-                        <a>    <?= Html::a('Ver informação', ['veiculo/view', 'id_veiculo' => $veiculo->id_veiculo], ['class' => 'btn btn-primary']); ?>
+                        <a>    <?= Html::a('Ver informação', ['veiculo/view', 'id_veiculo' => $veiculo->id_veiculo], ['class' => 'btn btn-primary', 'name' => 'verVeiculo_' . $veiculo->id_veiculo]); ?>
                     </div>
                 </div>
                 <?php

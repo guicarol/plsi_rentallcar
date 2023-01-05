@@ -56,7 +56,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'extras')->checkboxList(ArrayHelper::map(\common\models\Extra::find()->all(), 'id_extra', 'descricao')) ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success', 'name' => 'btnCriarDetalhesAluguer']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
