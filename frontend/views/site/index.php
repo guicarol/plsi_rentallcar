@@ -217,7 +217,7 @@ $this->title = 'RentAllCar';
                         <h1 class="display-2 text-white m-0 fa fa-quote-right"></h1>
                     </div>
                     <h4 class="text-uppercase mb-2"><?= $value->profile->nome  ?></h4>
-                    <i class="mb-2"><?= $value->classificacao  ?></i>
+                    <i class="mb-2"><?= $value->classificacao.'★' ?></i>
                     <p class="m-0"><?= $value->comentario  ?></p>
                 </div>
                     <?php

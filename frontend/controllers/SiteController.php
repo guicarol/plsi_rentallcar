@@ -161,10 +161,7 @@ class SiteController extends Controller
         return $this->render('service');
     }
 
-    public function actionTeam()
-    {
-        return $this->render('team');
-    }
+
 
     public function actionReserva()
     {

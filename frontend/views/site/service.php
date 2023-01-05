@@ -76,7 +76,7 @@ $this->title = 'Serviço';
             <div class="bg-banner py-5 px-4 text-center">
                 <div class="py-5">
                     <h1 class="display-1 text-uppercase text-primary mb-4">50% Desconto</h1>
-                    <h1 class="text-uppercase text-light mb-4">Na sua primeira reserva</h1>
+                    <h1 class="text-uppercase text-light mb-4">Oferta Especial</h1>
                 </div>
             </div>
         </div>

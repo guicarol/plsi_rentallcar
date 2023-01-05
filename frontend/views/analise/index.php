@@ -32,16 +32,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id_analise',
             'comentario',
-            'classificacao',
+
+            [
+                'label' => 'Classificação',
+                'value' => function ($model) {
+                    return $model->classificacao."★";
+                }
+            ],
             [
                 'attribute' => 'data_analise',
                 'format' => ['date', 'php:Y-m-d']
-            ],
-            [
-                'label' => 'Profile',
-                'value' => function ($model) {
-                    return $model->profile->nome;
-                }
             ],
             [
                 'class' => ActionColumn::className(),

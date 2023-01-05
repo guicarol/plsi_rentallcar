@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </li>
     <?php } ?>
 
-       
+
     </p>
 
     <?= DetailView::widget([
