@@ -18,13 +18,11 @@ use yii\widgets\ActiveForm;
 
     <?php if ($dias != null)
         echo 'Já existem datas reservadas, por favor selecione fora dos seguintes intervalos: ';
-    foreach ($dias
-
-    as $dia) { ?>
-    <table>
-        <?php
-        echo ' <td>' . $dia->data_inicio . ' a ' . $dia->data_fim;
-        echo '</table>';
+    foreach ($dias as $dia) { ?>
+        <table>
+            <?php
+                echo ' <td>' . $dia->data_inicio . ' a ' . $dia->data_fim;
+                echo '</table>';
         } ?>
 
 

@@ -16,6 +16,8 @@ use yii\db\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\conditions\BetweenColumnsCondition;
+
 
 /**
  * DetalhesaluguerController implements the CRUD actions for Detalhesaluguer model.
@@ -117,29 +119,25 @@ class DetalhesaluguerController extends Controller
                 }
             }*/
 
-
             $model->extras = $this->request->post()['DetalhesAluguer']['extras'];
+
             if ($model->load($this->request->post())) {
-                var_dump($model->load($this->request->post()));
-                //calculo da diferenca entre a data de inicio e a data de fim
-                $dataIni = date_create($model->data_inicio);
-                $dataFim = date_create($model->data_fim);
+                //var_dump($model);die;
 
-                $dataDiff = date_diff($dataIni, $dataFim);
-                //var_dump($dataDiff->format("%a"));
-                //$model->preco_total = 30;
-
-                if ($model->save()) {
-                    if ($model->extras != null)
-                        foreach ($model->extras as $extradetalhes) {
-                            $extradetalhesaluguer = new ExtraDetalhesAluguer();
-                            $extradetalhesaluguer->extra_id = $extradetalhes;
-                            $extradetalhesaluguer->detalhes_aluguer_id = $model->id_detalhes_aluguer;
-                            $extradetalhesaluguer->save();
-                        }
-
-                    return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
-                }
+                if($this->canCreate($model)){
+                    if ($model->save()) {
+                        if ($model->extras != null)
+                            foreach ($model->extras as $extradetalhes) {
+                                $extradetalhesaluguer = new ExtraDetalhesAluguer();
+                                $extradetalhesaluguer->extra_id = $extradetalhes;
+                                $extradetalhesaluguer->detalhes_aluguer_id = $model->id_detalhes_aluguer;
+                                $extradetalhesaluguer->save();
+                            }
+    
+                        return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
+                    }
+                }else
+                    Yii::$app->session->setFlash('error', 'As datas inseridas não estão disponiveis!');
             }
         } else {
             $model->loadDefaultValues();
@@ -149,6 +147,27 @@ class DetalhesaluguerController extends Controller
             'model' => $model,
             'dias' => $dias,
         ]);
+    }
+
+    //verificar as datas inseridas pelo cliente e verificar se é possivel criar uma reserva nessas datas
+    public function canCreate($detalhes){
+        //var_dump($detalhes);die;
+
+        $oldDetalhes = Detalhesaluguer::find()
+            ->where(['veiculo_id' => $detalhes->veiculo_id])
+            ->andWhere(new BetweenColumnsCondition($detalhes->data_inicio, 'between', 'data_inicio', 'data_fim'))
+            ->andWhere(new BetweenColumnsCondition($detalhes->data_fim, 'between', 'data_inicio', 'data_fim'))
+            ->andWhere(['between', 'data_inicio', $detalhes->data_inicio, $detalhes->data_fim])
+            ->andWhere(['between', 'data_fim', $detalhes->data_inicio, $detalhes->data_fim])
+            ->all();
+
+        //var_dump($oldDetalhes);die;
+
+        if($oldDetalhes == null){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

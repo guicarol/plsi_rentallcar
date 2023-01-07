@@ -48,13 +48,13 @@ class VeiculoController extends Controller
         if ($this->request->isPost) {
 
             if(\str_starts_with($this->request->post()['localizacao'], 'Selecione')){
-                $localizacao = '';
+                $localizacao = '%%';
             }else{
                 $localizacao = $this->request->post()['localizacao'];
             }
 
             if(\str_starts_with($this->request->post()['tipoVeiculo'], 'Selecione')){
-                $tipoVeiculo = '';
+                $tipoVeiculo = '%%';
             }else{
                 $tipoVeiculo = $this->request->post()['tipoVeiculo'];
             }
@@ -71,7 +71,7 @@ class VeiculoController extends Controller
                 $dataFim = $this->request->post()['dataFim'];
             }
             
-            $subquery = Detalhesaluguer::find()
+           /* $subquery = Detalhesaluguer::find()
                 ->select(['veiculo_id'])
                     ->where(new BetweenColumnsCondition($dataInicio, 'between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
                     ->orWhere(new BetweenColumnsCondition($dataFim, 'between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
@@ -92,15 +92,15 @@ class VeiculoController extends Controller
                     ->andWhere(['not like', 'veiculo.estado', 'manutencao'])
                     ->andWhere(['like', 'localizacao.morada', $localizacao])
 
-                    /*->andWhere(['or', 
+                    ->andWhere(['or', 
                         [new BetweenColumnsCondition($dataInicio, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim')], 
                         ['is', 'detalhes_aluguer.data_fim', null]
-                    ])*/
+                    ])
 
-                   /* ->andWhere([ 
+                    ->andWhere([ 
                         ['is', 'detalhes_aluguer.data_fim', null],'or',
                         [new BetweenColumnsCondition($dataInicio, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim')]
-                    ])*/
+                    ])
 
                     //->andWhere(new BetweenColumnsCondition($dataInicio, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
                     //->orWhere(['is', 'detalhes_aluguer.data_fim', null])
@@ -108,26 +108,55 @@ class VeiculoController extends Controller
                     //->andWhere(new BetweenColumnsCondition($dataInicio, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
                     //->andWhere(new BetweenColumnsCondition($dataFim, 'not between', 'detalhes_aluguer.data_inicio', 'detalhes_aluguer.data_fim'))
                     ->andWhere(['not in', 'detalhes_aluguer.veiculo_id', $carro])
-                    ->all();
+                    ->all();*/
             
             //var_dump($subquery->createCommand()->getRawSql());
             //var_dump($model->createCommand()->getRawSql());
-            
 
+
+
+            $connection = \Yii::$app->getDb();
+
+            $command = $connection->createCommand(
+                "select distinct id_veiculo from veiculo 
+                    inner join tipo_veiculo on tipo_veiculo.id_tipo_veiculo = veiculo.tipo_veiculo_id 
+                    left join localizacao on localizacao.id_localizacao = veiculo.localizacao_id
+                    left join detalhes_aluguer on detalhes_aluguer.veiculo_id = veiculo.id_veiculo 
+                    where tipo_veiculo.categoria like :tipo
+                        and localizacao.morada like :morada
+                        and veiculo.estado not like 'manutencao'
+                        and (:dataIni  not between detalhes_aluguer.data_inicio and detalhes_aluguer.data_fim or detalhes_aluguer.data_inicio is null)
+                        and (:dataFim not between detalhes_aluguer.data_inicio and detalhes_aluguer.data_fim or detalhes_aluguer.data_inicio is null)
+                        and veiculo.id_veiculo not in (
+                            select veiculo_id from detalhes_aluguer
+                                where (:dataIni   between detalhes_aluguer.data_inicio and detalhes_aluguer.data_fim 
+                                    or :dataFim  between detalhes_aluguer.data_inicio and detalhes_aluguer.data_fim )
+                                    or detalhes_aluguer.data_inicio between :dataIni and :dataFim
+                                    or detalhes_aluguer.data_fim between :dataIni  and :dataFim);"
+                    )
+                    ->bindValue(':tipo', $tipoVeiculo)
+                    ->bindValue(':morada', $localizacao)
+                    ->bindValue(':dataIni', $dataInicio)
+                    ->bindValue(':dataFim', $dataFim);
+
+
+            $result = $command->queryAll();
             
-            //var_dump($carro);
-            //var_dump($subquery);
-            //var_dump($model);
+            //return json_encode($command->getRawSql());
+            //var_dump($result);
+            $carros = array();
             
-            //die;
+            foreach ($result as $key) {
+                $carros[] = Veiculo::find()->where(['id_veiculo' => $key['id_veiculo']])->one();
+            }
+            
+            //var_dump($carros);die;
+            
                 
-            /*
-
-            $model = Veiculo::find()->where()->andWhere()->all(); */
+            //$model = Veiculo::find()->where()->andWhere()->all(); 
             //$veiculos = \common\models\Detalhesaluguer::find()->where(['profile_id' => Yii::$app->user->getId()])->one();
 
-            //$model = Veiculo::find()->all();
-            
+            $model = $carros;
         } else {
             $model = Veiculo::find()
                 ->andWhere(['not like','veiculo.estado','manutencao'])
