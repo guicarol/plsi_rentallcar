@@ -31,15 +31,15 @@
 
   <table width="100%">
     <tr>
-        <td valign="top"><img src="logo.png" alt="" width="150"/></td>
+        <td valign="top"><img src="@web/img/logo.jpg" alt="" width="150"/></td>
         <td align="right">
             <h3>RentAllCar</h3>
             <pre>
-                Company representative name
-                Company address
-                Tax ID
-                phone
-                fax
+                 RentAllCar
+                Email: rentallcar@gmail.com
+                Contacto: +351 962 234 518
+                Morada: Avenida Marquês de Pombal, Leiria
+
             </pre>
         </td>
     </tr>
@@ -65,14 +65,16 @@
     </thead>
 
     <tbody>
-      <?php 
-          foreach ($model->linhaFaturas as $linhaFat) {?>
+    <?php
+
+    foreach ($model->linhaFaturas as $linhaFat) {
+        if ( $linhaFat->preco!= 0){?>
             <tr>
-              <td><?= $linhaFat->descricao ?></td>
-              <td align="right"><?= $linhaFat->preco ?></td>
-              <td align="right"><?= $linhaFat->preco*$nrDias ?></td>
+                <td><?= $linhaFat->descricao ?></td>
+                <td align="right"><?= $linhaFat->preco ?></td>
+                <td align="right"><?= $linhaFat->preco*$nrDias ?></td>
             </tr>
-          <?php } ?>
+        <?php } }?>
     </tbody>
 
     <tfoot>
