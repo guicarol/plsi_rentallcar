@@ -15,8 +15,8 @@ class LocalizacaoTest extends \Codeception\Test\Unit
     {
     }
 
-    public function testValidacao()
-    {
+    public function testDataNull(){
+
         $localizacao = new Localizacao();
 
         //testar com dados null
@@ -29,6 +29,11 @@ class LocalizacaoTest extends \Codeception\Test\Unit
 
         $localizacao->cod_postal = null;
         $this->assertFalse($localizacao->validate(['cod_postal']));
+    }
+
+    public function testWrongData(){
+
+        $localizacao = new Localizacao();
 
         //testar com dados de tipo errados
 
@@ -40,6 +45,11 @@ class LocalizacaoTest extends \Codeception\Test\Unit
 
         $localizacao->cod_postal = 33;
         $this->assertFalse($localizacao->validate(['cod_postal']));
+    }
+
+    public function testLongData(){
+
+        $localizacao = new Localizacao();
 
         //testar com dados demasiado longos
 
@@ -51,6 +61,11 @@ class LocalizacaoTest extends \Codeception\Test\Unit
 
         $localizacao->cod_postal = '1234567890';
         $this->assertFalse($localizacao->validate(['cod_postal']));
+    }
+
+    public function testCorrectData()
+    {
+        $localizacao = new Localizacao();
 
         //testar com dados corretos
 
@@ -66,6 +81,7 @@ class LocalizacaoTest extends \Codeception\Test\Unit
 
     public function testSavingLocalizacao()
     {
+        //create
         $localizacao = new Localizacao();
         $localizacao->localizacao = 'TESTE';
         $localizacao->morada = 'Rua de testesssss';
@@ -73,11 +89,14 @@ class LocalizacaoTest extends \Codeception\Test\Unit
         $localizacao->save();
         $this->tester->seeRecord('common\models\Localizacao', ['localizacao' => 'TESTE']);
 
+        //update
         $altera = $this->tester->grabRecord('common\models\Localizacao', ['localizacao' => 'TESTE']);
         $altera->localizacao = 'miniteste';
         $altera->save();
         $this->tester->seeRecord('common\models\Localizacao', ['localizacao' => 'miniteste']);
         $this->tester->dontSeeRecord('common\models\Localizacao', ['localizacao' => 'TESTE']);
+
+        //delete
         $altera->delete();
         $this->tester->dontSeeRecord('common\models\Localizacao', ['localizacao' => 'miniteste']);
 

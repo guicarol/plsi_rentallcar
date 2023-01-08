@@ -12,8 +12,8 @@ class DetalhesAluguerTest extends \Codeception\Test\Unit
 
     protected UnitTester $tester;
 
-    public function testValidacao()
-    {
+    public function testDataNull(){
+
         $detalhesaluguer = new Detalhesaluguer();
 
         //testar com dados null
@@ -38,6 +38,11 @@ class DetalhesAluguerTest extends \Codeception\Test\Unit
 
         $detalhesaluguer->localizacao_devolucao_id = null;
         $this->assertFalse($detalhesaluguer->validate(['localizacao_devolucao_id']));
+    }
+
+    public function testWrongData(){
+
+        $detalhesaluguer = new Detalhesaluguer();
 
         //testar com dados de tipo errado
 
@@ -55,6 +60,11 @@ class DetalhesAluguerTest extends \Codeception\Test\Unit
 
         $detalhesaluguer->localizacao_devolucao_id = 'null';
         $this->assertFalse($detalhesaluguer->validate(['localizacao_devolucao_id']));
+    }
+
+    public function testNotExistingData(){
+
+        $detalhesaluguer = new Detalhesaluguer();
 
         //testar com dados de tipo que nao existem
 
@@ -72,6 +82,11 @@ class DetalhesAluguerTest extends \Codeception\Test\Unit
 
         $detalhesaluguer->localizacao_devolucao_id = 1005;
         $this->assertFalse($detalhesaluguer->validate(['localizacao_devolucao_id']));
+    }
+
+    public function testCorrectData()
+    {
+        $detalhesaluguer = new Detalhesaluguer();
 
         //testar com dados corretos
 
@@ -97,7 +112,8 @@ class DetalhesAluguerTest extends \Codeception\Test\Unit
     {
         $detalhesaluguer = new Detalhesaluguer();
 
-       $detalhesaluguer->data_inicio = '2022-12-05';
+        //create
+        $detalhesaluguer->data_inicio = '2022-12-05';
         $detalhesaluguer->data_fim = '2022-12-07';
         $detalhesaluguer->veiculo_id = 1;
         $detalhesaluguer->profile_id = 3;
@@ -107,11 +123,16 @@ class DetalhesAluguerTest extends \Codeception\Test\Unit
         $detalhesaluguer->save();
         $this->tester->seeRecord('common\models\Detalhesaluguer', ['seguro_id' => 1, 'veiculo_id'=>1, 'profile_id'=>3]);
 
+        //update
         $novo = $this->tester->grabRecord('common\models\Detalhesaluguer', ['seguro_id' => 1, 'veiculo_id'=>1, 'profile_id'=>3]);
         $novo->seguro_id = 2;
         $novo->save();
         $this->assertEquals(2, $novo->seguro_id);
         $this->tester->seeRecord('common\models\Detalhesaluguer', ['seguro_id' => 2, 'veiculo_id'=>1, 'profile_id'=>3]);
         $this->tester->dontSeeRecord('common\models\Detalhesaluguer', ['seguro_id' => 1, 'veiculo_id'=>1, 'profile_id'=>3]);
+
+        //delete
+        $novo->delete();
+        $this->tester->dontSeeRecord('common\models\Detalhesaluguer', ['seguro_id' => 2, 'veiculo_id'=>1, 'profile_id'=>3]);
     }
 }

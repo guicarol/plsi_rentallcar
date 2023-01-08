@@ -16,6 +16,8 @@ use yii\db\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\conditions\BetweenColumnsCondition;
+
 
 /**
  * DetalhesaluguerController implements the CRUD actions for Detalhesaluguer model.
@@ -103,43 +105,33 @@ class DetalhesaluguerController extends Controller
     public function actionCreate($id_veiculo)
     {
         $model = new Detalhesaluguer();
-        //$dias = date_diff();
+        
         $dias = DetalhesAluguer::find()->where(['veiculo_id' => $id_veiculo])->all();
         $model->veiculo_id = $id_veiculo;
 
         $model->profile_id = Yii::$app->user->identity->getId();
 
         if ($this->request->isPost) {
-            /*if($dias!=null){
-                foreach ($dias as $dia){
-                    if($model->data_fim>$dia->data_inicio && $model->data_inicio>$dia->data_fim  )
-                        echo'teste';
-                }
-            }*/
-
 
             $model->extras = $this->request->post()['DetalhesAluguer']['extras'];
+
             if ($model->load($this->request->post())) {
-                var_dump($model->load($this->request->post()));
-                //calculo da diferenca entre a data de inicio e a data de fim
-                $dataIni = date_create($model->data_inicio);
-                $dataFim = date_create($model->data_fim);
+                //var_dump($model);die;
 
-                $dataDiff = date_diff($dataIni, $dataFim);
-                //var_dump($dataDiff->format("%a"));
-                //$model->preco_total = 30;
-
-                if ($model->save()) {
-                    if ($model->extras != null)
-                        foreach ($model->extras as $extradetalhes) {
-                            $extradetalhesaluguer = new ExtraDetalhesAluguer();
-                            $extradetalhesaluguer->extra_id = $extradetalhes;
-                            $extradetalhesaluguer->detalhes_aluguer_id = $model->id_detalhes_aluguer;
-                            $extradetalhesaluguer->save();
-                        }
-
-                    return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
-                }
+                if($this->canCreate($model)){
+                    if ($model->save()) {
+                        if ($model->extras != null)
+                            foreach ($model->extras as $extradetalhes) {
+                                $extradetalhesaluguer = new ExtraDetalhesAluguer();
+                                $extradetalhesaluguer->extra_id = $extradetalhes;
+                                $extradetalhesaluguer->detalhes_aluguer_id = $model->id_detalhes_aluguer;
+                                $extradetalhesaluguer->save();
+                            }
+    
+                        return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
+                    }
+                }else
+                    Yii::$app->session->setFlash('error', 'As datas inseridas não estão disponiveis!');
             }
         } else {
             $model->loadDefaultValues();
@@ -149,6 +141,44 @@ class DetalhesaluguerController extends Controller
             'model' => $model,
             'dias' => $dias,
         ]);
+    }
+
+    //verificar as datas inseridas pelo cliente e verificar se é possivel criar uma reserva nessas datas
+    public function canCreate($detalhes){
+        //var_dump($detalhes);die;
+
+        /*$oldDetalhes = Detalhesaluguer::find()
+            ->where(['veiculo_id' => $detalhes->veiculo_id])
+            ->andWhere((new BetweenColumnsCondition($detalhes->data_inicio, 'between', 'data_inicio', 'data_fim'))
+                ->orWhere(new BetweenColumnsCondition($detalhes->data_fim, 'between', 'data_inicio', 'data_fim'))
+                ->orWhere(['between', 'data_inicio', $detalhes->data_inicio, $detalhes->data_fim])
+                ->orWhere(['between', 'data_fim', $detalhes->data_inicio, $detalhes->data_fim]))
+            ->all();*/
+
+            $connection = \Yii::$app->getDb();
+
+            $command = $connection->createCommand(
+                "select * from detalhes_aluguer
+                    where veiculo_id = :id
+                        and (:dataIni  between detalhes_aluguer.data_inicio and detalhes_aluguer.data_fim
+                        or :dataFim between detalhes_aluguer.data_inicio and detalhes_aluguer.data_fim
+                        or data_inicio between :dataIni and :dataFim
+                        or data_fim between :dataIni and :dataFim);"
+                    )
+                    ->bindValue(':id', $detalhes->veiculo_id)
+                    ->bindValue(':dataIni', $detalhes->data_inicio)
+                    ->bindValue(':dataFim', $detalhes->data_fim);
+
+
+            $result = $command->queryAll();
+
+        //var_dump($result);die;
+
+        if($result == null){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

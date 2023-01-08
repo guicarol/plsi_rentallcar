@@ -11,10 +11,26 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+
+        'api' => [
+            'class' => 'backend\modules\api\ModuleAPI',
+
+        ],
+        'cookieValidationKey' => 'qhh_D_rjXk5nFH4dD-liyIl0RNvRXU9R',
+
+        'parsers' => [
+            'application/json' => 'yii\web\JsonParser',
+        ]
+    ],
     'components' => [
+
         'request' => [
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
             'csrfParam' => '_csrf-backend',
+
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -37,14 +53,36 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+
             'rules' => [
+                ['class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/user',
+                    'pluralize' => false,
+                ],
+                ['class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/veiculo',
+                    'pluralize' => false,
+                ],
+
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'Analise'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'Assistencia'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'DetalhesAluguer'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'Extra'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'ExtraDetalhesAluguer'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'Fatura'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'Imagem'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'LinhaFatura'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'Localizacao'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'Profile'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'Seguro'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'TipoVeiculo'],
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];

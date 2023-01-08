@@ -13,6 +13,7 @@ use yii\widgets\ListView;
 
 $this->title = 'Veiculos';
 $this->params['breadcrumbs'][] = $this->title;
+//var_dump($model);die;
 ?>
 <div class="veiculo-index">
 
@@ -35,7 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
             echo '<h2>Não existem veiculos disponiveis com a sua pesquisa!</h2>';
         } else {
             foreach ($model as $veiculo) { ?>
-
                 <div class="col-lg-4 col-md-6 mb-2">
                     <div class="rent-item mb-4">
                         <div id="myCarousel" class="carousel slide" data-ride="carousel">
