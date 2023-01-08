@@ -6,9 +6,14 @@
   $nrDias = (int)$dataDiff->format("%a");
   $nrDias++;
 
-  //var_dump($model->detalhesAluguerFatura->profile->nome);
+
+  /*$path = pathinfo('./../../web/img/logo.png');
+  print_r($path);
+
+  var_dump(file_exists('C:\wamp64\www\rentallcar\frontend\web\img/logo.jpg'));
+  var_dump(file_exists('../web/img/logo.jpg'));
   
-  //die;
+  die;*/
 ?>
 
 <style type="text/css">
@@ -31,7 +36,7 @@
 
   <table width="100%">
     <tr>
-        <td valign="top"><img src="@web/img/logo.jpg" alt="" width="150"/></td>
+        <td valign="top"><img src="../web/img/logo.jpg" width="150"/> </td>
         <td align="right">
             <h3>RentAllCar</h3>
             <pre>
