@@ -1,6 +1,6 @@
 <?php
 return [
-
+    'name' => 'RentAllCar',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',

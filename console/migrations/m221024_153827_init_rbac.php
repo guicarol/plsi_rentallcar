@@ -167,10 +167,6 @@ class m221024_153827_init_rbac extends Migration
 
     public function down()
     {
-        //echo "m221024_153827_init_rbac cannot be reverted.\n";
-
-        //return false;
-
         $auth = Yii::$app->authManager;
 
         $auth->removeAll();
