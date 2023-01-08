@@ -42,7 +42,7 @@ $this->title = 'RentAllCar';
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 900px;">
                             <h4 class="text-white text-uppercase mb-md-3">RentAllCar</h4>
-                            <h1 class="display-1 text-white mb-md-4">Mais de 100 marcas e modelos disponiveis</h1>
+                            <h1 class="display-1 text-white mb-md-4">Mais de 100 marcas e modelos</h1>
                             <?php echo Html::a('Faça a sua reserva agora!', ['veiculo/index'], ['class' => 'btn btn-primary py-md-3 px-md-5 mt-2']); ?>
                         </div>
                     </div>
