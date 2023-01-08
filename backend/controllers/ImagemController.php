@@ -38,7 +38,7 @@ class ImagemController extends Controller
                     'class' => AccessControl::class,
                     'rules' => [
                         [
-                            'actions' => ['index', 'view', 'create', 'delete'],
+                            'actions' => ['index', 'view','update', 'create', 'delete'],
                             'allow' => true,
                             'roles' => ['gestor','admin'],
                         ],
@@ -92,27 +92,32 @@ class ImagemController extends Controller
      */
     public function actionCreate($id_veiculo)
     {
+        if (\Yii::$app->user->can('createImagem')) {
 
-        $model = new Imagem();
-        $modelupload = new UploadForm();
+            $model = new Imagem();
+            $modelupload = new UploadForm();
 
-        if (Yii::$app->request->isPost) {
-            $modelupload->imageFiles = UploadedFile::getInstances($modelupload, 'imageFiles');
-            $modelupload->upload();
+            if (Yii::$app->request->isPost) {
+                $modelupload->imageFiles = UploadedFile::getInstances($modelupload, 'imageFiles');
+                $modelupload->upload();
 
-            foreach ($modelupload->imageFiles as $image) {
+                foreach ($modelupload->imageFiles as $image) {
 
-                $modelimage = new Imagem();
-                $modelimage->imagem = $image->baseName . '.' . $image->extension;
-                $modelimage->veiculo_id = $id_veiculo;
-                $modelimage->save();
+                    $modelimage = new Imagem();
+                    $modelimage->imagem = $image->baseName . '.' . $image->extension;
+                    $modelimage->veiculo_id = $id_veiculo;
+                    $modelimage->save();
+                }
+                return $this->redirect(['index', 'id_veiculo' => $id_veiculo]);
+
             }
-            return $this->redirect(['index', 'id_veiculo' => $id_veiculo]);
 
+            return $this->render('update', ['model' => $model, 'modelupload' => $modelupload,
+            ]);
+        }else {
+            Yii::$app->user->logout();
+            return  $this ->redirect(['site/login']);
         }
-
-        return $this->render('update', ['model' => $model, 'modelupload' => $modelupload,
-        ]);
     }
 
     /**
@@ -156,11 +161,18 @@ class ImagemController extends Controller
      */
     public function actionDelete($id_imagem)
     {
-        $model = $this->findModel($id_imagem);
+        if (\Yii::$app->user->can('deleteImagem')) {
 
-        $this->findModel($id_imagem)->delete();
+            $model = $this->findModel($id_imagem);
 
-        return $this->redirect(['index', 'id_veiculo' => $model->veiculo_id]);
+            $this->findModel($id_imagem)->delete();
+
+            return $this->redirect(['index', 'id_veiculo' => $model->veiculo_id]);
+        }
+        else {
+            Yii::$app->user->logout();
+            return  $this ->redirect(['site/login']);
+        }
     }
 
     /**

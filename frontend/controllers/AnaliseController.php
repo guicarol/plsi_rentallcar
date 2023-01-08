@@ -79,24 +79,30 @@ class AnaliseController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Analise();
+        if (\Yii::$app->user->can('createAnalise')) {
+            $model = new Analise();
 
-        if ($this->request->isPost) {
-            $model->data_analise = date("Y-m-d H:i:s");;
-            $model->profile_id = Yii::$app->user->id;
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($this->request->isPost) {
+                $model->data_analise = date("Y-m-d H:i:s");;
+                $model->profile_id = Yii::$app->user->id;
+                if ($model->load($this->request->post()) && $model->save()) {
 
 
-                return $this->redirect(['view', 'id_analise' => $model->id_analise]);
+                    return $this->redirect(['view', 'id_analise' => $model->id_analise]);
+                }
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        } else {
+            Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
+        }
     }
+
 
 
     /**
@@ -108,16 +114,21 @@ class AnaliseController extends Controller
      */
     public function actionUpdate($id_analise)
     {
+        if (\Yii::$app->user->can('updateAnalise')) {
 
-        $model = $this->findModel($id_analise);
+            $model = $this->findModel($id_analise);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_analise' => $model->id_analise]);
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id_analise' => $model->id_analise]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } else {
+            Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -129,9 +140,14 @@ class AnaliseController extends Controller
      */
     public function actionDelete($id_analise)
     {
-        $this->findModel($id_analise)->delete();
+        if (\Yii::$app->user->can('deleteAnalise')) {
+            $this->findModel($id_analise)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        } else {
+            Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
+        }
     }
 
     /**

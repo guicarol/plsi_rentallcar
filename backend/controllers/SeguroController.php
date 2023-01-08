@@ -33,7 +33,7 @@ class SeguroController extends Controller
                     'class' => AccessControl::class,
                     'rules' => [
                         [
-                            'actions' => ['index', 'view', 'create', 'delete'],
+                            'actions' => ['index', 'view','update', 'create', 'delete'],
                             'allow' => true,
                             'roles' => ['gestor','admin'],
                         ],
@@ -83,19 +83,26 @@ class SeguroController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Seguro();
+        if (\Yii::$app->user->can('createSeguro')) {
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_seguro' => $model->id_seguro]);
+            $model = new Seguro();
+
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id_seguro' => $model->id_seguro]);
+                }
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
+
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        } else{
+            Yii::$app->user->logout();
+            return  $this ->redirect(['site/login']);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -107,15 +114,21 @@ class SeguroController extends Controller
      */
     public function actionUpdate($id_seguro)
     {
-        $model = $this->findModel($id_seguro);
+        if (\Yii::$app->user->can('updateSeguro')) {
+            $model = $this->findModel($id_seguro);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_seguro' => $model->id_seguro]);
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id_seguro' => $model->id_seguro]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        else{
+            Yii::$app->user->logout();
+            return  $this ->redirect(['site/login']);
+        }
     }
 
     /**
@@ -127,9 +140,15 @@ class SeguroController extends Controller
      */
     public function actionDelete($id_seguro)
     {
-        $this->findModel($id_seguro)->delete();
+        if (\Yii::$app->user->can('deleteSeguro')) {
 
-        return $this->redirect(['index']);
+            $this->findModel($id_seguro)->delete();
+
+            return $this->redirect(['index']);
+        }else{
+            Yii::$app->user->logout();
+            return  $this ->redirect(['site/login']);
+        }
     }
 
     /**

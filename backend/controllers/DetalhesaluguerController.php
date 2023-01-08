@@ -34,7 +34,7 @@ class DetalhesaluguerController extends Controller
                     'class' => AccessControl::class,
                     'rules' => [
                         [
-                            'actions' => ['index', 'view', 'create', 'delete'],
+                            'actions' => ['index', 'view','update', 'create', 'delete'],
                             'allow' => true,
                             'roles' => ['gestor','admin'],
                         ],
@@ -72,6 +72,7 @@ class DetalhesaluguerController extends Controller
      */
     public function actionView($id_detalhes_aluguer)
     {
+
         $model = $this->findModel($id_detalhes_aluguer);
         $fatura = Fatura::find()->where(['detalhes_aluguer_fatura_id' => $id_detalhes_aluguer])->all();
         return $this->render('view', [

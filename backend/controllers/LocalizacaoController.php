@@ -33,7 +33,7 @@ class LocalizacaoController extends Controller
                     'class' => AccessControl::class,
                     'rules' => [
                         [
-                            'actions' => ['index', 'view', 'create', 'delete'],
+                            'actions' => ['index', 'view','update', 'create', 'delete'],
                             'allow' => true,
                             'roles' => ['gestor','admin'],
                         ],
@@ -83,19 +83,24 @@ class LocalizacaoController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Localizacao();
+        if (\Yii::$app->user->can('createLocalizacao')) {
+            $model = new Localizacao();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_localizacao' => $model->id_localizacao]);
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id_localizacao' => $model->id_localizacao]);
+                }
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        } else {
+            Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
+        }
     }
 
     /**
@@ -107,15 +112,20 @@ class LocalizacaoController extends Controller
      */
     public function actionUpdate($id_localizacao)
     {
-        $model = $this->findModel($id_localizacao);
+        if (\Yii::$app->user->can('updateLocalizacao')) {
+            $model = $this->findModel($id_localizacao);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_localizacao' => $model->id_localizacao]);
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id_localizacao' => $model->id_localizacao]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } else {
+            Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -127,9 +137,16 @@ class LocalizacaoController extends Controller
      */
     public function actionDelete($id_localizacao)
     {
+        if(\Yii::$app->user->can('deleteLocalizacao')){
         $this->findModel($id_localizacao)->delete();
 
         return $this->redirect(['index']);
+    }
+
+        else{
+            Yii::$app->user->logout();
+            return  $this ->redirect(['site/login']);
+        }
     }
 
     /**
