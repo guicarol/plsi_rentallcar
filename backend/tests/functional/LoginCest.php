@@ -22,20 +22,42 @@ class LoginCest
     /**
      * @param FunctionalTester $I
      */
+
+    public function _before(FunctionalTester $I)
+    {
+        $I->amOnRoute('/');
+        $I->see('Sign in to start your session','p');
+    }
+
+    public function loginEmptyFields(FunctionalTester $I)
+    {
+        $I->click('Sign In');
+        $I->see('Username cannot be blank');
+        $I->see('Password cannot be blank');
+    }
+
+    public function loginWrongPassword(FunctionalTester $I)
+    {
+        $I->fillField('LoginForm[username]', 'admin');
+        $I->fillField('LoginForm[password]', 'admin1234567');
+        $I->click('Sign In');
+        $I->see('Incorrect username or password.');
+    }
+
+    public function loginWrongRole(FunctionalTester $I)
+    {
+        $I->fillField('LoginForm[username]', 'user');
+        $I->fillField('LoginForm[password]', 'user12345');
+        $I->click('Sign In');
+        $I->amOnRoute('/');
+    }
+
     public function loginUser(FunctionalTester $I)
     {
-        //$I->amOnPage('/login');
-        $I->amOnRoute('site/login');
-        $I->see('Sign in');
         $I->fillField('LoginForm[username]', 'admin');
         $I->fillField('LoginForm[password]', 'admin12345');
         $I->click('LoginForm[button]');
 
-
-        //$I->amOnRoute('/index');
-
         $I->see('Página inicial');
-        /*$I->dontSeeLink('Login');
-        $I->dontSeeLink('Signup');*/
     }
 }
