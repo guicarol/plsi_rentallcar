@@ -105,19 +105,13 @@ class DetalhesaluguerController extends Controller
     public function actionCreate($id_veiculo)
     {
         $model = new Detalhesaluguer();
-        //$dias = date_diff();
+        
         $dias = DetalhesAluguer::find()->where(['veiculo_id' => $id_veiculo])->all();
         $model->veiculo_id = $id_veiculo;
 
         $model->profile_id = Yii::$app->user->identity->getId();
 
         if ($this->request->isPost) {
-            /*if($dias!=null){
-                foreach ($dias as $dia){
-                    if($model->data_fim>$dia->data_inicio && $model->data_inicio>$dia->data_fim  )
-                        echo'teste';
-                }
-            }*/
 
             $model->extras = $this->request->post()['DetalhesAluguer']['extras'];
 
@@ -153,17 +147,34 @@ class DetalhesaluguerController extends Controller
     public function canCreate($detalhes){
         //var_dump($detalhes);die;
 
-        $oldDetalhes = Detalhesaluguer::find()
+        /*$oldDetalhes = Detalhesaluguer::find()
             ->where(['veiculo_id' => $detalhes->veiculo_id])
-            ->andWhere(new BetweenColumnsCondition($detalhes->data_inicio, 'between', 'data_inicio', 'data_fim'))
-            ->andWhere(new BetweenColumnsCondition($detalhes->data_fim, 'between', 'data_inicio', 'data_fim'))
-            ->andWhere(['between', 'data_inicio', $detalhes->data_inicio, $detalhes->data_fim])
-            ->andWhere(['between', 'data_fim', $detalhes->data_inicio, $detalhes->data_fim])
-            ->all();
+            ->andWhere((new BetweenColumnsCondition($detalhes->data_inicio, 'between', 'data_inicio', 'data_fim'))
+                ->orWhere(new BetweenColumnsCondition($detalhes->data_fim, 'between', 'data_inicio', 'data_fim'))
+                ->orWhere(['between', 'data_inicio', $detalhes->data_inicio, $detalhes->data_fim])
+                ->orWhere(['between', 'data_fim', $detalhes->data_inicio, $detalhes->data_fim]))
+            ->all();*/
 
-        //var_dump($oldDetalhes);die;
+            $connection = \Yii::$app->getDb();
 
-        if($oldDetalhes == null){
+            $command = $connection->createCommand(
+                "select * from detalhes_aluguer
+                    where veiculo_id = :id
+                        and (:dataIni  between detalhes_aluguer.data_inicio and detalhes_aluguer.data_fim
+                        or :dataFim between detalhes_aluguer.data_inicio and detalhes_aluguer.data_fim
+                        or data_inicio between :dataIni and :dataFim
+                        or data_fim between :dataIni and :dataFim);"
+                    )
+                    ->bindValue(':id', $detalhes->veiculo_id)
+                    ->bindValue(':dataIni', $detalhes->data_inicio)
+                    ->bindValue(':dataFim', $detalhes->data_fim);
+
+
+            $result = $command->queryAll();
+
+        //var_dump($result);die;
+
+        if($result == null){
             return true;
         }else{
             return false;
