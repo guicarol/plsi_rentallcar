@@ -8,6 +8,8 @@ use common\models\Fatura;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+
 
 /**
  * DetalhesaluguerController implements the CRUD actions for Detalhesaluguer model.
@@ -27,6 +29,20 @@ class DetalhesaluguerController extends Controller
                     'actions' => [
                         'delete' => ['POST'],
                     ],
+                ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'view', 'create', 'delete'],
+                            'allow' => true,
+                            'roles' => ['gestor','admin'],
+                        ],
+                    ],
+                    'denyCallback' => function ($rule, $action) {
+                        Yii::$app->user->logout();
+                        return $this->redirect(['site/login']);
+                    }
                 ],
             ]
         );

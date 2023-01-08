@@ -7,6 +7,8 @@ use common\models\SeguroSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+
 
 /**
  * SeguroController implements the CRUD actions for Seguro model.
@@ -26,6 +28,20 @@ class SeguroController extends Controller
                     'actions' => [
                         'delete' => ['POST'],
                     ],
+                ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'view', 'create', 'delete'],
+                            'allow' => true,
+                            'roles' => ['gestor','admin'],
+                        ],
+                    ],
+                    'denyCallback' => function ($rule, $action) {
+                        Yii::$app->user->logout();
+                        return $this->redirect(['site/login']);
+                    }
                 ],
             ]
         );
