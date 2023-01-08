@@ -16,8 +16,7 @@ class ProfileTest extends \Codeception\Test\Unit
     {
     }
 
-    public function testValidacao()
-    {
+    public function testDataNull(){
 
         $profile = new Profile();
 
@@ -40,6 +39,11 @@ class ProfileTest extends \Codeception\Test\Unit
 
         $profile->nr_carta_conducao = null;
         $this->assertFalse($profile->validate(['nr_carta_conducao']));
+    }
+
+    public function testLongData(){
+
+        $profile = new Profile();
 
         //testar com dados demasiado longos
 
@@ -51,6 +55,11 @@ class ProfileTest extends \Codeception\Test\Unit
 
         $profile->nr_carta_conducao = '1234567890123';
         $this->assertFalse($profile->validate(['nr_carta_conducao']));
+    }
+
+    public function testNotUniqueData(){
+
+        $profile = new Profile();
 
         //testar com dados nao unicos
         
@@ -62,6 +71,11 @@ class ProfileTest extends \Codeception\Test\Unit
 
         $profile->nr_carta_conducao = '111222333';
         $this->assertFalse($profile->validate(['nr_carta_conducao']));
+    }
+
+    public function testWrongData(){
+
+        $profile = new Profile();     
 
         //testar com dados de tipo incorreto
 
@@ -83,6 +97,13 @@ class ProfileTest extends \Codeception\Test\Unit
         $profile->nr_carta_conducao = 111222399;
         $this->assertFalse($profile->validate(['nr_carta_conducao']));
 
+    }
+
+    public function testCorrectData()
+    {
+
+        $profile = new Profile();
+
         //testar com dados corretos
 
         $profile->nome = 'teste';
@@ -101,6 +122,7 @@ class ProfileTest extends \Codeception\Test\Unit
 
     public function testSavingUser()
     {
+        //criar um user
         $user= new User();
         $user->username="testenovo";
         $user->email="testenovo@gmail.com";
@@ -109,6 +131,7 @@ class ProfileTest extends \Codeception\Test\Unit
         $user->password_hash='$2y$13$sdasadadasd';
         $user ->save();
 
+        //criar um profile para associar ao user
         $profile = new Profile();
         $profile->id_profile=$user->id;
         $profile->nome = 'teste';
@@ -119,12 +142,15 @@ class ProfileTest extends \Codeception\Test\Unit
         $profile->save();
         $this->tester->seeRecord('common\models\Profile', ['nome' => 'teste']);
 
+        //update
         $user = $this->tester->grabRecord('common\models\Profile', ['nome' => 'teste', 'apelido' => 'novo']);
         $user->nome = 'unidade';
         $user->apelido='usada';
         $user->save();
         $this->tester->seeRecord('common\models\Profile', ['nome' => 'unidade', 'apelido' => 'usada']);
         $this->tester->dontSeeRecord('common\models\Profile', ['nome' => 'teste', 'apelido' => 'novo']);
+
+        //delete
         $user->delete();
         $this->tester->dontSeeRecord('common\models\Profile', ['nome' => 'unidade', 'apelido' => 'usada']);
 

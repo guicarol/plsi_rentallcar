@@ -11,8 +11,8 @@ class AnaliseTest extends \Codeception\Test\Unit
 
     protected UnitTester $tester;
 
-    public function testValidacao()
-    {
+    public function testDataNull(){
+
         $analise = new Analise();
 
         //testar com os dados null
@@ -28,6 +28,11 @@ class AnaliseTest extends \Codeception\Test\Unit
 
         $analise->profile_id = null;
         $this->assertFalse($analise->validate(['profile_id']));
+    }
+
+    public function testWrongData(){
+
+        $analise = new Analise();
 
         //testar com os dados de tipo errado
 
@@ -39,11 +44,21 @@ class AnaliseTest extends \Codeception\Test\Unit
 
         $analise->profile_id = 'null';
         $this->assertFalse($analise->validate(['profile_id']));
+    }
+
+    public function testNotExistingData(){
+
+        $analise = new Analise();
 
         //testar com dados que nao existem
 
         $analise->profile_id = 1000;
         $this->assertFalse($analise->validate(['profile_id']));
+    }
+
+    public function testCorrectData()
+    {
+        $analise = new Analise();
 
         //testar com dados corretos
 
@@ -60,6 +75,7 @@ class AnaliseTest extends \Codeception\Test\Unit
 
     public function testSavingÃnalise()
     {
+        //create
         $analise = new Analise();
         $analise->comentario = 'TESTE';
         $analise->classificacao = 5;
@@ -68,11 +84,14 @@ class AnaliseTest extends \Codeception\Test\Unit
         $analise->save();
         $this->tester->seeRecord('common\models\Analise', ['comentario' => 'TESTE']);
 
+        //update
         $altera = $this->tester->grabRecord('common\models\Analise', ['comentario' => 'TESTE']);
         $altera->comentario = 'miniteste';
         $altera->save();
         $this->tester->seeRecord('common\models\Analise', ['comentario' => 'miniteste']);
         $this->tester->dontSeeRecord('common\models\Analise', ['comentario' => 'TESTE']);
+
+        //delete
         $altera->delete();
         $this->tester->dontSeeRecord('common\models\Analise', ['comentario' => 'miniteste']);
 

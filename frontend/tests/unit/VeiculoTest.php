@@ -15,8 +15,9 @@ class VeiculoTest extends \Codeception\Test\Unit
     {
     }
 
-    public function testValidacao()
-    {
+
+    public function testDataNull(){
+
         $veiculo = new Veiculo();
 
         //testar com dados null
@@ -50,7 +51,11 @@ class VeiculoTest extends \Codeception\Test\Unit
 
         $veiculo->localizacao_id = null;
         $this->assertFalse($veiculo->validate(['localizacao_id']));
+    }
 
+    public function testWrongData(){
+
+        $veiculo = new Veiculo();
 
         //testar com dados de tipo errados
 
@@ -74,6 +79,11 @@ class VeiculoTest extends \Codeception\Test\Unit
 
         $veiculo->franquia = 'asdasd';
         $this->assertFalse($veiculo->validate(['franquia']));
+    }
+
+    public function testLongData(){
+
+        $veiculo = new Veiculo();
 
         //testar com dados demasiado longos
         
@@ -88,6 +98,11 @@ class VeiculoTest extends \Codeception\Test\Unit
 
         $veiculo->marca = '1234567890123456789012';
         $this->assertFalse($veiculo->validate(['marca']));
+    }
+
+    public function testCorrectData()
+    {
+        $veiculo = new Veiculo();
 
         //testar dados corretos
 
@@ -113,12 +128,13 @@ class VeiculoTest extends \Codeception\Test\Unit
         $this->assertTrue($veiculo->validate([$veiculo->localizacao_id]));
         $this->assertTrue($veiculo->validate([$veiculo->franquia]));
 
-
     }
 
     public function testSavingVeiculo()
     {
         $veiculo = new Veiculo();
+
+        //save
         $veiculo->marca = 'porsche';
         $veiculo->modelo = 'cayenne';
         $veiculo->combustivel = 'diesel';
@@ -132,11 +148,14 @@ class VeiculoTest extends \Codeception\Test\Unit
         $veiculo->save();
         $this->tester->seeRecord('common\models\Veiculo', ['modelo' => 'cayenne']);
 
+        //update 
         $novo = $this->tester->grabRecord('common\models\Veiculo', ['modelo' => 'cayenne']);
         $novo->modelo = 'boxster';
         $novo->save();
         $this->tester->seeRecord('common\models\Veiculo', ['modelo' => 'boxster']);
         $this->tester->dontSeeRecord('common\models\Veiculo', ['modelo' => 'cayenne']);
+
+        //delete
         $novo->delete();
         $this->tester->dontSeeRecord('common\models\Veiculo', ['modelo' => 'boxster']);
 
