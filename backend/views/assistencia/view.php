@@ -13,7 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="assistencia-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id_assistencia' => $model->id_assistencia], ['class' => 'btn btn-primary']) ?>
@@ -34,8 +33,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'mensagem',
             'localizacao',
             'condicao',
-            'veiculo_id',
-            'profile_id',
+            [
+                'label' => 'Veiculo',
+                'attribute' => 'veiculoDrop',
+                'format' => 'raw',
+                'value' => function($model){
+                    return $model->veiculo->marca . " " . $model->veiculo->modelo;
+                }
+            ],
+            [
+                'label' => 'Perfil',
+                'format' => 'raw',
+                'value' => function($model){
+                    return $model->profile->nome ;
+                }
+            ],
         ],
     ]) ?>
 
