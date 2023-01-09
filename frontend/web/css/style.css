@@ -290,7 +290,7 @@ h6,
 }
 
 .testimonial-carousel .owl-item .testimonial-item {
-    height: 350px;
+    height: 290px;
     transition: .5s;
     background: var(--light);
 }
