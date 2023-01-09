@@ -18,8 +18,8 @@ class detalhesAluguerCreateCest
         $I->wait(3);
 
         $I->click('Login');
-        $I->fillField('LoginForm[username]', 'userTeste');
-        $I->fillField('LoginForm[password]', 'userteste123');
+        $I->fillField('LoginForm[username]', 'aula2');
+        $I->fillField('LoginForm[password]', 'aula21234');
         $I->click(['name' => 'login-button']);
         $I->wait(1);
         $I->click(['name' => 'btnProcurarVeiculo']);

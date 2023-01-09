@@ -41,7 +41,6 @@ use yii\widgets\ActiveForm;
         ])
         ?>
 
-        <?= $form->field($model, 'data_inicio')->input('datetime-local'); ?>
         <?= $form->field($model, 'veiculo')->textInput(['value' => $model->veiculo->marca . " " . $model->veiculo->modelo, 'readonly' => true]); ?>
 
         <?= $form->field($model, 'profile')->textInput(['value' => Yii::$app->user->identity->username, 'readonly' => true]); ?>

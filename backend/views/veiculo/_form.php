@@ -19,7 +19,7 @@ use common\models\Localizacao;
 
     <?= $form->field($model, 'modelo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'combustivel')->dropDownList($combustivel); ?>
+    <?= $form->field($model, 'combustivel')->dropDownList($combustivel, ['prompt' => '']); ?>
 
     <?= $form->field($model, 'preco')->textInput() ?>
 
@@ -27,7 +27,7 @@ use common\models\Localizacao;
 
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'estado')->dropDownList(['pronto' => 'Pronto', 'manutencao' => 'Manutencao',], ['prompt' => '']) ?>
+    <?= $form->field($model, 'estado')->dropDownList(['pronto' => 'Pronto', 'manutencao' => 'Manutencao'], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'tipo_veiculo_id')->dropDownList(ArrayHelper::map(Tipoveiculo::find()->all(), 'id_tipo_veiculo', 'categoria'), ['prompt' => '']) ?>
 
@@ -43,7 +43,7 @@ use common\models\Localizacao;
 
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success', 'name' => 'btnCriarVeiculo']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

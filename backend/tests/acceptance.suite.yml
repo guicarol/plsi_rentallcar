@@ -2,7 +2,7 @@ actor: AcceptanceTester
 modules:
     enabled:
         - WebDriver:
-            url: http://localhost:80
+            url: http://localhost:8080
             browser: chrome
             window_size: maximize
         - Yii2:

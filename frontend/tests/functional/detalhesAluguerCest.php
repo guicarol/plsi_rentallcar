@@ -36,6 +36,9 @@ class detalhesAluguerCest
         
         $I->see('Data Inicio cannot be blank');
         $I->see('Data Fim cannot be blank');
+        $I->see('Seguro cannot be blank.');
+        $I->see('Localizacao Levantamento cannot be blank.');
+        $I->see('Localizacao Devolucao cannot be blank.');
     }
 
     public function createDetalhesAluguer(FunctionalTester $I)
@@ -48,5 +51,7 @@ class detalhesAluguerCest
         $I->selectOption('DetalhesAluguer[localizacao_devolucao_id]', '1');        
         $I->checkOption('Via-Verde');
         $I->click(['name' => 'btnCriarDetalhesAluguer']);
+        $I->dontSee('cannot be blank');
+        $I->seeRecord('common\models\Detalhesaluguer', ['data_inicio' => '2023-1-23', 'data_fim' => '2023-1-23']);
     }
 }
