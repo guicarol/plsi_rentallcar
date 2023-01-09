@@ -122,7 +122,6 @@ AppAsset::register($this);
                     'label' => 'Sobre', 'url' => ['/site/about'],
                     'items' => [
                         ['label' => 'Serviço', 'url' => ['/site/service']],
-                        ['label' => 'Equipa', 'url' => ['/site/team']],
                         ['label' => 'Contacto', 'url' => ['/site/contact']],
                     ],
                 ];
