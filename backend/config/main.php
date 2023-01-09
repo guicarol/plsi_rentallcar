@@ -26,6 +26,7 @@ return [
     'components' => [
 
         'request' => [
+
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
             ],
@@ -68,7 +69,8 @@ return [
                     'pluralize' => false,
                 ],
 
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'Analise'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'analises',                    'pluralize' => false,
+                ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'Assistencia'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'DetalhesAluguer'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'Extra'],

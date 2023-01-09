@@ -76,8 +76,6 @@ class DetalhesaluguerController extends Controller
     {
         if (\Yii::$app->user->can('viewReserva')) {
 
-
-
             $model = $this->findModel($id_detalhes_aluguer);
             $fatura = Fatura::find()->where(['detalhes_aluguer_fatura_id' => $id_detalhes_aluguer])->all();
             return $this->render('view', [

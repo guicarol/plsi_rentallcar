@@ -78,7 +78,7 @@ class SiteController extends Controller
     {
         $this->layout = 'main_index.php';
         $veiculos = \common\models\Veiculo::find()->andWhere(['not like','veiculo.estado','manutencao'])
-            ->orderBy('id_veiculo DESC')->limit(3)->all();
+            ->orderBy('id_veiculo DESC')->limit(6)->all();
         $analises = \common\models\Analise::find()->limit(6)->all();
 
 
