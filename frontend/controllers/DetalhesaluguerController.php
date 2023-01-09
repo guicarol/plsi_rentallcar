@@ -116,6 +116,10 @@ class DetalhesaluguerController extends Controller
             $model->extras = $this->request->post()['DetalhesAluguer']['extras'];
 
             if ($model->load($this->request->post())) {
+
+                $model->data_inicio = date('Y-m-d H:i', strtotime($model->data_inicio));
+                $model->data_fim = date('Y-m-d H:i', strtotime($model->data_fim));
+
                 //var_dump($model);die;
 
                 if($this->canCreate($model)){

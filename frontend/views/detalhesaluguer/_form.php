@@ -21,25 +21,19 @@ use yii\widgets\ActiveForm;
     foreach ($dias as $dia) { ?>
         <table>
             <?php
-                echo ' <td>' . $dia->data_inicio . ' a ' . $dia->data_fim;
+                echo ' <td>' . date_format(date_create($dia->data_inicio), "d-m-Y") . ' a ' . date_format(date_create($dia->data_fim), "d-m-Y");
                 echo '</table>';
+                //date_format($date,"Y/m/d H:i:s");
         } ?>
-
-
-        <?=
-        DatePicker::widget([
-            'model' => $model,
-            'attribute' => 'data_inicio',
-            'attribute2' => 'data_fim',
-            'options' => ['placeholder' => 'Data de inicio'],
-            'options2' => ['placeholder' => 'Data de fim'],
-            'type' => DatePicker::TYPE_RANGE,
-            'form' => $form,
-            'pluginOptions' => [
-                'format' => 'yyyy-mm-dd',
-            ]
-        ])
-        ?>
+       
+        <div class="row">
+            <div class="col">
+                <?= $form->field($model, 'data_inicio')->input('datetime-local'); ?>
+            </div>
+            <div class="col">
+                <?= $form->field($model, 'data_fim')->input('datetime-local'); ?>
+            </div>
+        </div>
 
         <?= $form->field($model, 'veiculo')->textInput(['value' => $model->veiculo->marca . " " . $model->veiculo->modelo, 'readonly' => true]); ?>
 
