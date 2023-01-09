@@ -1,3 +1,17 @@
+Credenciais de autenticação RENTALLCAR
+
+ADMINISTRADOR
+username: admin
+password: admin12345
+
+GESTOR
+username:gestor
+passsword:gestor1234
+
+USER
+username:user
+password:user12345
+
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
