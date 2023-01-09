@@ -33,7 +33,7 @@ class LinhaFaturaController extends Controller
                     'class' => AccessControl::class,
                     'rules' => [
                         [
-                            'actions' => ['index', 'view', 'create', 'delete'],
+                            'actions' => ['index', 'view','update', 'create', 'delete'],
                             'allow' => true,
                             'roles' => ['gestor','admin'],
                         ],

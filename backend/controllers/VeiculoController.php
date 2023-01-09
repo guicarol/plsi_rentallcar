@@ -11,6 +11,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\UploadForm;
 use yii\web\UploadedFile;
+use yii\filters\AccessControl;
+
 
 /**
  * VeiculoController implements the CRUD actions for Veiculo model.
@@ -30,6 +32,20 @@ class VeiculoController extends Controller
                     'actions' => [
                         'delete' => ['POST'],
                     ],
+                ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'view','update','updateestado', 'create', 'delete'],
+                            'allow' => true,
+                            'roles' => ['gestor','admin'],
+                        ],
+                    ],
+                    'denyCallback' => function ($rule, $action) {
+                        Yii::$app->user->logout();
+                        return $this->redirect(['site/login']);
+                    }
                 ],
             ]
         );
@@ -74,12 +90,63 @@ class VeiculoController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Veiculo();
-        $modelupload = new UploadForm();
+        if(\Yii::$app->user->can('createVeiculo')){
 
-        if ($this->request->isPost) {
+            $model = new Veiculo();
+            $modelupload = new UploadForm();
+
+            if ($this->request->isPost) {
+
+                if ($model->load($this->request->post()) && $modelupload->load($this->request->post())) {
+
+                    if ($model->save()) {
+
+                        $modelupload->imageFiles = UploadedFile::getInstances($modelupload, 'imageFiles');
+                        $modelupload->upload();
+
+                        foreach ($modelupload->imageFiles as $image) {
+
+                            $modelimage = new Imagem();
+                            $modelimage->imagem = $image->baseName . '.' . $image->extension;
+                            $modelimage->veiculo_id = $model->id_veiculo;
+                            $modelimage->save();
+                        }
+
+
+                        return $this->redirect(['view', 'id_veiculo' => $model->id_veiculo]);
+                    }
+                }
+            } else {
+                $model->loadDefaultValues();
+                return $this->render('create', [
+                    'model' => $model,
+                    'modelupload' => $modelupload,
+                ]);
+
+            }
+
+
+
+        }else{
+            Yii::$app->user->logout();
+            return  $this ->redirect(['site/login']);
+        }
+    }
+
+    /**
+     * Updates an existing Veiculo model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param int $id_veiculo Id Veiculo
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdate($id_veiculo)
+    {
+        if (\Yii::$app->user->can('updateVeiculo')) {
+            $model = $this->findModel($id_veiculo);
+            $modelupload = new UploadForm();
+
             if ($model->load($this->request->post()) && $modelupload->load($this->request->post())) {
-
                 if ($model->save()) {
 
                     $modelupload->imageFiles = UploadedFile::getInstances($modelupload, 'imageFiles');
@@ -96,53 +163,17 @@ class VeiculoController extends Controller
 
                     return $this->redirect(['view', 'id_veiculo' => $model->id_veiculo]);
                 }
+            }else{
+                return $this->render('update', [
+                    'model' => $model,
+                    'modelupload' => $modelupload,
+                ]);
             }
-        } else {
-            $model->loadDefaultValues();
+
+        }else {
+            Yii::$app->user->logout();
+            return  $this ->redirect(['site/login']);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-            'modelupload' => $modelupload,
-        ]);
-    }
-
-    /**
-     * Updates an existing Veiculo model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id_veiculo Id Veiculo
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id_veiculo)
-    {
-        $model = $this->findModel($id_veiculo);
-        $modelupload = new UploadForm();
-
-        if ($model->load($this->request->post()) && $modelupload->load($this->request->post())) {
-
-            if ($model->save()) {
-
-                $modelupload->imageFiles = UploadedFile::getInstances($modelupload, 'imageFiles');
-                $modelupload->upload();
-
-                foreach ($modelupload->imageFiles as $image) {
-
-                    $modelimage = new Imagem();
-                    $modelimage->imagem = $image->baseName . '.' . $image->extension;
-                    $modelimage->veiculo_id = $model->id_veiculo;
-                    $modelimage->save();
-                }
-
-
-                return $this->redirect(['view', 'id_veiculo' => $model->id_veiculo]);
-            }
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-            'modelupload' => $modelupload,
-        ]);
     }
     public function actionUpdateestado($id_veiculo)
     {
@@ -170,9 +201,15 @@ class VeiculoController extends Controller
      */
     public function actionDelete($id_veiculo)
     {
-        $this->findModel($id_veiculo)->delete();
 
-        return $this->redirect(['index']);
+        if (\Yii::$app->user->can('deleteVeiculo')) {
+            $this->findModel($id_veiculo)->delete();
+        }
+
+        else {
+            Yii::$app->user->logout();
+            return  $this ->redirect(['site/login']);
+        }
     }
 
     /**

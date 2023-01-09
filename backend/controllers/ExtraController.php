@@ -33,7 +33,7 @@ class ExtraController extends Controller
                     'class' => AccessControl::class,
                     'rules' => [
                         [
-                            'actions' => ['index', 'view', 'create', 'delete'],
+                            'actions' => ['index', 'view','update', 'create', 'delete'],
                             'allow' => true,
                             'roles' => ['gestor','admin'],
                         ],
@@ -83,19 +83,26 @@ class ExtraController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Extra();
+        if (\Yii::$app->user->can('createExtra')) {
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_extra' => $model->id_extra]);
+
+            $model = new Extra();
+
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id_extra' => $model->id_extra]);
+                }
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        } else {
+            Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
+        }
     }
 
     /**
@@ -107,15 +114,21 @@ class ExtraController extends Controller
      */
     public function actionUpdate($id_extra)
     {
-        $model = $this->findModel($id_extra);
+        if (\Yii::$app->user->can('updateExtra')) {
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_extra' => $model->id_extra]);
+            $model = $this->findModel($id_extra);
+
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id_extra' => $model->id_extra]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } else {
+            Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -127,9 +140,15 @@ class ExtraController extends Controller
      */
     public function actionDelete($id_extra)
     {
-        $this->findModel($id_extra)->delete();
+        if (\Yii::$app->user->can('deleteExtra')) {
 
-        return $this->redirect(['index']);
+            $this->findModel($id_extra)->delete();
+
+            return $this->redirect(['index']);
+        } else {
+            Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
+        }
     }
 
     /**
