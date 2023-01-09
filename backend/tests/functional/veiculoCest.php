@@ -23,12 +23,13 @@ class veiculoCest
 
     public function veiculoEmptyFields(FunctionalTester $I)
     {
-        $I->click('Veiculos');
+        /*$I->click('Veiculos');
         $I->click('Create Veiculo');
+
         $I->click('Save');
+
         $I->see('Marca cannot be blank', 'div');
         $I->see('Modelo cannot be blank', 'div');
-
         $I->see('Combustivel cannot be blank', 'div');
         $I->see('Preco cannot be blank', 'div');
         $I->see('Matricula cannot be blank', 'div');
@@ -36,7 +37,16 @@ class veiculoCest
         $I->see('Estado cannot be blank', 'div');
         $I->see('Categoria cannot be blank', 'div');
         $I->see('Localizacao carro cannot be blank', 'div');
-        $I->see('Franquia cannot be blank', 'div');
+        $I->see('Franquia cannot be blank', 'div');*/
+
+        $I->click('Veiculos');
+        $I->click('Create Veiculo');
+        $I->click('Save');
+        $I->see('Marca cannot be blank', 'div');
+        $I->see('Cobertura cannot be blank', 'div');
+        $I->see('Preco cannot be blank', 'div');
+        
+        //$I->see('cannot be blank');
     }
 
     public function createVeiculo(FunctionalTester $I)

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace frontend\tests\Unit;
+namespace backend\tests\Unit;
 
 use common\models\Localizacao;
-use frontend\tests\UnitTester;
+use backend\tests\UnitTester;
 
 class LocalizacaoTest extends \Codeception\Test\Unit
 {

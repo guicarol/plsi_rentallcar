@@ -1,10 +1,10 @@
 <?php
 
 
-namespace frontend\tests\Unit;
+namespace backend\tests\Unit;
 
 use common\models\Veiculo;
-use frontend\tests\UnitTester;
+use backend\tests\UnitTester;
 
 class VeiculoTest extends \Codeception\Test\Unit
 {

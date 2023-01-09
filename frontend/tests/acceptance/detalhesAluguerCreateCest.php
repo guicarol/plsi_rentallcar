@@ -34,15 +34,14 @@ class detalhesAluguerCreateCest
         $I->wait(1);
 
         //preencher o form com os dados do aluguer
-        $I->fillField(['name' => 'DetalhesAluguer[data_inicio]'], '2023-1-22');
-        $I->fillField(['name' => 'DetalhesAluguer[data_fim]'], '2023-1-22');
-        $I->selectOption('DetalhesAluguer[seguro_id]', 'Proteção total');
+        $I->fillField(['name' => 'DetalhesAluguer[data_inicio]'], '2023-01-10T12:00');
+        $I->fillField(['name' => 'DetalhesAluguer[data_fim]'], '2023-01-11T12:00');
+        $I->selectOption('DetalhesAluguer[seguro_id]', 'Seguro de danos próprios');
         $I->selectOption('DetalhesAluguer[localizacao_levantamento_id]', 'Leiria');
         $I->selectOption('DetalhesAluguer[localizacao_devolucao_id]', 'Leiria');
         $I->scrollTo(['name' => 'btnCriarDetalhesAluguer']);
         $I->wait(1);
         $I->checkOption('Via-Verde');
-        $I->checkOption('Navegador Gps');
         $I->click(['name' => 'btnCriarDetalhesAluguer']);
         $I->wait(5);
 
