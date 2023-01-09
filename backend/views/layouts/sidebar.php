@@ -66,24 +66,7 @@ use yii\widgets\DetailView;
         </div> -->
 
         <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <?php
-            echo \hail812\adminlte\widgets\Menu::widget([
-                'items' => [
-                    [
-                        'label' => 'Starter Pages',
-                        'icon' => 'tachometer-alt',
-                        'badge' => '<span class="right badge badge-info">2</span>',
-                        'items' => [
-                            ['label' => 'Active Page', 'url' => ['site/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Inactive Page', 'iconStyle' => 'far'],
-                        ],
-                    ],
-                ]
-            ]);
-            ?>
-
-        </nav>
+        
         <nav class="mt-2">
 
         </nav>
