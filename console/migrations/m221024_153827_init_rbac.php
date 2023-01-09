@@ -136,6 +136,11 @@ class m221024_153827_init_rbac extends Migration
         $auth->addChild($gestor, $createImagem);
         $auth->addChild($gestor, $deleteImagem);
 
+        $auth->addChild($gestor, $createReserva);
+        $auth->addChild($gestor, $updateReserva);
+        $auth->addChild($gestor, $viewReserva);
+        $auth->addChild($gestor, $deleteReserva);
+
         $auth->addChild($gestor, $createExtra);
         $auth->addChild($gestor, $updateExtra);
         $auth->addChild($gestor, $deleteExtra);

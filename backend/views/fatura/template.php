@@ -31,7 +31,8 @@
 
   <table width="100%">
     <tr>
-        <td valign="top"><img src="@web/img/logo.jpg" alt="" width="150"/></td>
+        <!--<td valign="top"><img src="././img/logo.jpg" width="150"/> </td>-->
+        <td valign="top"><img src="https://cdn.discordapp.com/attachments/775382256151035936/1061798574788194324/logo.png" width="150"/> </td>
         <td align="right">
             <h3>RentAllCar</h3>
             <pre>

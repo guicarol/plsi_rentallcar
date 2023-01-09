@@ -13,6 +13,7 @@ use Yii;
 use yii\base\ErrorException;
 use yii\data\ActiveDataProvider;
 use yii\db\Exception;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,7 +39,22 @@ class DetalhesaluguerController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'view','update', 'create', 'delete'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                    'denyCallback' => function ($rule, $action) {
+                        Yii::$app->user->logout();
+                        return $this->redirect(['site/login']);
+                    }
+                ],
             ]
+
         );
     }
 
@@ -76,24 +92,30 @@ class DetalhesaluguerController extends Controller
      */
     public function actionView($id_detalhes_aluguer)
     {
-        $model = $this->findModel($id_detalhes_aluguer);
-        $fatura = Fatura::findOne(['detalhes_aluguer_fatura_id' => $model->id_detalhes_aluguer]);
-        //calculo da diferenca entre a data de inicio e a data de fim
-        $dataIni = date_create($model->data_inicio);
-        $dataFim = date_create($model->data_fim);
-        $dataDiff = date_diff($dataIni, $dataFim);
-        $dias = (int)$dataDiff->format("%a");
-        $dias++;
-        $model->dias = $dias;
-        //var_dump( $dias);die;
+        if (\Yii::$app->user->can('viewReserva')) {
 
-        if (Yii::$app->user->id == $model->profile_id) {
-            return $this->render('view', [
-                'model' => $model,
-                'fatura' => $fatura,
-            ]);
-        } else
-            $this->redirect('index');
+            $model = $this->findModel($id_detalhes_aluguer);
+            $fatura = Fatura::findOne(['detalhes_aluguer_fatura_id' => $model->id_detalhes_aluguer]);
+            //calculo da diferenca entre a data de inicio e a data de fim
+            $dataIni = date_create($model->data_inicio);
+            $dataFim = date_create($model->data_fim);
+            $dataDiff = date_diff($dataIni, $dataFim);
+            $dias = (int)$dataDiff->format("%a");
+            $dias++;
+            $model->dias = $dias;
+            //var_dump( $dias);die;
+
+            if (Yii::$app->user->id == $model->profile_id) {
+                return $this->render('view', [
+                    'model' => $model,
+                    'fatura' => $fatura,
+                ]);
+            } else
+                $this->redirect('index');
+        } else {
+            \Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
+        }
     }
 
 
@@ -104,60 +126,68 @@ class DetalhesaluguerController extends Controller
      */
     public function actionCreate($id_veiculo)
     {
-        $model = new Detalhesaluguer();
-        
-        $dias = DetalhesAluguer::find()->where(['veiculo_id' => $id_veiculo])->all();
-        $model->veiculo_id = $id_veiculo;
+        if (\Yii::$app->user->can('createReserva')) {
 
-        $model->profile_id = Yii::$app->user->identity->getId();
+            $model = new Detalhesaluguer();
 
-        if ($this->request->isPost) {
+            $dias = DetalhesAluguer::find()->where(['veiculo_id' => $id_veiculo])->all();
+            $model->veiculo_id = $id_veiculo;
 
-            $model->extras = $this->request->post()['DetalhesAluguer']['extras'];
+            $model->profile_id = Yii::$app->user->identity->getId();
 
-            if ($model->load($this->request->post())) {
+            if ($this->request->isPost) {
 
-                $model->data_inicio = date('Y-m-d H:i', strtotime($model->data_inicio));
-                $model->data_fim = date('Y-m-d H:i', strtotime($model->data_fim));
+                $model->extras = $this->request->post()['DetalhesAluguer']['extras'];
 
-                //var_dump($model);die;
+                if ($model->load($this->request->post())) {
 
-                if($this->canCreate($model)){
-                    if ($model->save()) {
-                        if ($model->extras != null)
-                            foreach ($model->extras as $extradetalhes) {
-                                $extradetalhesaluguer = new ExtraDetalhesAluguer();
-                                $extradetalhesaluguer->extra_id = $extradetalhes;
-                                $extradetalhesaluguer->detalhes_aluguer_id = $model->id_detalhes_aluguer;
-                                $extradetalhesaluguer->save();
-                            }
-    
-                        return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
-                    }
-                }else
-                    Yii::$app->session->setFlash('error', 'As datas inseridas não estão disponiveis!');
+                    $model->data_inicio = date('Y-m-d H:i', strtotime($model->data_inicio));
+                    $model->data_fim = date('Y-m-d H:i', strtotime($model->data_fim));
+
+                    //var_dump($model);die;
+
+                    if ($this->canCreate($model)) {
+                        if ($model->save()) {
+                            if ($model->extras != null)
+                                foreach ($model->extras as $extradetalhes) {
+                                    $extradetalhesaluguer = new ExtraDetalhesAluguer();
+                                    $extradetalhesaluguer->extra_id = $extradetalhes;
+                                    $extradetalhesaluguer->detalhes_aluguer_id = $model->id_detalhes_aluguer;
+                                    $extradetalhesaluguer->save();
+                                }
+
+                            return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
+                        }
+                    } else
+                        Yii::$app->session->setFlash('error', 'As datas inseridas não estão disponiveis!');
+                }
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-            'dias' => $dias,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+                'dias' => $dias,
+            ]);
+        } else {
+            \Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
+        }
     }
 
     //verificar as datas inseridas pelo cliente e verificar se é possivel criar uma reserva nessas datas
-    public function canCreate($detalhes){
-        //var_dump($detalhes);die;
+    public function canCreate($detalhes)
+    {
 
-        /*$oldDetalhes = Detalhesaluguer::find()
-            ->where(['veiculo_id' => $detalhes->veiculo_id])
-            ->andWhere((new BetweenColumnsCondition($detalhes->data_inicio, 'between', 'data_inicio', 'data_fim'))
-                ->orWhere(new BetweenColumnsCondition($detalhes->data_fim, 'between', 'data_inicio', 'data_fim'))
-                ->orWhere(['between', 'data_inicio', $detalhes->data_inicio, $detalhes->data_fim])
-                ->orWhere(['between', 'data_fim', $detalhes->data_inicio, $detalhes->data_fim]))
-            ->all();*/
+            //var_dump($detalhes);die;
+
+            /*$oldDetalhes = Detalhesaluguer::find()
+                ->where(['veiculo_id' => $detalhes->veiculo_id])
+                ->andWhere((new BetweenColumnsCondition($detalhes->data_inicio, 'between', 'data_inicio', 'data_fim'))
+                    ->orWhere(new BetweenColumnsCondition($detalhes->data_fim, 'between', 'data_inicio', 'data_fim'))
+                    ->orWhere(['between', 'data_inicio', $detalhes->data_inicio, $detalhes->data_fim])
+                    ->orWhere(['between', 'data_fim', $detalhes->data_inicio, $detalhes->data_fim]))
+                ->all();*/
 
             $connection = \Yii::$app->getDb();
 
@@ -168,22 +198,23 @@ class DetalhesaluguerController extends Controller
                         or :dataFim between detalhes_aluguer.data_inicio and detalhes_aluguer.data_fim
                         or data_inicio between :dataIni and :dataFim
                         or data_fim between :dataIni and :dataFim);"
-                    )
-                    ->bindValue(':id', $detalhes->veiculo_id)
-                    ->bindValue(':dataIni', $detalhes->data_inicio)
-                    ->bindValue(':dataFim', $detalhes->data_fim);
+            )
+                ->bindValue(':id', $detalhes->veiculo_id)
+                ->bindValue(':dataIni', $detalhes->data_inicio)
+                ->bindValue(':dataFim', $detalhes->data_fim);
 
 
             $result = $command->queryAll();
 
-        //var_dump($result);die;
+            //var_dump($result);die;
 
-        if($result == null){
-            return true;
-        }else{
-            return false;
+            if ($result == null) {
+                return true;
+            } else {
+                return false;
+            }
         }
-    }
+
 
     /**
      * Updates an existing Detalhesaluguer model.
@@ -195,16 +226,22 @@ class DetalhesaluguerController extends Controller
     public
     function actionUpdate($id_detalhes_aluguer)
     {
-        $model = $this->findModel($id_detalhes_aluguer);
+        if (\Yii::$app->user->can('updateReserva')) {
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
+            $model = $this->findModel($id_detalhes_aluguer);
 
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
+
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } else {
+            \Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -217,9 +254,15 @@ class DetalhesaluguerController extends Controller
     public
     function actionDelete($id_detalhes_aluguer)
     {
-        $this->findModel($id_detalhes_aluguer)->delete();
+        if (\Yii::$app->user->can('deleteReserva')) {
 
-        return $this->redirect(['index']);
+            $this->findModel($id_detalhes_aluguer)->delete();
+
+            return $this->redirect(['index']);
+        } else {
+            \Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
+        }
     }
 
     /**

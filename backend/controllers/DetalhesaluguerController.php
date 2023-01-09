@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use Yii;
 
 
 /**
@@ -55,6 +56,7 @@ class DetalhesaluguerController extends Controller
      */
     public function actionIndex()
     {
+
         $searchModel = new DetalhesaluguerSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -72,13 +74,20 @@ class DetalhesaluguerController extends Controller
      */
     public function actionView($id_detalhes_aluguer)
     {
+        if (\Yii::$app->user->can('viewReserva')) {
 
-        $model = $this->findModel($id_detalhes_aluguer);
-        $fatura = Fatura::find()->where(['detalhes_aluguer_fatura_id' => $id_detalhes_aluguer])->all();
-        return $this->render('view', [
-            'model' => $model,
-            'fatura' => $fatura,
-        ]);
+
+
+            $model = $this->findModel($id_detalhes_aluguer);
+            $fatura = Fatura::find()->where(['detalhes_aluguer_fatura_id' => $id_detalhes_aluguer])->all();
+            return $this->render('view', [
+                'model' => $model,
+                'fatura' => $fatura,
+            ]);
+        } else {
+            \Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
+        }
     }
 
     /**
@@ -88,19 +97,25 @@ class DetalhesaluguerController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Detalhesaluguer();
+        if (\Yii::$app->user->can('createReserva')) {
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
+            $model = new Detalhesaluguer();
+
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
+                }
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        } else {
+            \Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
+        }
     }
 
     /**
@@ -112,15 +127,21 @@ class DetalhesaluguerController extends Controller
      */
     public function actionUpdate($id_detalhes_aluguer)
     {
-        $model = $this->findModel($id_detalhes_aluguer);
+        if (\Yii::$app->user->can('updateReserva')) {
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
+            $model = $this->findModel($id_detalhes_aluguer);
+
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id_detalhes_aluguer' => $model->id_detalhes_aluguer]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } else {
+            \Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -132,9 +153,15 @@ class DetalhesaluguerController extends Controller
      */
     public function actionDelete($id_detalhes_aluguer)
     {
-        $this->findModel($id_detalhes_aluguer)->delete();
+        if (\Yii::$app->user->can('updateReserva')) {
 
-        return $this->redirect(['index']);
+            $this->findModel($id_detalhes_aluguer)->delete();
+
+            return $this->redirect(['index']);
+        } else {
+            \Yii::$app->user->logout();
+            return $this->redirect(['site/login']);
+        }
     }
 
     /**

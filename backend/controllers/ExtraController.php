@@ -8,7 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-
+use yii;
 
 /**
  * ExtraController implements the CRUD actions for Extra model.
@@ -100,7 +100,7 @@ class ExtraController extends Controller
                 'model' => $model,
             ]);
         } else {
-            Yii::$app->user->logout();
+            \Yii::$app->user->logout();
             return $this->redirect(['site/login']);
         }
     }
@@ -126,7 +126,7 @@ class ExtraController extends Controller
                 'model' => $model,
             ]);
         } else {
-            Yii::$app->user->logout();
+            \Yii::$app->user->logout();
             return $this->redirect(['site/login']);
         }
     }
@@ -146,7 +146,7 @@ class ExtraController extends Controller
 
             return $this->redirect(['index']);
         } else {
-            Yii::$app->user->logout();
+            \Yii::$app->user->logout();
             return $this->redirect(['site/login']);
         }
     }

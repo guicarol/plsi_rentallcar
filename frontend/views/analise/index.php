@@ -30,7 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => [
 
-            'id_analise',
+            [
+                'label' => 'Analise',
+                'value' => function ($model) {
+                    return $model->id_analise;
+                }
+            ],
             'comentario',
 
             [
