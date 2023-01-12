@@ -31,5 +31,13 @@ class ProfileController extends \yii\web\Controller
         $recs = $eqpmodel::find()->all();
         return ['total' => count($recs)];
     }
+    public function actionView($id)
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
+        $veiculo = Profile::findOne($id);
+
+        return $veiculo;
+
+    }
 }

@@ -12,7 +12,6 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
-
         'api' => [
             'class' => 'backend\modules\api\ModuleAPI',
 
@@ -69,7 +68,7 @@ return [
                     'pluralize' => false,
                 ],
 
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'analises',                    'pluralize' => false,
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'analises', 'pluralize' => false,
                 ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'Assistencia'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'DetalhesAluguer'],

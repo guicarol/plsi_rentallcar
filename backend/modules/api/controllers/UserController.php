@@ -16,7 +16,8 @@ class UserController extends ActiveController
     public $modelClass = 'common\models\User';
 
     public function init()
-    {
+    {        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
         parent::init();
         \Yii::$app->user->enableSession = false;
     }
@@ -35,6 +36,7 @@ class UserController extends ActiveController
 
     public function auth($username, $password)
     {
+
         $user = User::findByUsername($username);
         if ($user && $user->validatePassword($password)) {
             return $user;
@@ -43,5 +45,4 @@ class UserController extends ActiveController
             return $this->goHome();
         }
     }
-
 }
