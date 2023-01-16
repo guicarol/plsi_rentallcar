@@ -105,6 +105,7 @@ class UserController extends ActiveController
                 'message' => 'Login successful.',
                 'username' => $user->username,
                 'email' => $user->email,
+                'id'=>$user->id,
             ];
             // You can set the user session here
             Yii::$app->user->login($user);
