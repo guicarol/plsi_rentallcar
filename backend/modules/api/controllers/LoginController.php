@@ -2,6 +2,7 @@
 
 namespace backend\modules\api\controllers;
 
+use common\models\User;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -13,20 +14,27 @@ class LoginController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $request = Yii::$app->request;
-        $email = $request->post('email');
+        $username = $request->post('username');
         $password = $request->post('password');
+        $user = User::find()->where(['username' => $username])->one();
 
-        // Validate email and password
-        // ...
+        if ($user != null && Yii::$app->security->validatePassword($password, $user->password_hash)) {
+            $response = [
+                'success' => true,
+                'message' => 'Login successful.',
+                'username' => $user->username,
+                'email' => $user->email,
+                'id' => $user->id,
+            ];
+            // You can set the user session here
+            Yii::$app->user->login($user);
+        } else {
+            $response = [
+                'success' => false,
+                'message' => 'Incorrect username or password.',
+            ];
+        }
 
-        // Check if the email and password are correct
-        // ...
-
-        // If the email and password are correct, generate a new token
-        $token = 'your_token_generation_code';
-
-        return [
-            'token' => $token,
-        ];
+        return $response;
     }
 }

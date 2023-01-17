@@ -2,9 +2,11 @@
 
 namespace backend\modules\api\controllers;
 
+use backend\models\SignupForm;
 use common\models\User;
 use Yii;
 use yii\filters\auth\HttpBasicAuth;
+use yii\filters\ContentNegotiator;
 use yii\helpers\Json;
 use yii\rest\ActiveController;
 use yii\web\Controller;
@@ -27,14 +29,28 @@ class UserController extends ActiveController
 
     public function behaviors()
     {
-        $behaviors = parent::behaviors();
-        $behaviors['authenticator'] = [
-            'class' => HttpBasicAuth::className(),
-            //’except' => ['index', 'view'],
-            'auth' => [$this, 'auth']
-        ];
+        if ($this->actionSignup()) {
 
-        return $behaviors;
+            $behaviors = parent::behaviors();
+            $behaviors['contentNegotiator'] = [
+                'class' => ContentNegotiator::class,
+                'formats' => [
+                    'application/json' => Response::FORMAT_JSON,
+                ],
+            ];
+            return $behaviors;
+
+        } else {
+            $behaviors = parent::behaviors();
+            $behaviors['authenticator'] = [
+                'class' => HttpBasicAuth::className(),
+                //’except' => ['index', 'view'],
+                'auth' => [$this, 'auth']
+            ];
+
+            return $behaviors;
+        }
+
     }
 
     public function auth($username, $password)
@@ -105,7 +121,7 @@ class UserController extends ActiveController
                 'message' => 'Login successful.',
                 'username' => $user->username,
                 'email' => $user->email,
-                'id'=>$user->id,
+                'id' => $user->id,
             ];
             // You can set the user session here
             Yii::$app->user->login($user);
@@ -118,4 +134,35 @@ class UserController extends ActiveController
 
         return $response;
     }
+
+
+    public function actionSignup()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $request = Yii::$app->request;
+        $username = $request->post('username');
+        $password = $request->post('password');
+        $email = $request->post('email');
+        $model = new SignupForm();
+        $model->username = $username;
+        $model->email = $email;
+        $model->password = $password;
+        $model->role = "cliente";
+        $headers = Yii::$app->getRequest()->getHeaders();
+        $headers->set('auth', 'YOUR_AUTH_TOKEN');
+        if ($model->validate() && $model->signup()) {
+            return [
+                'status' => 'success',
+                'data' => 'User has been created successfully.'
+            ];
+        } else {
+            return [
+                'status' => 'error',
+                'errors' => $model->errors
+            ];
+        }
+
+    }
+
 }
