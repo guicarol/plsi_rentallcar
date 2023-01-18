@@ -149,6 +149,36 @@ class UserController extends ActiveController
         }
     }
 
+    public function actionUpdateprofile($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $request = Yii::$app->request;
+        $nome = $request->post('nome');
+        $apelido = $request->post('apelido');
+        $telemovel = $request->post('telemovel');
+        $nr_carta_conducao = $request->post('nr_carta_conducao');
+        $model = Profile::findOne($id);
+        $model->nome = $nome;
+        $model->apelido = $apelido;
+        $model->telemovel = $telemovel;
+        $model->nr_carta_conducao = $nr_carta_conducao;
+
+        $headers = Yii::$app->getRequest()->getHeaders();
+        $headers->set('auth', 'YOUR_AUTH_TOKEN');
+        if ($model->validate() && $model->save()) {
+            return [
+                'status' => 'success',
+                'message' => 'Profile has been updated successfully.'
+            ];
+        } else {
+            return [
+                'status' => 'error',
+                'errors' => $model->errors
+            ];
+        }
+    }
+
     public function actionViewprofile($id)
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
