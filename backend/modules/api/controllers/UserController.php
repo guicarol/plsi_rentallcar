@@ -3,6 +3,7 @@
 namespace backend\modules\api\controllers;
 
 use backend\models\SignupForm;
+use common\models\Profile;
 use common\models\User;
 use Yii;
 use yii\filters\auth\HttpBasicAuth;
@@ -146,5 +147,15 @@ class UserController extends ActiveController
                 'errors' => $model->errors
             ];
         }
+    }
+
+    public function actionViewprofile($id)
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $veiculo = Profile::findOne($id);
+
+        return $veiculo;
+
     }
 }
