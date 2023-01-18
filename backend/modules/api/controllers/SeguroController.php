@@ -6,6 +6,7 @@ use common\models\Seguro;
 use Psy\Util\Json;
 use Yii;
 use yii\filters\auth\HttpBasicAuth;
+use yii\filters\auth\HttpBearerAuth;
 use yii\rest\ActiveController;
 use yii\web\Controller;
 
@@ -16,13 +17,12 @@ class SeguroController extends \yii\web\Controller
 
     public function actionIndex()
     {
-        if (!\Yii::$app->user->isGuest) {
 
-            $veiculo = Seguro::find()->all();
             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            $data = Seguro::find()->asArray()->all();
 
-            return $veiculo;
-        }
+            return $data;
+
     }
 
     //http://localhost:8888/equipamento/total

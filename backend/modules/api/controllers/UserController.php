@@ -47,7 +47,6 @@ class UserController extends ActiveController
                 //’except' => ['index', 'view'],
                 'auth' => [$this, 'auth']
             ];
-
             return $behaviors;
         }
 
@@ -55,7 +54,6 @@ class UserController extends ActiveController
 
     public function auth($username, $password)
     {
-
         $user = User::findByUsername($username);
         if ($user && $user->validatePassword($password)) {
             return $user;
@@ -63,47 +61,6 @@ class UserController extends ActiveController
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-    }
-
-    public function actionLoginTeste()
-    {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-
-        $request = Yii::$app->request;
-        $username = $request->post('username');
-        $password = $request->post('password');
-
-        // Find the user by email
-        $user = User::find()->where(['username' => $username])->one();
-
-        if (!$user) {
-            return [
-                'status' => 'error',
-                'message' => 'Invalid email or password.',
-            ];
-        }
-
-
-        // Compare the provided password with the stored hash
-        if (!Yii::$app->security->validatePassword($password, $user->password_hash)) {
-            return [
-                'status' => 'error',
-                'message' => 'Invalid email or password.',
-            ];
-        }
-
-        // Generate a new token
-        $token = Yii::$app->security->generateRandomString();
-
-        // Store the token in the database
-        $user->verification_token = $token;
-        $user->save();
-
-        return [
-            'status' => 'success',
-            'token' => $token,
-            'user' => $user,
-        ];
     }
 
     public function actionLogin()
@@ -162,7 +119,32 @@ class UserController extends ActiveController
                 'errors' => $model->errors
             ];
         }
-
     }
 
+    public function actionUpdateuser($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $request = Yii::$app->request;
+        $username = $request->post('username');
+        $password = $request->post('password');
+        $email = $request->post('email');
+        $model = User::findOne($id);
+        $model->username = $username;
+        $model->email = $email;
+        //$model->password = $password;
+        $headers = Yii::$app->getRequest()->getHeaders();
+        $headers->set('auth', 'YOUR_AUTH_TOKEN');
+        if ($model->validate() && $model->save()) {
+            return [
+                'status' => 'success',
+                'data' => 'User has been updated successfully.'
+            ];
+        } else {
+            return [
+                'status' => 'error',
+                'errors' => $model->errors
+            ];
+        }
+    }
 }

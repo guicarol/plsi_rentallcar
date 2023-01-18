@@ -3,11 +3,14 @@
 namespace backend\modules\api\controllers;
 
 use common\models\Profile;
+use common\models\User;
 use Psy\Util\Json;
 use Yii;
 use yii\filters\auth\HttpBasicAuth;
 use yii\rest\ActiveController;
 use yii\web\Controller;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 
 class ProfileController extends \yii\web\Controller
@@ -17,10 +20,10 @@ class ProfileController extends \yii\web\Controller
     public function actionIndex()
     {
 
-            $veiculo = Profile::find()->all();
-            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $veiculo = Profile::find()->all();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-            return $veiculo;
+        return $veiculo;
 
     }
 
@@ -31,6 +34,7 @@ class ProfileController extends \yii\web\Controller
         $recs = $eqpmodel::find()->all();
         return ['total' => count($recs)];
     }
+
     public function actionView($id)
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -40,4 +44,5 @@ class ProfileController extends \yii\web\Controller
         return $veiculo;
 
     }
+
 }
