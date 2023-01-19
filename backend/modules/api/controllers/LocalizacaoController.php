@@ -16,13 +16,12 @@ class LocalizacaoController extends \yii\web\Controller
 
     public function actionIndex()
     {
-        if (!\Yii::$app->user->isGuest) {
 
-            $veiculo = Localizacao::find()->all();
-            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $veiculo = Localizacao::find()->all();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-            return $veiculo;
-        }
+        return $veiculo;
+        
     }
 
     //http://localhost:8888/equipamento/total
