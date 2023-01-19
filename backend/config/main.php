@@ -74,7 +74,7 @@ return [
 
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'Assistencia'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'DetalhesAluguer'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'Extra'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/extra', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'ExtraDetalhesAluguer'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'Fatura'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'Imagem'],

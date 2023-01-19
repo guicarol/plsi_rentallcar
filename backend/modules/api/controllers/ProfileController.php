@@ -16,7 +16,13 @@ use yii\widgets\ActiveForm;
 class ProfileController extends \yii\web\Controller
 {
     public $modelClass = 'common\models\Profile';
+    public function init()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
+        parent::init();
+        \Yii::$app->user->enableSession = false;
+    }
     public function actionIndex()
     {
 

@@ -6,10 +6,12 @@ use backend\models\SignupForm;
 use common\models\Profile;
 use common\models\User;
 use Yii;
+use yii\base\Behavior;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\ContentNegotiator;
 use yii\helpers\Json;
 use yii\rest\ActiveController;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -30,27 +32,14 @@ class UserController extends ActiveController
 
     public function behaviors()
     {
-        if ($this->actionSignup()) {
 
-            $behaviors = parent::behaviors();
-            $behaviors['contentNegotiator'] = [
-                'class' => ContentNegotiator::class,
-                'formats' => [
-                    'application/json' => Response::FORMAT_JSON,
-                ],
-            ];
-            return $behaviors;
-
-        } else {
-            $behaviors = parent::behaviors();
-            $behaviors['authenticator'] = [
-                'class' => HttpBasicAuth::className(),
-                //’except' => ['index', 'view'],
-                'auth' => [$this, 'auth']
-            ];
-            return $behaviors;
-        }
-
+        $behaviors = parent::behaviors();
+        $behaviors['authenticator'] = [
+            'class' => HttpBasicAuth::className(),
+            //’except' => ['index', 'view'],
+            'auth' => [$this, 'auth']
+        ];
+        return $behaviors;
     }
 
     public function auth($username, $password)
@@ -96,20 +85,27 @@ class UserController extends ActiveController
 
     public function actionSignup()
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
+        \Yii::$app->response->format = Response::FORMAT_JSON;
 
         $request = Yii::$app->request;
         $username = $request->post('username');
         $password = $request->post('password');
         $email = $request->post('email');
+        $verifica = User::findOne(['username' => $username]);
+        $verifica2 = User::findOne(['email' => $email]);
+        if ($verifica !== null && $verifica2 !== null) {
+            return ['exists' => true];
+        }
+
         $model = new SignupForm();
         $model->username = $username;
         $model->email = $email;
         $model->password = $password;
         $model->role = "cliente";
-        $headers = Yii::$app->getRequest()->getHeaders();
-        $headers->set('auth', 'YOUR_AUTH_TOKEN');
+
+
         if ($model->validate() && $model->signup()) {
+
             return [
                 'status' => 'success',
                 'data' => 'User has been created successfully.'
@@ -118,11 +114,13 @@ class UserController extends ActiveController
             return [
                 'status' => 'error',
                 'errors' => $model->errors
+
             ];
         }
     }
 
-    public function actionUpdateuser($id)
+    public
+    function actionUpdateuser($id)
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -149,7 +147,8 @@ class UserController extends ActiveController
         }
     }
 
-    public function actionUpdateprofile($id)
+    public
+    function actionUpdateprofile($id)
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -179,9 +178,10 @@ class UserController extends ActiveController
         }
     }
 
-    public function actionSignupprofile($username)
+    public
+    function actionSignupprofile($username)
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
+        \Yii::$app->response->format = Response::FORMAT_JSON;
 
         $request = Yii::$app->request;
         $nome = $request->post('nome');
@@ -202,7 +202,8 @@ class UserController extends ActiveController
         $profile->save();
     }
 
-    public function actionViewprofile($id)
+    public
+    function actionViewprofile($id)
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
