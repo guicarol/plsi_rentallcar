@@ -179,6 +179,29 @@ class UserController extends ActiveController
         }
     }
 
+    public function actionSignupprofile($username)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $request = Yii::$app->request;
+        $nome = $request->post('nome');
+        $apelido = $request->post('apelido');
+        $telemovel = $request->post('telemovel');
+        $nif = $request->post('nif');
+
+        $nr_carta_conducao = $request->post('nr_carta_conducao');
+        $teste = User::findOne($username)->id;
+        $profile = new Profile();
+        $profile->id_profile = $teste;
+        $profile->nome = $nome;
+        $profile->apelido = $apelido;
+        $profile->telemovel = $telemovel;
+        $profile->nif = $nif;
+
+        $profile->nr_carta_conducao = $nr_carta_conducao;
+        $profile->save();
+    }
+
     public function actionViewprofile($id)
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
