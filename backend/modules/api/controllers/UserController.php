@@ -30,7 +30,7 @@ class UserController extends ActiveController
         \Yii::$app->user->enableSession = false;
     }
 
-    public function behaviors()
+    /*public function behaviors()
     {
 
         $behaviors = parent::behaviors();
@@ -40,7 +40,7 @@ class UserController extends ActiveController
             'auth' => [$this, 'auth']
         ];
         return $behaviors;
-    }
+    }*/
 
     public function auth($username, $password)
     {
@@ -91,32 +91,52 @@ class UserController extends ActiveController
         $username = $request->post('username');
         $password = $request->post('password');
         $email = $request->post('email');
+        $nome = $request->post('nome');
+        $apelido = $request->post('apelido');
+        $telemovel = $request->post('telemovel');
+        $nif = $request->post('nif');
+        $nr_carta_conducao = $request->post('nr_carta_conducao');
+
         $verifica = User::findOne(['username' => $username]);
         $verifica2 = User::findOne(['email' => $email]);
         if ($verifica !== null && $verifica2 !== null) {
             return ['exists' => true];
         }
 
-        $model = new SignupForm();
-        $model->username = $username;
-        $model->email = $email;
-        $model->password = $password;
-        $model->role = "cliente";
+       
 
+        $user = new User();
+        $user->username = $username;
+        $user->email = $email;
+        $user->setPassword($password);
+        $user->generateAuthKey();
+        $user->save(false);
 
-        if ($model->validate() && $model->signup()) {
+        //no signUp é atribuido o role de cliente
+        $auth = Yii::$app->authManager;
+        $cliente = $auth->getRole('cliente');
+        $auth->assign($cliente, $user->getId());
+        $user->save();
+
+        $profile = new Profile();
+        $profile->id_profile = $user->id;
+        $profile->nome = $nome;
+        $profile->apelido = $apelido;
+        $profile->nif = $nif;
+        $profile->telemovel = $telemovel;
+        $profile->nr_carta_conducao = $nr_carta_conducao;
+        $profile->save();
+        if(        $profile->save())
+        {
 
             return [
                 'status' => 'success',
                 'data' => 'User has been created successfully.'
             ];
-        } else {
-            return [
-                'status' => 'error',
-                'errors' => $model->errors
-
-            ];
-        }
+        } else        {
+        return ['status' => 'error',
+            'errors' => $user->errors];
+    }
     }
 
     public

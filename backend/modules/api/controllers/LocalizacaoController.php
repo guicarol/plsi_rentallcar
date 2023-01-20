@@ -21,7 +21,7 @@ class LocalizacaoController extends \yii\web\Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         return $veiculo;
-        
+
     }
 
     //http://localhost:8888/equipamento/total
