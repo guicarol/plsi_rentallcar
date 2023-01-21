@@ -93,7 +93,8 @@ class VeiculoController extends \yii\web\Controller
 
             return [
                 'status' => 'success',
-                'data' => 'detalhes has been created successfully.'
+                'message' => 'detalhes has been created successfully.',
+                'idreserva'=>$model->id_detalhes_aluguer
             ];
         } else {
             return [
@@ -133,7 +134,7 @@ class VeiculoController extends \yii\web\Controller
         if ($model->save()) {
             return [
                 'status' => 'success',
-                'message' => 'Profile created successfully.'
+                'message' => 'Reserva created successfully.'
             ];
         } else {
             return [

@@ -2,7 +2,9 @@
 
 namespace backend\modules\api\controllers;
 
+use common\models\Assistencia;
 use common\models\DetalhesAluguer;
+use common\models\ExtraDetalhesAluguer;
 use common\models\Veiculo;
 use Psy\Util\Json;
 use Yii;
@@ -12,16 +14,26 @@ use yii\rest\ActiveController;
 use yii\web\Controller;
 
 
-class ReservaController extends \yii\web\Controller{
+class ReservaController extends \yii\web\Controller
+{
 
     public function actionReservas($id)
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $reservas = DetalhesAluguer::find()->where(['profile_id'=>$id])->orderBy(['data_inicio'=>SORT_DESC])->all();
+        $reservas = DetalhesAluguer::find()->where(['profile_id' => $id])->orderBy(['data_inicio' => SORT_DESC])->all();
+        $reserva = array();
+        $precoExtras = 0;
+        /*foreach ($i->extraDetalhesAluguers as $extraDetalhesAl) {
+            $precoExtras += $extraDetalhesAl->extra->preco;
+        }*/
+        foreach ($reservas as $i) {
+            $reserva[] = array(
 
-        $reserva=array();
-        foreach ($reservas as $i ){
-            $reserva[] = Array(
+                $dataIni = date_create($i->data_inicio),
+                $dataFim = date_create($i->data_fim),
+                $dataDiff = date_diff($dataIni, $dataFim),
+                $dias = (int)$dataDiff->format("%a"),
+                $dias++,
                 "id_reserva" => $i->id_detalhes_aluguer,
                 "data_inicio" => date("d-m-Y", strtotime($i->data_inicio)),
                 "data_fim" => date("d-m-Y", strtotime($i->data_fim)),
@@ -33,9 +45,38 @@ class ReservaController extends \yii\web\Controller{
                 "seguro" => $i->seguro->cobertura,
                 "localizacao_levantamento" => $i->localizacaoLevantamento->localizacao,
                 "localizacao_devolucao" => $i->localizacaoLevantamento->localizacao,
+                "preco"=>(($i->veiculo->preco + $precoExtras) * $dias)
             );
         }
         return $reserva;
+    }
 
+    //http://localhost:8888/veiculo/view?id=1
+    public function actionPedido($idprofile, $idveiculo, $etmensagem, $etlocalizacao, $etestado)
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $model = new Assistencia();
+        $model->data_pedido =Yii::$app->formatter->asDatetime('now', 'php:Y-m-d H:i:s');;
+        $model->veiculo_id = $idveiculo;
+        $model->profile_id = $idprofile;
+        $model->condicao = $etestado;
+        $model->mensagem = $etmensagem;
+        $model->localizacao = $etlocalizacao;
+        $headers = Yii::$app->getRequest()->getHeaders();
+        $headers->set('auth', 'YOUR_AUTH_TOKEN');
+        if ($model->save()) {
+
+            return [
+                'status' => 'success',
+                'message' => 'Pedido has been created successfully.',
+                'idpedido' => $model->id_assistencia
+            ];
+        } else {
+            return [
+                'status' => 'error',
+                'errors' => $model->errors,
+            ];
+        }
     }
 }
