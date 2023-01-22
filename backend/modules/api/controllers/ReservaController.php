@@ -20,7 +20,7 @@ class ReservaController extends \yii\web\Controller
     public function actionReservas($id)
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $reservas = DetalhesAluguer::find()->where(['profile_id' => $id])->orderBy(['data_inicio' => SORT_DESC])->all();
+        $reservas = DetalhesAluguer::find()->where(['profile_id' => $id])->orderBy(['data_inicio' => SORT_ASC])->all();
         $reserva = array();
         $precoExtras = 0;
         /*foreach ($i->extraDetalhesAluguers as $extraDetalhesAl) {
@@ -34,11 +34,12 @@ class ReservaController extends \yii\web\Controller
                 $dias = (int)$dataDiff->format("%a"),
                 $dias++,
                 "id_reserva" => $i->id_detalhes_aluguer,
-                "data_inicio" => date("d-m-Y", strtotime($i->data_inicio)),
-                "data_fim" => date("d-m-Y", strtotime($i->data_fim)),
+                "data_inicio" => date("d/m/Y", strtotime($i->data_inicio)),
+                "data_fim" => date("d/m/Y", strtotime($i->data_fim)),
                 "veiculo_id" => $i->veiculo_id,
                 "marca" => $i->veiculo->marca,
                 "modelo" => $i->veiculo->modelo,
+                "matricula" => $i->veiculo->matricula,
                 "profile_id" => $i->profile_id,
                 "seguro_id" => $i->seguro_id,
                 "seguro" => $i->seguro->cobertura,
