@@ -62,11 +62,11 @@ class VeiculoController extends \yii\web\Controller
     public function actionCreate($data_inicio, $data_fim, $veiculo_id, $profile_id, $seguro_id, $localizacaol, $localizacaod)
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        
+
         $model = new DetalhesAluguer();
 
         $model->data_inicio = date('Y-m-d H:i', strtotime($data_inicio));
-        $model->data_fim = $data_fim;
+        $model->data_fim = date('Y-m-d H:i', strtotime($data_fim));
         $model->veiculo_id = $veiculo_id;
         $model->profile_id = $profile_id;
         $model->seguro_id = $seguro_id;
