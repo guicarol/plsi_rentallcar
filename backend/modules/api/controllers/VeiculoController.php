@@ -62,25 +62,10 @@ class VeiculoController extends \yii\web\Controller
     public function actionCreate($data_inicio, $data_fim, $veiculo_id, $profile_id, $seguro_id, $localizacaol, $localizacaod)
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-       /* $request = Yii::$app->request;
-        $data_inicio = $request->get('data_inicio');
-        $data_fim = $request->get('data_fim');
-        $veiculo_id = $request->get('veiculo_id');
-
-        $profile_id = $request->post('profile_id');
-        $seguro_id = $request->post('seguro_id');
-        $localizacaol = $request->post('localizacao_levantamento_id');
-        $localizacaod = $request->post('localizacao_devolucao_id');
-
-        /* $verifica = User::findOne(['username' => $data_inicio]);
-         $verifica2 = User::findOne(['email' => $email]);
-         if ($verifica !== null && $verifica2 !== null) {
-             return ['exists' => true];
-         }*/
-
+        
         $model = new DetalhesAluguer();
-        $model->data_inicio = $data_inicio;
+
+        $model->data_inicio = date('Y-m-d H:i', strtotime($data_inicio));
         $model->data_fim = $data_fim;
         $model->veiculo_id = $veiculo_id;
         $model->profile_id = $profile_id;
@@ -94,7 +79,7 @@ class VeiculoController extends \yii\web\Controller
             return [
                 'status' => 'success',
                 'message' => 'detalhes has been created successfully.',
-                'idreserva'=>$model->id_detalhes_aluguer
+                'idreserva' => $model->id_detalhes_aluguer
             ];
         } else {
             return [

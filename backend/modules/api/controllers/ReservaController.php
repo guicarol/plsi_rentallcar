@@ -28,7 +28,6 @@ class ReservaController extends \yii\web\Controller
         }*/
         foreach ($reservas as $i) {
             $reserva[] = array(
-
                 $dataIni = date_create($i->data_inicio),
                 $dataFim = date_create($i->data_fim),
                 $dataDiff = date_diff($dataIni, $dataFim),
@@ -45,7 +44,7 @@ class ReservaController extends \yii\web\Controller
                 "seguro" => $i->seguro->cobertura,
                 "localizacao_levantamento" => $i->localizacaoLevantamento->localizacao,
                 "localizacao_devolucao" => $i->localizacaoLevantamento->localizacao,
-                "preco"=>(($i->veiculo->preco + $precoExtras) * $dias)
+                "preco" => (($i->veiculo->preco + $precoExtras) * $dias)
             );
         }
         return $reserva;
@@ -57,7 +56,7 @@ class ReservaController extends \yii\web\Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         $model = new Assistencia();
-        $model->data_pedido =Yii::$app->formatter->asDatetime('now', 'php:Y-m-d H:i:s');;
+        $model->data_pedido = Yii::$app->formatter->asDatetime('now', 'php:Y-m-d H:i:s');;
         $model->veiculo_id = $idveiculo;
         $model->profile_id = $idprofile;
         $model->condicao = $etestado;

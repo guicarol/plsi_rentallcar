@@ -103,8 +103,6 @@ class UserController extends ActiveController
             return ['exists' => true];
         }
 
-       
-
         $user = new User();
         $user->username = $username;
         $user->email = $email;
@@ -126,17 +124,18 @@ class UserController extends ActiveController
         $profile->telemovel = $telemovel;
         $profile->nr_carta_conducao = $nr_carta_conducao;
         $profile->save();
-        if(        $profile->save())
-        {
-
+        if ($profile->save()) {
             return [
                 'status' => 'success',
                 'data' => 'User has been created successfully.'
             ];
-        } else        {
-        return ['status' => 'error',
-            'errors' => $user->errors];
-    }
+        } else {
+            return [
+                'status' => 'error',
+                'errors' => $user->errors,
+                'erros'=>$profile->errors
+            ];
+        }
     }
 
     public
