@@ -63,6 +63,9 @@ class VeiculoController extends Controller
         $searchModel = new VeiculoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+        //var_dump(array_keys(Yii::$app->authManager->getRolesByUser(2))[0]); die;
+
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

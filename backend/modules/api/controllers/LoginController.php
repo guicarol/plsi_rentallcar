@@ -19,15 +19,19 @@ class LoginController extends Controller
         $user = User::find()->where(['username' => $username])->one();
 
         if ($user != null && Yii::$app->security->validatePassword($password, $user->password_hash)) {
+            Yii::$app->user->login($user);
+            $role = array_keys(Yii::$app->authManager->getRolesByUser($user->id))[0];
             $response = [
                 'success' => true,
                 'message' => 'Login successful.',
                 'username' => $user->username,
                 'email' => $user->email,
+                'role' => $role,
                 'id' => $user->id,
             ];
             // You can set the user session here
-            Yii::$app->user->login($user);
+
+
         } else {
             $response = [
                 'success' => false,
