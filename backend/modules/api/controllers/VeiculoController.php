@@ -3,6 +3,7 @@
 namespace backend\modules\api\controllers;
 
 use common\models\DetalhesAluguer;
+use common\models\ExtraDetalhesAluguer;
 use common\models\Veiculo;
 use Psy\Util\Json;
 use Yii;
@@ -59,12 +60,21 @@ class VeiculoController extends \yii\web\Controller
 
 
     //http://localhost:8888/veiculo/view?id=1
-    public function actionCreate($data_inicio, $data_fim, $veiculo_id, $profile_id, $seguro_id, $localizacaol, $localizacaod)
+    public function actionCreate($data_inicio, $data_fim ,$veiculo_id, $profile_id, $seguro_id, $localizacaol, $localizacaod)
     {
+
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         $model = new DetalhesAluguer();
-
+      //  $model->extras = $this->request->post()['DetalhesAluguer']['extras'];
+/*
+        if ($selecteditems != null)
+            foreach ($selecteditems as $extradetalhes) {
+                $extradetalhesaluguer = new ExtraDetalhesAluguer();
+                $extradetalhesaluguer->extra_id = $extradetalhes;
+                $extradetalhesaluguer->detalhes_aluguer_id = $model->id_detalhes_aluguer;
+                $extradetalhesaluguer->save();
+            }*/
         $model->data_inicio = date('Y-m-d H:i', strtotime($data_inicio));
         $model->data_fim = date('Y-m-d H:i', strtotime($data_fim));
         $model->veiculo_id = $veiculo_id;
