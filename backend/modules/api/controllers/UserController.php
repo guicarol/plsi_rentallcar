@@ -63,11 +63,13 @@ class UserController extends ActiveController
         $user = User::find()->where(['username' => $username])->one();
 
         if ($user != null && Yii::$app->security->validatePassword($password, $user->password_hash)) {
+            $role = array_keys(Yii::$app->authManager->getRolesByUser($user->id))[0];
             $response = [
                 'success' => true,
                 'message' => 'Login successful.',
                 'username' => $user->username,
                 'email' => $user->email,
+                'role' => $role,
                 'id' => $user->id,
             ];
             // You can set the user session here
